@@ -1,0 +1,12 @@
+<Router AppAssembly="typeof(Routes).Assembly">
+    <Found Context="routeData">
+        <RouteView RouteData="routeData" DefaultLayout="typeof(DocsLayout)" />
+    </Found>
+    <NotFound>
+        <PageTitle>Not found — ShellDocs</PageTitle>
+        <div style="padding: 3rem 1.5rem; max-width: 32rem; margin: 0 auto;">
+            <h1 style="font-size: 1.5rem; font-weight: 600;">Not found</h1>
+            <p>The page you were looking for doesn't exist. <a href="/docs/introduction">Back to docs</a>.</p>
+        </div>
+    </NotFound>
+</Router>

@@ -1,0 +1,38 @@
+@using ShellDocs.Site.Components
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ShellDocs — the docs framework for .NET</title>
+    <meta name="description" content="Beautiful, animated, Cmd+K-searchable documentation sites for the .NET ecosystem. Blazor-native, Tailwind-styled, composable with any component library." />
+    <base href="/" />
+    <link rel="stylesheet" href="_content/ShellDocs.Tokens/tokens.css" />
+    <link rel="stylesheet" href="_content/ShellDocs.Components/shelldocs-theme.css" />
+    <link rel="stylesheet" href="ShellDocs.Site.styles.css" />
+    <script>
+        (function () {
+            var saved = null;
+            try { saved = localStorage.getItem('shelldocs-theme'); } catch (e) {}
+            var systemDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            if ((saved || (systemDark ? 'dark' : 'light')) === 'dark') {
+                document.documentElement.classList.add('dark');
+            }
+        })();
+    </script>
+    <HeadOutlet @rendermode="RenderMode.InteractiveServer" />
+</head>
+<body>
+    <Routes @rendermode="RenderMode.InteractiveServer" />
+    <script src="_content/ShellDocs.Components/shelldocs.js"></script>
+    <script type="module">
+        import { createHighlighter } from 'https://esm.sh/shiki@1.24.0';
+        window.__shiki = await createHighlighter({
+            themes: ['github-light', 'github-dark'],
+            langs: ['razor', 'csharp', 'html', 'json', 'yaml', 'bash', 'typescript', 'javascript', 'markdown', 'xml']
+        });
+        if (window.shelldocsHighlight) window.shelldocsHighlight();
+    </script>
+    <script src="_framework/blazor.web.js"></script>
+</body>
+</html>

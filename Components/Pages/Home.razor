@@ -1,0 +1,185 @@
+@page "/"
+@layout HomeLayout
+@inject ShellDocsOptions Options
+
+<PageTitle>ShellDocs : the docs framework for .NET</PageTitle>
+
+<div class="site-home">
+    <section class="hero">
+        <div class="hero-eyebrow">
+            <span class="badge">v0.1.1-alpha</span>
+            <a href="https://github.com/shellui-dev/shelldocs" target="_blank" rel="noopener">github →</a>
+        </div>
+        <h1>The docs framework <span class="grad">for .NET.</span></h1>
+        <p class="hero-sub">
+            Beautiful, animated, Cmd+K-searchable documentation sites : powered by Blazor,
+            composable with ShellUI (or any component library), and shaped like fumadocs meets shadcn.
+        </p>
+        <div class="hero-ctas">
+            <a href="/docs/introduction" class="btn primary">
+                Get started
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            <a href="/docs/components/callout" class="btn secondary">
+                Browse components
+            </a>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="feature">
+            <div class="feature-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M4 9h16M9 4v16"/></svg>
+            </div>
+            <h3>Markdown-first</h3>
+            <p>YAML frontmatter, fenced code blocks, live-rendered <code>razor:preview</code> examples, inline Blazor components mid-prose.</p>
+        </div>
+        <div class="feature">
+            <div class="feature-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            </div>
+            <h3>One-command scaffold</h3>
+            <p><code>shelldocs init</code> creates a Blazor Web App wired end-to-end. <code>shelldocs add</code> scaffolds new pages. <code>shelldocs dev</code> hot-reloads.</p>
+        </div>
+        <div class="feature">
+            <div class="feature-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg>
+            </div>
+            <h3>Search built in</h3>
+            <p>Cmd+K modal with body-text indexing and snippet extraction. No backend, no external service, no configuration.</p>
+        </div>
+        <div class="feature">
+            <div class="feature-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+            </div>
+            <h3>Composable</h3>
+            <p>Bring your own component library : ShellUI, MudBlazor, Radzen, hand-rolled. Register in one line, reference in markdown.</p>
+        </div>
+    </section>
+
+    <section class="cta-strip">
+        <div>
+            <h2>Install and ship in five minutes.</h2>
+            <p>The alpha is on NuGet. Getting Started walks you through the whole flow.</p>
+        </div>
+        <a href="/docs/getting-started/installation" class="btn primary">
+            Installation
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+    </section>
+</div>
+
+<style>
+    .site-home {
+        max-width: 60rem;
+        margin: 0 auto;
+        padding: 4rem 1.5rem 6rem;
+    }
+
+    .hero { text-align: center; margin-bottom: 5rem; }
+    .hero-eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 1.5rem;
+        color: var(--muted-foreground);
+        font-size: 0.8125rem;
+    }
+    .hero-eyebrow .badge {
+        padding: 0.15rem 0.55rem;
+        border: 1px solid var(--border);
+        border-radius: 9999px;
+        font-family: var(--font-mono);
+        font-size: 0.72rem;
+    }
+    .hero-eyebrow a { color: var(--muted-foreground); text-decoration: none; transition: color 150ms; }
+    .hero-eyebrow a:hover { color: var(--foreground); }
+
+    .hero h1 {
+        font-size: clamp(2.5rem, 5vw, 3.75rem);
+        font-weight: 700;
+        letter-spacing: -0.03em;
+        line-height: 1.05;
+        margin: 0 0 1.25rem;
+    }
+    .hero h1 .grad {
+        background: linear-gradient(135deg, var(--foreground), color-mix(in oklch, var(--foreground) 55%, transparent));
+        -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .hero-sub {
+        color: var(--muted-foreground);
+        font-size: 1.125rem;
+        line-height: 1.55;
+        max-width: 40rem;
+        margin: 0 auto 2rem;
+    }
+    .hero-ctas { display: inline-flex; gap: 0.65rem; }
+
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.65rem 1.15rem;
+        border-radius: calc(var(--radius) + 2px);
+        font-weight: 500;
+        font-size: 0.9rem;
+        text-decoration: none;
+        transition: background 150ms, border-color 150ms, transform 150ms;
+    }
+    .btn.primary { background: var(--primary); color: var(--primary-foreground); }
+    .btn.primary:hover { background: color-mix(in oklch, var(--primary) 90%, transparent); }
+    .btn.secondary { background: var(--card); color: var(--foreground); border: 1px solid var(--border); }
+    .btn.secondary:hover { background: var(--muted); border-color: color-mix(in oklch, var(--border) 60%, var(--foreground)); }
+    .btn svg { width: 0.85rem; height: 0.85rem; }
+
+    .features {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        margin-bottom: 5rem;
+    }
+    @@media (min-width: 640px) { .features { grid-template-columns: repeat(2, 1fr); } }
+
+    .feature {
+        padding: 1.35rem 1.5rem;
+        border: 1px solid var(--border);
+        border-radius: calc(var(--radius) + 4px);
+        background: var(--card);
+    }
+    .feature-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 2rem;
+        height: 2rem;
+        border-radius: calc(var(--radius));
+        background: var(--muted);
+        color: var(--foreground);
+        margin-bottom: 0.85rem;
+    }
+    .feature-icon svg { width: 1rem; height: 1rem; }
+    .feature h3 { margin: 0 0 0.4rem; font-size: 0.95rem; font-weight: 600; letter-spacing: -0.01em; }
+    .feature p { margin: 0; color: var(--muted-foreground); font-size: 0.85rem; line-height: 1.55; }
+    .feature code {
+        background: color-mix(in oklch, var(--card) 55%, var(--background));
+        border: 1px solid var(--border);
+        padding: 0.05rem 0.35rem;
+        border-radius: 4px;
+        font-family: var(--font-mono);
+        font-size: 0.85em;
+    }
+
+    .cta-strip {
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+        align-items: flex-start;
+        padding: 2rem 2rem;
+        border: 1px solid var(--border);
+        border-radius: calc(var(--radius) + 6px);
+        background: color-mix(in oklch, var(--card) 55%, var(--background));
+    }
+    @@media (min-width: 640px) { .cta-strip { flex-direction: row; align-items: center; justify-content: space-between; } }
+    .cta-strip h2 { margin: 0 0 0.35rem; font-size: 1.25rem; font-weight: 600; letter-spacing: -0.015em; }
+    .cta-strip p { margin: 0; color: var(--muted-foreground); font-size: 0.9rem; }
+</style>
