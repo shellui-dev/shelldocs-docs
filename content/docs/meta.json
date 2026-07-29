@@ -1,0 +1,14 @@
+{
+  "title": "Documentation",
+  "pages": [
+    "introduction",
+    "---",
+    "getting-started",
+    "---",
+    "components",
+    "markdown",
+    "cli",
+    "core",
+    "tokens"
+  ]
+}
