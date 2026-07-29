@@ -1,0 +1,32 @@
+# Build output
+bin/
+obj/
+publish/
+out/
+
+# IDE
+.vs/
+.idea/
+*.user
+*.suo
+*.userprefs
+.vscode/*
+!.vscode/launch.json
+!.vscode/tasks.json
+
+# NuGet
+*.nupkg
+*.snupkg
+project.lock.json
+project.assets.json
+
+# Rider / ReSharper
+_ReSharper*/
+*.DotSettings.user
+
+# macOS / Windows cruft
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
