@@ -1,0 +1,15 @@
+{
+  "title": "Components",
+  "pages": [
+    "callout",
+    "card",
+    "card-grid",
+    "link-card",
+    "steps",
+    "file-tree",
+    "type-table",
+    "code-group",
+    "preview-frame",
+    "component-preview"
+  ]
+}
