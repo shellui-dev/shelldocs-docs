@@ -5,10 +5,11 @@
     "---",
     "getting-started",
     "---",
+    "authoring",
     "components",
-    "markdown",
     "cli",
-    "core",
-    "tokens"
+    "theming",
+    "---",
+    "packages"
   ]
 }

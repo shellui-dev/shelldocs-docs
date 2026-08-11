@@ -101,6 +101,6 @@ No `<TableOfContents Headings="..." />` boilerplate, no `<SectionContent>` slot 
 <LinkCard Title="Card" Description="Anchor-or-div cards with icon + title + description." Href="/docs/components/card" />
 <LinkCard Title="Steps" Description="Numbered walkthrough with a rail." Href="/docs/components/steps" />
 <LinkCard Title="CodeGroup" Description="Tabbed code samples with cross-page sync." Href="/docs/components/code-group" />
-<LinkCard Title="FileTree" Description="Recursive project-layout diagram." Href="/docs/components/filetree" />
+<LinkCard Title="FileTree" Description="Recursive project-layout diagram." Href="/docs/components/file-tree" />
 <LinkCard Title="TypeTable" Description="Props / API reference table." Href="/docs/components/type-table" />
 </CardGrid>
