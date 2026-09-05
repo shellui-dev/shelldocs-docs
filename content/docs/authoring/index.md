@@ -12,7 +12,7 @@ Everything ShellDocs asks of you as an author lives here : the frontmatter field
 
 A ShellDocs page is a `.md` file under `content/`. Drop one in, it appears in the sidebar automatically : no registration, no import, no meta.json edit required.
 
-```markdown
+````markdown
 ---
 title: My Page
 description: What this page is about.
@@ -36,7 +36,7 @@ Live component demos:
 ```razor:preview
 <Button Variant="primary">Click me</Button>
 ```
-```
+````
 
 That's the whole surface area for authoring.
 
