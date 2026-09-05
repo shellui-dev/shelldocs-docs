@@ -33,7 +33,7 @@ ShellDocs is the "just use this" answer. Point it at a folder of markdown, get a
 
 Author a page as plain markdown with frontmatter:
 
-```markdown
+````markdown
 ---
 title: Button
 description: A pressable UI element.
@@ -48,15 +48,15 @@ The `<Button>` component ships in three variants.
 ```razor:preview
 <Button Variant="primary">Click me</Button>
 ```
-```
+````
 
-Drop in fenced components anywhere:
+Drop inline components anywhere in prose:
 
-```markdown
+````markdown
 <Callout Variant="warning" Title="Heads up">
 This behavior changed in `0.2.0`. Older versions used `OnClick` instead of `Pressed`.
 </Callout>
-```
+````
 
 The whole thing renders : Callout with icon and variant styling, live Button component, syntax-highlighted code samples, working TOC : with zero JavaScript beyond what Blazor and Shiki need.
 
