@@ -35,11 +35,11 @@ The `ShellDocs.Markdown` pipeline detects the fence language `razor:preview`, pa
 
 The upshot: **you author fenced razor markup, the framework renders it live and shows the source**.
 
-```markdown
+````markdown
 ```razor:preview
 <Callout Variant="warning">This is authored as a fenced block.</Callout>
 ```
-```
+````
 
 Renders as:
 
