@@ -12,8 +12,7 @@ Everything ShellDocs asks of you as an author lives here : the frontmatter field
 
 A ShellDocs page is a `.md` file under `content/`. Drop one in, it appears in the sidebar automatically : no registration, no import, no meta.json edit required.
 
-````markdown
----
+<pre><code class="language-markdown">---
 title: My Page
 description: What this page is about.
 order: 3
@@ -23,31 +22,31 @@ order: 3
 
 Regular markdown. Fenced code blocks:
 
-```csharp
+&#96;&#96;&#96;csharp
 var x = 1;
-```
+&#96;&#96;&#96;
 
 Inline components mid-prose:
 
-<Callout Variant="tip">Something worth calling out.</Callout>
+&lt;Callout Variant="tip"&gt;Something worth calling out.&lt;/Callout&gt;
 
 Live component demos:
 
-```razor:preview
-<Button Variant="primary">Click me</Button>
-```
-````
+&#96;&#96;&#96;razor:preview
+&lt;Button Variant="primary"&gt;Click me&lt;/Button&gt;
+&#96;&#96;&#96;
+</code></pre>
 
 That's the whole surface area for authoring.
 
 ## Anatomy of a page
 
 <TypeTable>
-<TypeRow Name="Frontmatter" Type="YAML" Description="Top-of-file `title` / `description` / `order` (+ arbitrary keys). Controls sidebar entry, meta tags, and ordering." />
+<TypeRow Name="Frontmatter" Type="YAML" Description="Top-of-file title / description / order (+ arbitrary keys). Controls sidebar entry, meta tags, and ordering." />
 <TypeRow Name="Body" Type="markdown" Description="CommonMark + GFM pipe tables + task lists + footnotes. Softline breaks become hard breaks (edit-friendly for prose)." />
-<TypeRow Name="Fenced code" Type="``` blocks" Description="Standard language fences render as highlighted code with a copy button and a language badge." />
-<TypeRow Name="razor:preview" Type="live demo" Description="Special fence that renders as live component + reveal-on-click source view." />
-<TypeRow Name="Inline components" Type="<Tag />" Description="Component tags mid-prose become real Blazor components with attribute coercion." />
+<TypeRow Name="Fenced code" Type="fence" Description="Standard language fences render as highlighted code with a copy button and a language badge." />
+<TypeRow Name="razor:preview" Type="live example" Description="A fence that renders live components with Preview and Code tabs. Its body is Razor." />
+<TypeRow Name="Inline components" Type="tag" Description="Component tags in the page become real Blazor components. Their bodies are markdown." />
 </TypeTable>
 
 ## Where pages live
@@ -70,15 +69,13 @@ Every `.md` under `content/docs/**` becomes a page. The URL is derived from the 
 An `index.md` in a folder gets the folder's URL. `content/docs/guides/index.md` → `/docs/guides` (not `/docs/guides/index`). Useful for landing pages at section roots.
 </Callout>
 
-## Reload cadence
+## Seeing your edits
 
-`shelldocs dev` (or `dotnet watch run`) watches `content/**/*.md`. Editing a file:
+Run the site with `shelldocs dev` (or `dotnet watch run`).
 
-- Rebuilds the navigation graph (folder changes → sidebar changes → new URLs)
-- Rebuilds the search index (new bodies → new matches)
-- Re-renders any page you're currently viewing
-
-No manual refresh needed. Hot reload also picks up `.razor` and `.cs` changes.
+- **Editing an existing page** shows on the next browser refresh. Pages are rendered from disk on each request.
+- **Adding, renaming or deleting a page, or editing a `meta.json`,** changes the navigation graph, which is built when the app starts. Restart the dev server to pick those up.
+- **Editing `.razor` or `.cs` files** goes through hot reload as in any Blazor app.
 
 ## Where to go next
 
@@ -86,7 +83,9 @@ No manual refresh needed. Hot reload also picks up `.razor` and `.cs` changes.
 <LinkCard Title="Frontmatter" Description="Every field ShellDocs reads from the YAML block." Href="/docs/authoring/frontmatter" />
 <LinkCard Title="Fenced code" Description="Language detection, copy buttons, Shiki highlighting." Href="/docs/authoring/fenced-code" />
 <LinkCard Title="razor:preview" Description="The live-component-demo fence." Href="/docs/authoring/razor-preview" />
-<LinkCard Title="Inline component tags" Description="Drop a `<Callout>` mid-prose : how it works." Href="/docs/authoring/component-tags" />
-<LinkCard Title="Navigation" Description="`meta.json`, order, dividers, hidden pages." Href="/docs/authoring/navigation" />
+<LinkCard Title="Inline component tags" Description="Drop a Callout mid-prose : how it works." Href="/docs/authoring/component-tags" />
+<LinkCard Title="Navigation" Description="meta.json, order, dividers, hidden pages." Href="/docs/authoring/navigation" />
 <LinkCard Title="Components reference" Description="Every primitive you can drop into markdown." Href="/docs/components/callout" />
+<LinkCard Title="Versioning" Description="One docs tree per released version." Href="/docs/guides/versioning" />
+<LinkCard Title="Redirects" Description="Folder URLs and moved pages." Href="/docs/guides/redirects" />
 </CardGrid>

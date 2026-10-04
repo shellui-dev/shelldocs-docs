@@ -1,12 +1,12 @@
 ---
 title: Inline component tags
-description: Drop a `<Callout>` or `<Card>` mid-prose. Same attribute coercion as razor:preview, no source view.
+description: Write a component tag straight into the page. It renders as the real component, and its body is markdown.
 order: 4
 ---
 
 # Inline component tags
 
-Component tags used **mid-prose** (outside a fence) become real Blazor components at render time. This is how you drop a `<Callout>` between two paragraphs, a `<CardGrid>` at the end of a page, or a `<Steps>` inside a section : without switching to a live-demo fence.
+A component tag written in the page, outside any fence, renders as the real Blazor component. This is how you put a `Callout` between two paragraphs, a `CardGrid` at the end of a page, or `Steps` inside a section.
 
 ## The pattern
 
@@ -14,86 +14,92 @@ Component tags used **mid-prose** (outside a fence) become real Blazor component
 Some prose.
 
 <Callout Variant="tip" Title="Something worth knowing">
-Body text. Markdown inside is fully parsed.
+Body text with `inline code` and **emphasis**.
 </Callout>
 
 More prose.
 ```
-
-Renders as:
 
 Some prose.
 
 <Callout Variant="tip" Title="Something worth knowing">
-Body text. Markdown inside is fully parsed.
+Body text with `inline code` and **emphasis**.
 </Callout>
 
 More prose.
 
-The tag looks like Razor / JSX. Behind the scenes, `SlotExtractor` finds the tag (pattern: opening `<Uppercase…>` up to a matching close or self-close), resolves the name against `TypeRegistry`, and replaces the region with a placeholder slot. `MarkdownContent` swaps the placeholder for a `<DynamicComponent>` at render time.
+## The body is markdown
 
-## Attribute coercion
+An inline tag's body goes through the markdown pipeline: inline code, emphasis, links, lists, fenced code and further component tags all work. Leave a blank line between a tag and a fenced block.
 
-Same rules as [`razor:preview`](/docs/authoring/razor-preview) : string attributes get coerced to the target property's type via reflection. `Variant="warning"` → enum, `Columns="3"` → int, `External="true"` → bool.
+<pre><code class="language-markdown">&lt;Steps&gt;
+&lt;Step Title="Install"&gt;
 
-## Body content
+&#96;&#96;&#96;bash
+dotnet tool install -g ShellDocs.CLI --prerelease
+&#96;&#96;&#96;
 
-Non-self-closing tags carry their inner text as ChildContent. It's Markdig-parsed so you get full markdown inside : lists, code blocks, nested tags.
+&lt;/Step&gt;
+&lt;Step Title="Scaffold"&gt;
+&#96;shelldocs init MyDocs&#96; creates a working site.
+&lt;/Step&gt;
+&lt;/Steps&gt;
+</code></pre>
 
-```markdown
-<Steps>
-<Step Title="Install">
-Run `dotnet tool install -g ShellDocs.CLI --prerelease`.
-</Step>
-<Step Title="Scaffold">
-`shelldocs init MyDocs` creates a working site.
-</Step>
-</Steps>
-```
+This is the opposite of a [`razor:preview`](/docs/authoring/razor-preview) fence, whose body is Razor. The rule of thumb: a tag in the page is content, a fence is an example of code.
 
 ## Self-closing tags
 
-Tags with no body use the JSX-style self-close `/>`.
+A tag with no body closes itself with `/>`.
 
 ```markdown
 <LinkCard Title="Quick start" Description="Scaffold a fresh site." Href="/docs/getting-started/quick-start" />
 ```
-
-Renders as:
 
 <LinkCard Title="Quick start" Description="Scaffold a fresh site." Href="/docs/getting-started/quick-start" />
 
 ## Naming rules
 
-- Tag name must start with an **uppercase letter** (matches `<[A-Z][A-Za-z0-9]*>`). This is how the parser tells component tags apart from HTML : `<span>` stays raw, `<Span>` gets resolved.
-- Attribute names are case-sensitive : they must match the target's `[Parameter]` property name.
-- Attribute values must be **double-quoted**. Single quotes and unquoted values aren't recognized.
+- A tag name starts with an **uppercase letter**. That is how the parser tells a component from HTML: `<span>` stays HTML, `<Span>` is looked up as a component.
+- Attribute values are **double-quoted**.
+- Attribute names match the component's parameters without regard to case.
 
-## Nested tags
+## Attribute values
 
-Tags nest to any depth. The parser tracks open/close balance per tag name, so mismatched or unbalanced tags produce a warning and pass through as raw markup.
+Values are converted to each parameter's type, the same way a fence converts them: `Columns="3"` becomes an `int`, `External="true"` a `bool`, `Variant="warning"` an enum member.
+
+Keep inline attribute values to plain text:
+
+<TypeTable>
+<TypeRow Name="Angle brackets" Type="avoid" Description="The tag ends at the first closing angle bracket, so a value containing one cuts the tag short and the component is dropped." />
+<TypeRow Name="HTML entities" Type="avoid" Description="Entities are not decoded. They show up as typed." />
+<TypeRow Name="Backticks" Type="avoid" Description="Attribute text is not markdown. Backticks show up as typed." />
+<TypeRow Name="Escaped quotes" Type="avoid" Description="There is no escape for a double quote inside a value. Rephrase, or use single quotes in the text." />
+</TypeTable>
+
+When a value needs any of those, move the content into the tag body, or write the example as a `razor:preview` fence, where raw markup in attributes is fine.
+
+## Code spans stay code
+
+A tag inside backticks is left alone. Writing `` `<Callout>` `` in a sentence produces inline code, not a component. The same goes for anything inside a fenced block.
+
+## Nested tags and named slots
+
+Tags nest to any depth.
 
 ```markdown
-<Card>
-Body of the card, which itself contains:
+<Card Title="Outer">
 
-<Callout Variant="info">A callout nested inside a card.</Callout>
+<Callout Variant="info">A callout inside a card.</Callout>
+
 </Card>
 ```
 
-## Escaping SVG in attributes
+A direct child tag whose name matches one of the parent's `RenderFragment` parameters fills that slot instead of the default child content. See [named slots](/docs/authoring/razor-preview).
 
-Attribute values containing `<` or `>` need HTML-entity encoding : otherwise Markdig's block parser eats the raw markup.
+## Unknown tags
 
-```markdown
-<Card IconSvg="&lt;svg viewBox='0 0 24 24'&gt;&lt;path d='...'/&gt;&lt;/svg&gt;" Title="…" />
-```
-
-In a `.razor` page you'd write the SVG literal : only markdown authoring requires escaping.
-
-## Unknown components
-
-An unrecognized tag emits a warning ("Unknown component <Name> — passed through as raw markup") and renders verbatim. Fix by registering the assembly:
+An uppercase tag that isn't a registered component is passed through as raw markup, and a warning is logged. Register the component:
 
 ```csharp
 builder.Services.AddShellDocs(o =>
@@ -102,19 +108,21 @@ builder.Services.AddShellDocs(o =>
 });
 ```
 
-## Inline vs `razor:preview`
+## When your library has the same name
+
+If your component library registers a `Card`, `<Card>` renders yours. ShellDocs' own primitive stays reachable under a `Docs` prefix: `<DocsCard>`, `<DocsCallout>`, `<DocsTabs>`. See [Documenting a component library](/docs/guides/component-libraries).
+
+## Inline tag or fence
 
 <TypeTable>
-<TypeRow Name="Inline tag" Type="prose" Description="Renders the component ONLY. No source view. Use for chrome-in-prose (callouts, cards, steps) where the reader doesn't need to see the code." />
-<TypeRow Name="razor:preview" Type="fence" Description="Renders component + reveal-on-click source view. Use for docs OF a component : the reader IS learning the tag." />
+<TypeRow Name="Inline tag" Type="content" Description="Renders the component only. Markdown body. Use for callouts, cards, steps, tables that are part of the page." />
+<TypeRow Name="razor:preview" Type="example" Description="Renders the component with Preview and Code tabs. Razor body. Use when the reader is learning the tag." />
 </TypeTable>
-
-Rule of thumb: **primitives in prose** (Callout, Card, LinkCard, Steps, CardGrid, FileTree, TypeTable) → inline tag. **Live demo of a component the reader is learning** → `razor:preview`.
 
 ## See also
 
 <CardGrid Columns="2">
-<LinkCard Title="razor:preview" Description="The fence-based live-demo alternative." Href="/docs/authoring/razor-preview" />
-<LinkCard Title="Components reference" Description="Every registered primitive you can drop into markdown." Href="/docs/components/callout" />
-<LinkCard Title="Configuration" Description="How to register your own components as inline tags." Href="/docs/getting-started/configuration" />
+<LinkCard Title="razor:preview" Description="The live example fence." Href="/docs/authoring/razor-preview" />
+<LinkCard Title="Components reference" Description="Every primitive you can write into a page." Href="/docs/components/callout" />
+<LinkCard Title="Documenting a component library" Description="Registering your own components as tags." Href="/docs/guides/component-libraries" />
 </CardGrid>

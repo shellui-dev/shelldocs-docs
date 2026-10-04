@@ -66,17 +66,19 @@ The cascade takes care of the rest : buttons, links, focus rings, the sidebar hi
 <TypeRow Name="--warning" Type="color" Description="Warning callout accent." />
 <TypeRow Name="--error" Type="color" Description="Error / danger callout accent." />
 <TypeRow Name="--success" Type="color" Description="Success / tip callout accent." />
-<TypeRow Name="--radius" Type="length" Description="Base border-radius. Chrome uses `calc(var(--radius) + N)` for varied roundness." />
+<TypeRow Name="--radius" Type="length" Description="Base border-radius. Chrome uses calc(var(--radius) + N) for varied roundness." />
 <TypeRow Name="--sidebar-width" Type="length" Description="Sidebar column width." />
 <TypeRow Name="--toc-width" Type="length" Description="Right-rail table-of-contents width." />
 <TypeRow Name="--header-height" Type="length" Description="Top header height (TopNav variant)." />
 <TypeRow Name="--font-sans" Type="stack" Description="Sans-serif stack for prose + UI." />
-<TypeRow Name="--font-mono" Type="stack" Description="Monospace stack for code + inline `<code>`." />
+<TypeRow Name="--font-mono" Type="stack" Description="Monospace stack for code + inline code." />
 </TypeTable>
 
 ## Dark mode
 
-Dark mode is toggled by adding `.dark` to `:root` (`<html>`). The theme toggle in the header does this at click time and persists to `localStorage` under the key `shelldocs-theme`.
+Dark mode is the `dark` class on the `html` element. The theme toggle flips it and saves the choice in `localStorage` under the key `shelldocs-theme`. The toggle is handled by `shelldocs.js`, so it works on a static export.
+
+The class is the source of truth. If something else flips it, such as a component library's own theme switch, `shelldocs.js` notices, saves the new value, and keeps the toggle icon in step.
 
 An inline script in `App.razor` reads that key on page load and applies the class **before first paint** : this is what prevents the light-mode flash on hard refresh. The script is added by `shelldocs init` automatically.
 
@@ -139,9 +141,21 @@ Both layouts share the same token surface : switching is a one-line change.
 
 Every ShellDocs primitive picks it up automatically : no per-component override needed.
 
-## The `--theme` CLI flag
+## The `--theme` flag
 
-`shelldocs init --theme <shadcn|fuma|nextra>` records a theme preset in the scaffold. Currently informational : all presets ship the same `tokens.css`. Future work: `fuma` and `nextra` presets will ship as additional stylesheet drops.
+`shelldocs init --theme` and `ShellDocsOptions.Theme` accept `shadcn`, `fuma` and `nextra`, but have no effect in this release. Every site starts from the same `tokens.css`. Restyle with token overrides.
+
+## Keeping page typography out
+
+Page content is styled through the `shelldocs-prose` class: paragraph spacing, list padding, heading sizes, link underlines. Those rules skip any element with the `not-prose` class and everything inside it. Preview frames carry it already, so components in examples are not restyled. Add it to your own markup when you drop custom HTML into a page and want it left alone:
+
+```html
+<div class="not-prose">
+  <!-- your own layout, untouched by page typography -->
+</div>
+```
+
+Wide markdown tables are wrapped in a `shelldocs-table` box that scrolls sideways on small screens instead of widening the page.
 
 ## Overriding component styles directly
 
@@ -164,5 +178,5 @@ The whole point of splitting `ShellDocs.Tokens` out of `ShellDocs.Components` : 
 
 <CardGrid Columns="2">
 <LinkCard Title="ShellDocs.Tokens" Description="The tokens package : what ships, how to install standalone." Href="/docs/packages/tokens" />
-<LinkCard Title="Configuration" Description="`ShellDocsOptions.LayoutVariant`, logo, custom nav." Href="/docs/getting-started/configuration" />
+<LinkCard Title="Configuration" Description="ShellDocsOptions.LayoutVariant, logo, custom nav." Href="/docs/getting-started/configuration" />
 </CardGrid>

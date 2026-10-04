@@ -12,7 +12,7 @@ order: 7
 
 ```razor:preview
 <TypeTable>
-<TypeRow Name="Variant" Type="string" Default='"info"' Description="One of `info` | `tip` | `success` | `warning` | `danger`." />
+<TypeRow Name="Variant" Type="string" Default='"info"' Description="One of info | tip | success | warning | danger." />
 <TypeRow Name="Title" Type="string?" Default="—" Description="Optional title above the body." />
 <TypeRow Name="ChildContent" Type="RenderFragment?" Default="—" Description="Body content." />
 </TypeTable>
@@ -37,7 +37,7 @@ The columns are labeled Prop / Type / Default / Description but nothing forces "
 ```razor:preview
 <TypeTable>
 <TypeRow Name="init" Type="command" Description="Scaffold a fresh ShellDocs site OR augment an existing Blazor project." />
-<TypeRow Name="add" Type="command" Description="Scaffold a starter `.md` page from a template." />
+<TypeRow Name="add" Type="command" Description="Scaffold a starter .md page from a template." />
 <TypeRow Name="dev" Type="command" Description="Start the dev server with hot-reload." />
 <TypeRow Name="build" Type="command" Description="Publish a static site." />
 </TypeTable>
@@ -56,22 +56,22 @@ If you render a `TypeTable` with no rows, it emits a single "No props documented
 ### TypeTable
 
 <TypeTable>
-<TypeRow Name="ChildContent" Type="RenderFragment?" Default="—" Description="The `<TypeRow>` children. Must be direct descendants." />
+<TypeRow Name="ChildContent" Type="RenderFragment?" Default="—" Description="The TypeRow children. Must be direct descendants." />
 </TypeTable>
 
 ### TypeRow
 
 <TypeTable>
-<TypeRow Name="Name" Type="string" Default="" Required="true" Description="First column : prop / command / key name. Rendered as `<code>`." />
-<TypeRow Name="Type" Type="string" Default="" Description="Second column : type / category. Rendered as `<code>` when set, em-dash otherwise." />
+<TypeRow Name="Name" Type="string" Default="" Required="true" Description="First column : prop / command / key name. Rendered as inline code." />
+<TypeRow Name="Type" Type="string" Default="" Description="Second column : type / category. Rendered as inline code when set, em-dash otherwise." />
 <TypeRow Name="Default" Type="string?" Default="—" Description="Third column : default value or fallback. Em-dash when empty." />
 <TypeRow Name="Description" Type="string?" Default="—" Description="Fourth column : free-text description." />
-<TypeRow Name="Required" Type="bool" Default="false" Description="When true, appends a `Required` chip to the Name cell." />
+<TypeRow Name="Required" Type="bool" Default="false" Description="When true, appends a Required chip to the Name cell." />
 </TypeTable>
 
 ## See also
 
 <CardGrid Columns="2">
-<LinkCard Title="Callout" Description="Sidebars for explaining edge cases surfaced by the table." Href="/docs/components/callout" />
+<LinkCard Title="AutoTypeTable" Description="Generate the props table for a component from its code." Href="/docs/components/auto-type-table" />
 <LinkCard Title="CodeGroup" Description="Tabbed code blocks : same discipline of columns, different axis." Href="/docs/components/code-group" />
 </CardGrid>

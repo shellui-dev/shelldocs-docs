@@ -11,7 +11,7 @@ Two things to install: the **CLI** (a .NET global tool) and the **framework pack
 ## Prerequisites
 
 <TypeTable>
-<TypeRow Name=".NET SDK" Type="10.0+" Description=".NET 10 or newer. Verify with `dotnet --version`." Required="true" />
+<TypeRow Name=".NET SDK" Type="10.0+" Description=".NET 10 or newer. Verify with dotnet --version." Required="true" />
 <TypeRow Name="git" Type="any" Description="For version control. Not strictly required to run ShellDocs : required for publishing to GitHub Pages / Cloudflare / Netlify from a repo." />
 </TypeTable>
 
@@ -33,7 +33,7 @@ Verify:
 shelldocs --help
 ```
 
-You should see `init`, `add`, `dev`, `build`, `preview` in the command list.
+You should see `init`, `add`, `dev` and `build` in the command list. (`preview` is listed too, but is not implemented yet.)
 
 ## Update the CLI
 
@@ -48,10 +48,22 @@ Pulls the latest published version from nuget.org.
 If you're scaffolding via `shelldocs init`, the CLI adds these to your `.csproj` automatically. If you're wiring an existing Blazor project by hand, add:
 
 <CodeGroup SyncKey="pkg">
-<CodeTab Label="dotnet CLI">dotnet add package ShellDocs.Components --prerelease
-dotnet add package ShellDocs.Tokens --prerelease</CodeTab>
-<CodeTab Label="PackageReference">&lt;PackageReference Include="ShellDocs.Components" Version="0.1.1-alpha" /&gt;
-&lt;PackageReference Include="ShellDocs.Tokens"     Version="0.1.1-alpha" /&gt;</CodeTab>
+<CodeTab Label="dotnet CLI">
+
+```bash
+dotnet add package ShellDocs.Components --prerelease
+dotnet add package ShellDocs.Tokens --prerelease
+```
+
+</CodeTab>
+<CodeTab Label="PackageReference">
+
+```xml
+<PackageReference Include="ShellDocs.Components" Version="0.1.11-alpha" />
+<PackageReference Include="ShellDocs.Tokens" Version="0.1.11-alpha" />
+```
+
+</CodeTab>
 </CodeGroup>
 
 `ShellDocs.Core` and `ShellDocs.Markdown` come in transitively : no need to reference them directly.
@@ -59,7 +71,7 @@ dotnet add package ShellDocs.Tokens --prerelease</CodeTab>
 ## The package family
 
 <TypeTable>
-<TypeRow Name="ShellDocs.CLI" Type="global tool" Description="`shelldocs init`, `add`, `dev`, `build`. Installed once, works from any directory." />
+<TypeRow Name="ShellDocs.CLI" Type="global tool" Description="shelldocs init, add, dev, build. Installed once, works from any directory." />
 <TypeRow Name="ShellDocs.Components" Type="RCL" Description="The chrome (layout, sidebar, search, header) and content primitives (Callout, Card, Steps, CodeGroup, TypeTable, more)." />
 <TypeRow Name="ShellDocs.Tokens" Type="RCL" Description="Shared CSS variables. shadcn-compatible names for interop with ShellUI and other design systems." />
 <TypeRow Name="ShellDocs.Core" Type="library (transitive)" Description="Navigation graph, search index, markdown plain-text extraction." />
@@ -70,5 +82,5 @@ dotnet add package ShellDocs.Tokens --prerelease</CodeTab>
 
 <CardGrid Columns="2">
 <LinkCard Title="Quick start" Description="Scaffold a fresh site and see it running in ~5 minutes." Href="/docs/getting-started/quick-start" />
-<LinkCard Title="Project structure" Description="What `shelldocs init` created, and what each folder does." Href="/docs/getting-started/project-structure" />
+<LinkCard Title="Project structure" Description="What shelldocs init created, and what each folder does." Href="/docs/getting-started/project-structure" />
 </CardGrid>

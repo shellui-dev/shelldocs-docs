@@ -15,19 +15,31 @@ You don't reference `ShellDocs.Core` directly : it comes in via `ShellDocs.Compo
 ## Install
 
 <CodeGroup SyncKey="pkg">
-<CodeTab Label="dotnet CLI">dotnet add package ShellDocs.Core --prerelease</CodeTab>
-<CodeTab Label="PackageReference">&lt;PackageReference Include="ShellDocs.Core" Version="0.1.1-alpha" /&gt;</CodeTab>
+<CodeTab Label="dotnet CLI">
+
+```bash
+dotnet add package ShellDocs.Core --prerelease
+```
+
+</CodeTab>
+<CodeTab Label="PackageReference">
+
+```xml
+<PackageReference Include="ShellDocs.Core" Version="0.1.11-alpha" />
+```
+
+</CodeTab>
 </CodeGroup>
 
 ## Key types
 
 <TypeTable>
-<TypeRow Name="NavigationGraph" Type="service" Description="The full site tree. `ResolveByUrl`, `GetPrevNext`, `GetBreadcrumb`, `Flatten`." />
-<TypeRow Name="NavigationGraphBuilder" Type="static" Description="`Build(contentRoot)` walks the folder tree, reads meta.json + frontmatter, produces a `NavigationGraph`." />
-<TypeRow Name="NavigationNode" Type="record" Description="One node: `Url`, `Title`, `Description`, `Order`, `Kind` (Page / Section / Divider), `Children`, `Parent`." />
-<TypeRow Name="SearchIndex" Type="service" Description="In-memory search index. `Entries` : page + heading entries with URL, title, description, section, body text." />
-<TypeRow Name="SearchEntry" Type="record" Description="One indexed entry. Page entries carry `Body` (extracted plain text, 8KB cap); heading entries anchor into their page." />
-<TypeRow Name="MarkdownPlainText" Type="static" Description="`Extract(markdown, maxLength)` : strips frontmatter, fences, HTML, Razor tags, images, links, inline code, emphasis, heading `#`. Used by SearchIndex for body-text indexing." />
+<TypeRow Name="NavigationGraph" Type="service" Description="The full site tree. ResolveByUrl, GetPrevNext, GetBreadcrumb, Flatten." />
+<TypeRow Name="NavigationGraphBuilder" Type="static" Description="Build(contentRoot) walks the folder tree, reads meta.json + frontmatter, produces a NavigationGraph." />
+<TypeRow Name="NavigationNode" Type="record" Description="One node: Url, Title, Description, Order, Kind (Page / Section / Divider), Children, Parent." />
+<TypeRow Name="SearchIndex" Type="service" Description="In-memory search index. Entries : page + heading entries with URL, title, description, section, body text." />
+<TypeRow Name="SearchEntry" Type="record" Description="One indexed entry. Page entries carry Body (extracted plain text, 8KB cap); heading entries anchor into their page." />
+<TypeRow Name="MarkdownPlainText" Type="static" Description="Extract(markdown, maxLength) : strips frontmatter, fences, HTML, Razor tags, images, links, inline code, emphasis, heading #. Used by SearchIndex for body-text indexing." />
 </TypeTable>
 
 ## Navigation graph

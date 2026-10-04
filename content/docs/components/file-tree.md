@@ -48,7 +48,7 @@ Set `Highlight="true"` on any item to give it an accent background : useful for 
 ```razor:preview
 <FileTree>
 <FileTreeItem Name="docs" IsFolder="true">
-<FileTreeItem Name="MyDocs.Docs" IsFolder="true" Highlight="true" Comment="Scaffolded by `shelldocs init`">
+<FileTreeItem Name="MyDocs.Docs" IsFolder="true" Highlight="true" Comment="Scaffolded by shelldocs init">
 <FileTreeItem Name="Program.cs" />
 <FileTreeItem Name="content" IsFolder="true" />
 </FileTreeItem>
@@ -83,17 +83,17 @@ There's no depth cap : nest as far as needed. The glyph size and indentation sta
 ### FileTree
 
 <TypeTable>
-<TypeRow Name="ChildContent" Type="RenderFragment?" Default="—" Description="`<FileTreeItem>` children forming the root list." />
+<TypeRow Name="ChildContent" Type="RenderFragment?" Default="—" Description="FileTreeItem children forming the root list." />
 </TypeTable>
 
 ### FileTreeItem
 
 <TypeTable>
 <TypeRow Name="Name" Type="string" Default="" Required="true" Description="File or folder name displayed on the row." />
-<TypeRow Name="IsFolder" Type="bool" Default="false" Description="When true, renders a folder glyph and allows nested `<FileTreeItem>` children." />
+<TypeRow Name="IsFolder" Type="bool" Default="false" Description="When true, renders a folder glyph and allows nested FileTreeItem children." />
 <TypeRow Name="Comment" Type="string?" Default="—" Description="Muted annotation displayed after the name." />
 <TypeRow Name="Highlight" Type="bool" Default="false" Description="Emphasizes the row with an accent background." />
-<TypeRow Name="ChildContent" Type="RenderFragment?" Default="—" Description="Nested items. Only rendered when `IsFolder` is true." />
+<TypeRow Name="ChildContent" Type="RenderFragment?" Default="—" Description="Nested items. Only rendered when IsFolder is true." />
 </TypeTable>
 
 ## See also

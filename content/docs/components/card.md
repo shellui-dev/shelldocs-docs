@@ -11,7 +11,7 @@ order: 2
 ## Basic use
 
 ```razor:preview
-<Card Title="Markdown-first authoring" Description="YAML frontmatter, fenced code blocks with Shiki highlighting, live-rendered `razor:preview` examples." />
+<Card Title="Markdown-first authoring" Description="YAML frontmatter, fenced code blocks with Shiki highlighting, live-rendered razor:preview examples." />
 ```
 
 ## As a link
@@ -33,11 +33,13 @@ Set `External="true"` to add `target="_blank"` and `rel="noopener"` : safe for o
 Pass raw SVG markup as `IconSvg`. It renders inside a `.doc-card-icon` container above the title.
 
 ```razor:preview
-<Card Title="Fast" IconSvg="&lt;svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'&gt;&lt;path d='M13 2 3 14h9l-1 8 10-12h-9z'/&gt;&lt;/svg&gt;" Description="Startup nav-graph build is measured in milliseconds even on hundreds of pages." />
+<Card Title="Fast" IconSvg="<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'><path d='M13 2 3 14h9l-1 8 10-12h-9z'/></svg>" Description="Startup nav-graph build is measured in milliseconds even on hundreds of pages." />
 ```
 
-<Callout Variant="tip" Title="Escaping SVG in markdown">
-When authoring in `.md`, the SVG markup inside `IconSvg="..."` must be HTML-entity-encoded (`&lt;`, `&gt;`) : otherwise the markdown parser sees it as raw tags and eats them. In a `.razor` page you'd just write `IconSvg="<svg …>...</svg>"`.
+Write the SVG with single-quoted attributes so it fits inside the double-quoted `IconSvg` value.
+
+<Callout Variant="warning" Title="Icons belong in a preview fence or a .razor page">
+Raw SVG in an attribute works inside a `razor:preview` fence and in `.razor` files. An inline `Card` tag in page prose can't carry it : the prose tag scanner ends a tag at the first closing angle bracket, and HTML entities are not decoded. For a card grid with icons in prose, build it as a small Razor component and drop that in.
 </Callout>
 
 ## With child content
@@ -46,9 +48,7 @@ Use `ChildContent` for anything richer than a description : lists, a code block,
 
 ```razor:preview
 <Card Title="Composable">
-Bring your own component library. Register in one line:
-
-`services.AddShellDocs(o =&gt; o.RegisterComponentsFromAssembly&lt;TMarker&gt;());`
+Bring your own component library, register it in one line with <code>RegisterComponentsFromAssembly</code>, and use its tags in markdown.
 </Card>
 ```
 
@@ -68,11 +68,11 @@ Bring your own component library. Register in one line:
 ## Props
 
 <TypeTable>
-<TypeRow Name="Title" Type="string?" Default="—" Description="Optional title, rendered as `.doc-card-title`." />
+<TypeRow Name="Title" Type="string?" Default="—" Description="Optional title, rendered as .doc-card-title." />
 <TypeRow Name="Description" Type="string?" Default="—" Description="Optional short description below the title." />
-<TypeRow Name="Href" Type="string?" Default="—" Description="When set, the whole card becomes an `<a>` pointing here." />
-<TypeRow Name="IconSvg" Type="string?" Default="—" Description="Raw SVG markup rendered above the title. HTML-encode `<` and `>` when authoring in markdown." />
-<TypeRow Name="External" Type="bool" Default="false" Description="When true (and Href set), adds `target='_blank'` and `rel='noopener'`." />
+<TypeRow Name="Href" Type="string?" Default="—" Description="When set, the whole card becomes a link pointing here." />
+<TypeRow Name="IconSvg" Type="string?" Default="—" Description="Raw SVG markup rendered above the title. See the icon section above." />
+<TypeRow Name="External" Type="bool" Default="false" Description="When true (and Href set), adds target='_blank' and rel='noopener'." />
 <TypeRow Name="ChildContent" Type="RenderFragment?" Default="—" Description="Rich body content, rendered below the description." />
 </TypeTable>
 

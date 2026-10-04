@@ -12,13 +12,12 @@ Fenced code blocks (` ``` `) are the workhorse of docs authoring. ShellDocs wrap
 
 Standard CommonMark : three backticks, a language name, the code, three backticks.
 
-````markdown
-```csharp
+<pre><code class="language-markdown">&#96;&#96;&#96;csharp
 var pipeline = new MarkdownPipelineBuilder()
     .UsePipeTables()
     .Build();
-```
-````
+&#96;&#96;&#96;
+</code></pre>
 
 Renders as:
 
@@ -42,12 +41,11 @@ Every fence gets a copy button in the top-right. Click copies the raw text : lan
 
 Fences without a language tag still render : just no badge and no highlighting. Useful for shell prompts or ad-hoc text.
 
-````markdown
-```
+<pre><code class="language-markdown">&#96;&#96;&#96;
 $ shelldocs init MyDocs
 ✓ Wrote 12 change(s):
-```
-````
+&#96;&#96;&#96;
+</code></pre>
 
 Renders as:
 
@@ -76,14 +74,41 @@ The special `razor:preview` language turns the fence into a live component demo 
 
 For "same thing in three package managers" or "before/after" tabs, wrap fences in a `CodeGroup`:
 
-```razor:preview
 <CodeGroup>
-<CodeTab Label="dotnet CLI">dotnet add package ShellDocs.Components --prerelease</CodeTab>
-<CodeTab Label="PackageReference">&lt;PackageReference Include="ShellDocs.Components" Version="0.1.1-alpha" /&gt;</CodeTab>
-</CodeGroup>
+<CodeTab Label="dotnet CLI">
+
+```bash
+dotnet add package ShellDocs.Components --prerelease
 ```
 
+</CodeTab>
+<CodeTab Label="PackageReference">
+
+```xml
+<PackageReference Include="ShellDocs.Components" Version="0.1.11-alpha" />
+```
+
+</CodeTab>
+</CodeGroup>
+
+For panels that are not code, use [Tabs](/docs/components/tabs).
+
 Full docs: [CodeGroup](/docs/components/code-group).
+
+## Showing a fence as an example
+
+To show the markdown for a fence, as this page does, don't nest it in a longer fence. ShellDocs scans for three-backtick fences before markdown is parsed, and a four-backtick block that contains one puts the scanner out of step: the next `razor:preview` on the page renders as plain code.
+
+Write the example as an HTML code block instead, with the backticks and angle brackets as entities:
+
+```html
+<pre><code class="language-markdown">&#96;&#96;&#96;csharp
+var x = 1;
+&#96;&#96;&#96;
+</code></pre>
+```
+
+It gets the same frame, language badge and copy button as a fenced block.
 
 ## What ShellDocs doesn't do
 

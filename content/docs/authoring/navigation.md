@@ -26,8 +26,8 @@ Each folder can carry a `meta.json`:
 ```
 
 <TypeTable>
-<TypeRow Name="title" Type="string?" Description="Folder display name shown in the sidebar section header. Falls back to a title-cased folder name (`getting-started` → `Getting Started`)." />
-<TypeRow Name="pages" Type="array" Description="Ordered list of slug entries. Each entry is a slug string, `\"---\"` for a divider, or a subsection object." />
+<TypeRow Name="title" Type="string?" Description="Folder display name shown in the sidebar section header. Falls back to a title-cased folder name (getting-started → Getting Started)." />
+<TypeRow Name="pages" Type="array" Description="Ordered list of slug entries. Each entry is a slug, three dashes for a divider, or a subsection object." />
 <TypeRow Name="hidden" Type="string[]?" Description="Slugs of pages / subfolders that should route (URLs resolve) but not appear in the sidebar." />
 </TypeTable>
 
@@ -41,7 +41,7 @@ A slug is a file basename without `.md`, or a subfolder name : both resolve the 
 
 - `"introduction"` → `content/docs/introduction.md`
 - `"getting-started"` → `content/docs/getting-started/` (subfolder becomes a section)
-- `"components"` → whichever exists : the folder wins if both `components.md` and `components/` exist (the folder gets a section, the page still routes at its URL).
+Don't give a page and a folder the same name in one directory. For a landing page at a folder's URL, put an `index.md` inside the folder.
 
 ## Dividers
 
@@ -130,18 +130,38 @@ Hidden folder children are still indexed : the framework walks the tree and stor
 ## URLs
 
 <TypeTable>
-<TypeRow Name="`content/docs/introduction.md`" Type="→" Description="`/docs/introduction`" />
-<TypeRow Name="`content/docs/getting-started/installation.md`" Type="→" Description="`/docs/getting-started/installation`" />
-<TypeRow Name="`content/docs/guides/index.md`" Type="→" Description="`/docs/guides` (index.md gets the folder URL)" />
+<TypeRow Name="content/docs/introduction.md" Type="→" Description="/docs/introduction" />
+<TypeRow Name="content/docs/getting-started/installation.md" Type="→" Description="/docs/getting-started/installation" />
+<TypeRow Name="content/docs/guides/index.md" Type="→" Description="/docs/guides (index.md gets the folder URL)" />
 </TypeTable>
+
+## Index pages
+
+An `index.md` in a folder is that folder's landing page. In the sidebar the section label links to it and is highlighted when it is the current page; the page is not listed a second time underneath. In a collapsible section the chevron is a separate button, so the label can be a link.
+
+List it first in the folder's `meta.json`, or leave it out and let it sort by `order`:
+
+```json
+{ "title": "Authoring", "pages": ["index", "frontmatter", "fenced-code"] }
+```
+
+## Folder URLs redirect
+
+A folder with no `index.md` has no page of its own. Visiting its URL redirects to the first page inside it, so `/docs/components` goes to `/docs/components/callout` and `/docs` goes to the first page of the docs. Details and custom rules are in [Redirects](/docs/guides/redirects).
 
 ## `title` on a subfolder
 
-Set `title` in the folder's `meta.json` to control the sidebar section header. Falls back to a title-cased folder name.
+Set `title` in the folder's `meta.json` to control the sidebar section header. It falls back to a title-cased folder name, which is wrong for acronyms: a `cli` folder becomes "Cli". Set `"title": "CLI"` for those.
+
+## Versions
+
+When docs versions are configured, the sidebar shows only the current version's pages, and prev/next and search stay inside it. See [Versioning](/docs/guides/versioning).
 
 ## See also
 
 <CardGrid Columns="2">
-<LinkCard Title="Frontmatter" Description="Per-page `title`, `description`, `order`." Href="/docs/authoring/frontmatter" />
-<LinkCard Title="ShellDocs.Core" Description="`NavigationGraph` API : programmatic traversal." Href="/docs/packages/core" />
+<LinkCard Title="Frontmatter" Description="Per-page title, description, order." Href="/docs/authoring/frontmatter" />
+<LinkCard Title="Redirects" Description="Folder URLs, version roots and moved pages." Href="/docs/guides/redirects" />
+<LinkCard Title="Versioning" Description="One docs tree per released version." Href="/docs/guides/versioning" />
+<LinkCard Title="ShellDocs.Core" Description="NavigationGraph API : programmatic traversal." Href="/docs/packages/core" />
 </CardGrid>

@@ -27,10 +27,10 @@ dotnet tool update -g ShellDocs.CLI --prerelease
 ## The four commands
 
 <TypeTable>
-<TypeRow Name="init" Type="command" Description="Scaffold a fresh ShellDocs site OR augment an existing Blazor project. Two modes: create (default) and attach (`--attach`)." />
-<TypeRow Name="add" Type="command" Description="Scaffold a starter .md page from a template (component / guide / page) into `content/`." />
+<TypeRow Name="init" Type="command" Description="Scaffold a fresh ShellDocs site OR augment an existing Blazor project. Two modes: create (default) and attach (--attach)." />
+<TypeRow Name="add" Type="command" Description="Scaffold a starter .md page from a template (component / guide / page) into content/." />
 <TypeRow Name="dev" Type="command" Description="Start the dev server with hot-reload on .md / .razor / .cs changes." />
-<TypeRow Name="build" Type="command" Description="Publish a static site : base-href rewrite + SPA 404 fallback included. Deploy the output to GitHub Pages, Cloudflare, Vercel, anywhere." />
+<TypeRow Name="build" Type="command" Description="Export a static site: prerenders every page, writes redirects, optional sitemap and social meta tags." />
 </TypeTable>
 
 ## `shelldocs init`
@@ -61,9 +61,9 @@ shelldocs add page faq                 # → content/docs/faq.md
 ```
 
 <TypeTable>
-<TypeRow Name="component &lt;Name&gt;" Type="template" Description="Frontmatter + intro + razor:preview block + &lt;TypeTable&gt; props skeleton + Notes section." />
-<TypeRow Name="guide &lt;slug&gt;" Type="template" Description="Frontmatter + intro + &lt;Steps&gt; skeleton + Next section." />
-<TypeRow Name="page &lt;slug&gt;" Type="template" Description="Blank frontmatter + H1." />
+<TypeRow Name="component {Name}" Type="template" Description="Frontmatter + intro + razor:preview block + TypeTable props skeleton + Notes section." />
+<TypeRow Name="guide {slug}" Type="template" Description="Frontmatter + intro + Steps skeleton + Next section." />
+<TypeRow Name="page {slug}" Type="template" Description="Blank frontmatter + H1." />
 </TypeTable>
 
 Slugifies PascalCase inputs (`MyBigCard` → `my-big-card.md`) and TitleCases kebab inputs (`getting-started` → "Getting Started"). Refuses to overwrite unless `--force`.
@@ -81,18 +81,19 @@ Wraps `dotnet watch run` with markdown-file watching. Any `.md`, `.razor`, or `.
 
 ```bash
 shelldocs build --output publish
+shelldocs build --site-url https://docs.example.com        # sitemap, robots, social meta
 shelldocs build --output publish --base-href "/my-repo/"   # for GH Pages subpath
 ```
 
-Runs `dotnet publish`, post-processes the output for static hosting: rewrites `<base href>` if you're deploying under a subpath, copies `index.html` → `404.html` so client-side routes survive on hosts that 404 unknown paths (GitHub Pages).
+Publishes the project, starts it locally, saves every page as static HTML, writes redirect pages, and copies the assets. `--site-url` adds a sitemap, a robots file and social meta tags; `--base-href` handles subpath hosting; `--spa-fallback` writes `404.html`. See [shelldocs build](/docs/cli/build).
 
 ## Version discipline
 
-The CLI's `ShellDocsVersion` const is bumped alongside `Directory.Build.props` on every release. A `shelldocs init` scaffolded with CLI `0.1.1-alpha` writes `<PackageReference … Version="0.1.1-alpha" />` : always in sync.
+`shelldocs init` scaffolds package references at the CLI's own version, read from its assembly. A project scaffolded with CLI `0.1.11-alpha` references the `0.1.11-alpha` packages. In CI, pin the tool to the same version your project references.
 
 ## Learn more
 
 <CardGrid Columns="2">
 <LinkCard Title="Quick start" Description="From zero to a live docs site in five minutes." Href="/docs/getting-started/quick-start" />
-<LinkCard Title="Project structure" Description="What `shelldocs init` created, folder by folder." Href="/docs/getting-started/project-structure" />
+<LinkCard Title="Project structure" Description="What shelldocs init created, folder by folder." Href="/docs/getting-started/project-structure" />
 </CardGrid>

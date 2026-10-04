@@ -28,11 +28,24 @@ Both delimiters are literal `---` on their own line. The block is optional : a p
 ## Fields ShellDocs reads
 
 <TypeTable>
-<TypeRow Name="title" Type="string" Description="Sidebar label, breadcrumb tail, `<title>` tag. Falls back to a title-cased slug (`my-page.md` → `My Page`)." />
+<TypeRow Name="title" Type="string" Description="Sidebar label, breadcrumb tail, page title tag. Falls back to a title-cased slug (my-page.md → My Page)." />
 <TypeRow Name="description" Type="string" Description="Sidebar tooltip, page subtitle under H1, meta description. Indexed by search : matches on description weight higher than body matches." />
 <TypeRow Name="order" Type="int" Default="0" Description="Sort order within a folder when meta.json doesn't list the page explicitly. Lower first; ties fall back to alphabetical." />
-<TypeRow Name="category" Type="string?" Description="Optional grouping label. Currently surfaced as `NavigationNode.Category` : reserved for future sidebar grouping." />
+<TypeRow Name="category" Type="string?" Description="Optional grouping label. Currently surfaced as NavigationNode.Category : reserved for future sidebar grouping." />
 </TypeTable>
+
+## Using the title as the page heading
+
+By default the page heading is whatever `# Heading` the body starts with. Turn on `RenderPageTitle` and a page whose body does not start with a heading gets one from frontmatter: `title` becomes the heading and `description` a lead paragraph under it.
+
+```csharp
+builder.Services.AddShellDocs(o =>
+{
+    o.RenderPageTitle = true;
+});
+```
+
+A body that starts with its own `# Heading` is left as written, so you can adopt this page by page.
 
 ## Free-form keys
 
@@ -94,6 +107,6 @@ Broken YAML doesn't throw : the page just renders with defaults. If a page's sid
 ## See also
 
 <CardGrid Columns="2">
-<LinkCard Title="Navigation" Description="How `order` interacts with `meta.json`." Href="/docs/authoring/navigation" />
-<LinkCard Title="ShellDocs.Core" Description="`FrontmatterParser` API details." Href="/docs/packages/core" />
+<LinkCard Title="Navigation" Description="How order interacts with meta.json." Href="/docs/authoring/navigation" />
+<LinkCard Title="ShellDocs.Core" Description="FrontmatterParser API details." Href="/docs/packages/core" />
 </CardGrid>

@@ -1,49 +1,61 @@
 ---
 title: ComponentPreview
-description: Inline-tag alternative to razor:preview fences : live render + reveal-on-click source, authored as a mid-prose tag.
-order: 10
+description: A live preview written as a tag. Names the component in an attribute and passes the rest through.
+order: 12
 ---
 
 # ComponentPreview
 
-`ComponentPreview` is the tag-based sibling of `PreviewFrame`. Where a ` ```razor:preview ` fence wraps a whole demo, `<ComponentPreview>` lets you drop one mid-prose : the target component name goes in a `Component` attribute, extra props flow through, and the source view is reconstructed from those attributes.
+`ComponentPreview` is a preview written as a tag instead of a fence. The target component goes in `Component`, every other attribute is forwarded to it, and the Code tab shows the tag you would write in Razor.
 
-<Callout Variant="tip" Title="When to reach for it">
-Use `razor:preview` fences for **most** live examples : they read more naturally in the source markdown. Reach for `<ComponentPreview>` when you need a demo inside a component tag that a fence can't sit inside (e.g. inside a `Card` body, a `Step`, a `Callout`), or when you want a super-compact one-liner demo without opening a fence block.
+<Callout Variant="tip" Title="Prefer the fence">
+A `razor:preview` fence reads better in the page source and keeps your formatting in the Code tab. Use `ComponentPreview` when a preview has to sit inside another tag's body, such as a `Step` or a `Tab`, where a fence would need blank lines around it.
 </Callout>
 
 ## Basic use
 
-```razor:preview
-<ComponentPreview Component="Callout" Variant="info" Title="Hello">
-Body text authored right on the tag.
-</ComponentPreview>
+<ComponentPreview Component="Callout" Variant="info" Title="Hello">Body text written on the tag.</ComponentPreview>
+
+```markdown
+<ComponentPreview Component="Callout" Variant="info" Title="Hello">Body text written on the tag.</ComponentPreview>
 ```
 
-## How it differs from a fence
+## Fence or tag
 
 <TypeTable>
-<TypeRow Name="Source of truth" Type="fence" Description="`razor:preview` : the fence body IS the source view (verbatim). Any indentation, comments, or extra whitespace shows up in the copy button." />
-<TypeRow Name="Source of truth" Type="tag" Description="`ComponentPreview` : the source view is REBUILT from `Component` + captured attributes + child content. Attribute order is alphabetized." />
-<TypeRow Name="Nesting" Type="fence" Description="A fence can't sit inside another component tag (fences break the tag scanner). Use ComponentPreview when the demo needs to live inside a Callout / Card / Step body." />
-<TypeRow Name="Compactness" Type="tag" Description="One-line usage : `<ComponentPreview Component=\"Callout\" Variant=\"tip\">Nice</ComponentPreview>` is shorter than a fence." />
+<TypeRow Name="Code tab, fence" Type="fence" Description="Shows the fence body exactly as written, including indentation and comments." />
+<TypeRow Name="Code tab, tag" Type="tag" Description="Rebuilt from the component name, the attributes in alphabetical order, and the body." />
+<TypeRow Name="Several components" Type="fence" Description="A fence can hold sibling tags and wrapper elements." />
+<TypeRow Name="One component" Type="tag" Description="A tag previews exactly one component." />
 </TypeTable>
 
-## Captured attributes
+## Forwarded attributes
 
-Attributes other than `Component`, `ChildContent`, and `ChildContentSource` are captured via `CaptureUnmatchedValues` and forwarded to the target component. Attribute string values get the same per-property type coercion as fence attributes.
+Attributes other than `Component` and `Layout` are forwarded to the target, converted to each parameter's type the same way a fence converts them. A value that can't be converted is skipped with a logged warning and the component still renders.
 
-```razor:preview
-<ComponentPreview Component="Card" Title="Coerced" Description="Attribute values are coerced to the target property's type at render time." />
+<ComponentPreview Component="Card" Title="Forwarded" Description="Title and Description went straight to Card." />
+
+## Child content
+
+The body is parsed as Razor, like a fence body, so nested tags stay where you put them and nothing is wrapped in a paragraph. Direct child tags that match one of the target's `RenderFragment` parameters go into that slot.
+
+## Generic components
+
+Close a generic target with a type-parameter attribute, as in Razor:
+
+```markdown
+<ComponentPreview Component="DataGrid" TItem="Product" />
 ```
 
-## Rendering-order gotcha: extra props
+See [razor:preview](/docs/authoring/razor-preview) for the accepted type spellings.
 
-`ExtraProps` are captured as `string` → `object` : when the source is a string and the target's property is not a string, `SlotRenderer.Coerce` converts. When the target property is `RenderFragment` (like `ChildContent`), the framework passes `ChildContent` in explicitly. Consequence: you can't set a `RenderFragment` prop other than `ChildContent` via attributes. In practice this is only a concern if the target defines multiple render fragments.
+## Layout
+
+`Layout="stretch"` lets a block-level target fill the frame. `Layout="scroll"` lets a wide one scroll on small screens. See [PreviewFrame](/docs/components/preview-frame).
 
 ## Unknown component
 
-When `Component` resolves to no registered type (via `TypeRegistry.Resolve`), the render region shows a small `Unknown component: <Name>` error instead. Fix by registering the assembly:
+When `Component` doesn't match a registered type, the frame shows an error panel naming the tag. Register the assembly:
 
 ```csharp
 builder.Services.AddShellDocs(o =>
@@ -55,15 +67,15 @@ builder.Services.AddShellDocs(o =>
 ## Props
 
 <TypeTable>
-<TypeRow Name="Component" Type="string" Default="—" Required="true" Description="Target component tag name (case-sensitive : must match the type name exactly)." />
-<TypeRow Name="ChildContent" Type="RenderFragment?" Default="—" Description="Rendered as the target's ChildContent. Supports full markdown." />
-<TypeRow Name="ChildContentSource" Type="string?" Default="—" Description="Threaded in by the markdown pipeline : the raw inner text used to reconstruct the source view. Not something you set manually." />
-<TypeRow Name="ExtraProps" Type="IReadOnlyDictionary&lt;string,object&gt;?" Default="—" Description="Auto-captured : every attribute not matched above is forwarded to the target with type coercion." />
+<TypeRow Name="Component" Type="string" Default="—" Required="true" Description="Tag name of the component to preview." />
+<TypeRow Name="Layout" Type="string?" Default="center" Description="center, stretch or scroll." />
+<TypeRow Name="ChildContent" Type="RenderFragment?" Default="—" Description="Passed to the target as its child content." />
+<TypeRow Name="other attributes" Type="any" Default="—" Description="Forwarded to the target component." />
 </TypeTable>
 
 ## See also
 
 <CardGrid Columns="2">
-<LinkCard Title="PreviewFrame" Description="The fence-based live-demo primitive." Href="/docs/components/preview-frame" />
-<LinkCard Title="Authoring : inline component tags" Description="How mid-prose tags become live components." Href="/docs/authoring/component-tags" />
+<LinkCard Title="PreviewFrame" Description="The frame, its toolbar and layouts." Href="/docs/components/preview-frame" />
+<LinkCard Title="DemoPreview" Description="Previews of components that need their own code block." Href="/docs/components/demo-preview" />
 </CardGrid>

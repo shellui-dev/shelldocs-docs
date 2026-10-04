@@ -62,7 +62,7 @@ dotnet watch --project <csproj> --non-interactive run --urls http://localhost:<p
 ## Options
 
 <TypeTable>
-<TypeRow Name="--dir" Type="string" Default="cwd" Description="Project directory. `dev` looks for a `.csproj` here." />
+<TypeRow Name="--dir" Type="string" Default="cwd" Description="Project directory. dev looks for a .csproj here." />
 <TypeRow Name="--port" Type="int" Default="5000" Description="Port to bind on." />
 </TypeTable>
 
@@ -70,8 +70,8 @@ dotnet watch --project <csproj> --non-interactive run --urls http://localhost:<p
 
 <TypeTable>
 <TypeRow Name="0" Type="ok" Description="Server shut down cleanly (e.g. Ctrl+C)." />
-<TypeRow Name="1" Type="usage" Description="No `.csproj` found in the target directory." />
-<TypeRow Name="other" Type="pass-through" Description="`dotnet watch run` exit code propagated." />
+<TypeRow Name="1" Type="usage" Description="No .csproj found in the target directory." />
+<TypeRow Name="other" Type="pass-through" Description="dotnet watch run exit code propagated." />
 </TypeTable>
 
 ## Skipping the CLI
@@ -82,5 +82,5 @@ dotnet watch --project <csproj> --non-interactive run --urls http://localhost:<p
 
 <CardGrid Columns="2">
 <LinkCard Title="shelldocs build" Description="Publish a static site once you're ready to deploy." Href="/docs/cli/build" />
-<LinkCard Title="Quick start" Description="Full walkthrough from `init` to `dev`." Href="/docs/getting-started/quick-start" />
+<LinkCard Title="Quick start" Description="Full walkthrough from init to dev." Href="/docs/getting-started/quick-start" />
 </CardGrid>

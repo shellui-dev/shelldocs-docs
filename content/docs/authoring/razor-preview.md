@@ -1,98 +1,140 @@
 ---
 title: razor:preview
-description: The special fence that renders as a live component demo with reveal-on-click source.
+description: The fence that renders as a live example with Preview and Code tabs.
 order: 3
 ---
 
 # `razor:preview`
 
-The `razor:preview` fence is what makes ShellDocs feel like a live playground instead of a screenshot gallery. Write a fenced code block, mark its language `razor:preview`, and the framework mounts the component in real Blazor above a collapsed source view.
+A `razor:preview` fence renders its contents as live components and shows the same markup in a Code tab. You write the example once, as Razor, and the reader sees it running and can copy it.
 
 ## Basic use
 
-Fence body is one component tag (self-closing or with children). The tag name must match a component registered in `ShellDocs.Components` or one of your own registered libraries.
-
-````markdown
-```razor:preview
-<Callout Variant="tip" Title="Live demo">
-This whole block renders as a real Callout component.
-</Callout>
-```
-````
-
-Renders as:
+<pre><code class="language-markdown">&#96;&#96;&#96;razor:preview
+&lt;Callout Variant="tip" Title="Live example"&gt;
+This renders as a real Callout component.
+&lt;/Callout&gt;
+&#96;&#96;&#96;
+</code></pre>
 
 ```razor:preview
-<Callout Variant="tip" Title="Live demo">
-This whole block renders as a real Callout component.
+<Callout Variant="tip" Title="Live example">
+This renders as a real Callout component.
 </Callout>
 ```
 
-Click **View Code** in the source panel to reveal the raw fence body : then click **Collapse** to hide it again or the copy button to grab the source.
+The tags must be components registered with ShellDocs : the built-in primitives, or [your own](/docs/guides/component-libraries).
 
-## Attribute coercion
+## The body is Razor, not markdown
 
-Attributes in the fence are all strings, but Blazor `[Parameter]` properties are typed. `SlotRenderer.BuildParameters` reflects on the target's props and coerces at render time.
+Everything inside the fence is parsed as Razor markup, so the Code tab shows exactly what belongs in a `.razor` file. Elements wrap nested components as written and no text is wrapped in a paragraph.
+
+Markdown syntax inside a fence renders literally. Use HTML for inline formatting:
+
+```razor:preview
+<Callout Variant="info" Title="HTML inside a preview">
+Run <code>shelldocs dev</code>, then open <strong>/docs/introduction</strong>.
+</Callout>
+```
+
+<Callout Variant="info" Title="Markdown bodies live in the page, not the fence">
+A component tag written straight into the page takes a markdown body. See [Inline component tags](/docs/authoring/component-tags).
+</Callout>
+
+## Several components and wrapper elements
+
+A fence can hold any number of top-level tags. They render in order inside one frame.
+
+```razor:preview stretch
+<Callout Variant="info" Title="First">Two components in one fence.</Callout>
+<Callout Variant="tip" Title="Second">Rendered in order.</Callout>
+```
+
+Plain HTML wrappers work too, which is how you lay an example out:
+
+```razor:preview
+<div style="display:flex; gap:1rem">
+<Card Title="Left" Description="Inside a flex row." />
+<Card Title="Right" Description="Inside the same row." />
+</div>
+```
+
+## Named slots
+
+A direct child tag whose name matches one of the component's `RenderFragment` parameters goes into that slot. Everything else becomes `ChildContent`.
+
+```razor
+<Alert Title="Heads up">
+    <Icon><svg>…</svg></Icon>
+    Body text.
+    <Footer>Small print.</Footer>
+</Alert>
+```
+
+Here `Icon` and `Footer` fill `Alert.Icon` and `Alert.Footer`, and the loose text fills `Alert.ChildContent`. This is what lets a fence preview composed components such as dialogs, cards with headers, and tab lists.
+
+## Attribute values
+
+Attributes are written as in Razor and converted to each parameter's type.
+
+| Written as | Parameter type | Result |
+|---|---|---|
+| `Columns="3"` or `Columns="@3"` | `int` | `3` |
+| `External="true"` or `External="@true"` | `bool` | `true` |
+| `Variant="Destructive"` | enum | Looked up by name, ignoring case |
+| `Variant="ButtonVariant.Destructive"` | enum | The qualified form works too, with or without `@` |
+| `Sides="Left \| Right"` | flags enum | Combined |
+| `Href="/docs"` | `string` | Left as written |
+
+Parameter names match without regard to case, as in Blazor.
+
+Some attributes can't be applied from markdown: event callbacks (`OnClick="Save"`), `@bind-*`, `@ref`, `@onclick`, and values that can't be converted. They are skipped with a logged warning, the component still renders, and the Code tab still shows them. That keeps a realistic example copyable without breaking the page.
+
+Lines that are not markup, such as `@code { }` blocks, `@* comments *@` and `@using` lines, are left out of the render and kept in the Code tab.
+
+## Generic components
+
+A generic component registers under its bare name. Close it with a type-parameter attribute, as in Razor:
+
+```razor
+<DataGrid TItem="Product" />
+```
+
+Type arguments use C# spellings: `int?`, `List<string>`, or a simple or full type name. Without one, `object` is used when the constraints allow it and a warning is logged. If the type can't be closed the frame shows an error instead of breaking the page.
+
+## Layout
+
+Add `stretch` or `scroll` after the language to change how the example sits in the frame.
+
+<pre><code class="language-markdown">&#96;&#96;&#96;razor:preview stretch
+&lt;TypeTable&gt;…&lt;/TypeTable&gt;
+&#96;&#96;&#96;
+</code></pre>
 
 <TypeTable>
-<TypeRow Name="Variant" Type="string → enum" Description="Enum-typed prop : the string value is looked up by name (case-insensitive)." />
-<TypeRow Name="Columns" Type="string → int" Description="Numeric prop : parsed via `int.TryParse`." />
-<TypeRow Name="Required" Type="string → bool" Description="Boolean prop : `true` / `false` (case-insensitive)." />
-<TypeRow Name="Href" Type="string → string" Description="String prop : left as-is." />
+<TypeRow Name="razor:preview" Type="center" Description="Centred, sized to its content. The default." />
+<TypeRow Name="razor:preview stretch" Type="stretch" Description="Block-level components fill the frame." />
+<TypeRow Name="razor:preview scroll" Type="scroll" Description="A wide example scrolls inside the frame on small screens." />
 </TypeTable>
 
-## Child content
-
-Non-self-closing tags carry their inner text as `ChildContentRaw`. `SlotRenderer.Dedent` normalizes the common leading whitespace, then Markdig parses the body : the result is handed to the target as `ChildContent`.
-
-Consequence: **you can use full markdown inside the body** : lists, code blocks, nested components.
-
-```razor:preview
-<Callout Variant="info" Title="Nested markdown">
-- List items work
-- **Bold**, *italic*, `inline code`
-- Nested primitives: <Callout Variant="tip">Even a Callout inside a Callout.</Callout>
-</Callout>
-```
-
-## Multi-child example
-
-Container components (`Steps`, `CardGrid`, `Tabs`) work exactly the same way : the fence body carries their children as raw markup.
-
-```razor:preview
-<CardGrid Columns="2">
-<Card Title="Card A" Description="First tile." />
-<Card Title="Card B" Description="Second tile." />
-</CardGrid>
-```
+More on each in [PreviewFrame](/docs/components/preview-frame).
 
 ## Unknown components
 
-If the tag inside a `razor:preview` fence resolves to no registered component, the fence is left as a regular code block and a warning is added to the document's warnings list. Fix by registering the assembly:
+If no tag in the fence is a registered component, the frame shows an error panel that names the tag and how to register it. A warning is written to the log as well.
 
-```csharp
-builder.Services.AddShellDocs(o =>
-{
-    o.RegisterComponentsFromAssembly<MyMarker>();
-});
-```
+## When a fence isn't enough
 
-## Multiple tags in one fence?
-
-The parser expects **one root tag** per fence : the first opening tag becomes the target, its matching close (or self-close) bounds the demo. Additional sibling tags inside the fence body work if they're wrapped in a container : bare sibling tags at the fence root aren't the officially-supported shape.
-
-<Callout Variant="tip" Title="If you need multiple examples, use multiple fences">
-Two fences render as two side-by-side (or stacked) previews. Clean and easy to reason about.
-</Callout>
-
-## `razor:preview` vs `<ComponentPreview>`
-
-The fence is the standard way; `<ComponentPreview>` is the inline-tag alternative for when a fence can't sit inside another component tag. Trade-offs covered in [ComponentPreview](/docs/components/component-preview).
+<TypeTable>
+<TypeRow Name="Needs a code block, state or a loop" Type="DemoPreview" Description="Write the example as a .razor file in the docs project. Its file is the source shown." />
+<TypeRow Name="Has to sit inside another tag's body" Type="ComponentPreview" Description="A preview written as a tag." />
+</TypeTable>
 
 ## See also
 
 <CardGrid Columns="2">
-<LinkCard Title="PreviewFrame" Description="The chrome that wraps the fence : render on top, source below." Href="/docs/components/preview-frame" />
-<LinkCard Title="Inline component tags" Description="Mid-prose `<Callout>` and friends : same coercion, no source view." Href="/docs/authoring/component-tags" />
-<LinkCard Title="Register your components" Description="`RegisterComponentsFromAssembly<TMarker>()` to expose your library's tags." Href="/docs/getting-started/configuration" />
+<LinkCard Title="PreviewFrame" Description="The toolbar, layouts and anchors." Href="/docs/components/preview-frame" />
+<LinkCard Title="DemoPreview" Description="Examples with their own code block." Href="/docs/components/demo-preview" />
+<LinkCard Title="Inline component tags" Description="Components in page prose, with markdown bodies." Href="/docs/authoring/component-tags" />
+<LinkCard Title="Documenting a component library" Description="Registering your own components." Href="/docs/guides/component-libraries" />
 </CardGrid>

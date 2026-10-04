@@ -15,8 +15,20 @@ Design-system interoperability is a real concern in the .NET ecosystem : MudBlaz
 ## Install
 
 <CodeGroup SyncKey="pkg">
-<CodeTab Label="dotnet CLI">dotnet add package ShellDocs.Tokens --prerelease</CodeTab>
-<CodeTab Label="PackageReference">&lt;PackageReference Include="ShellDocs.Tokens" Version="0.1.1-alpha" /&gt;</CodeTab>
+<CodeTab Label="dotnet CLI">
+
+```bash
+dotnet add package ShellDocs.Tokens --prerelease
+```
+
+</CodeTab>
+<CodeTab Label="PackageReference">
+
+```xml
+<PackageReference Include="ShellDocs.Tokens" Version="0.1.11-alpha" />
+```
+
+</CodeTab>
 </CodeGroup>
 
 Then reference the CSS in your `App.razor`:
@@ -43,9 +55,9 @@ Two `:root` blocks : one for light mode, one for `:root.dark`. All the essential
 <TypeRow Name="--border" Type="oklch" Description="Default border color." />
 <TypeRow Name="--accent" Type="oklch" Description="Secondary accent : badges, chips, focus rings." />
 <TypeRow Name="--destructive" Type="oklch" Description="Danger : error states, delete buttons." />
-<TypeRow Name="--radius" Type="rem" Description="Base border-radius. Chrome uses `calc(var(--radius) + N)` for varied roundness." />
+<TypeRow Name="--radius" Type="rem" Description="Base border-radius. Chrome uses calc(var(--radius) + N) for varied roundness." />
 <TypeRow Name="--font-sans" Type="stack" Description="Sans-serif stack for prose + UI." />
-<TypeRow Name="--font-mono" Type="stack" Description="Monospace stack for code + inline `<code>`." />
+<TypeRow Name="--font-mono" Type="stack" Description="Monospace stack for code + inline code." />
 </TypeTable>
 
 ## Overriding tokens

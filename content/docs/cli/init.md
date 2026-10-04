@@ -29,7 +29,7 @@ Produces `MyDocs/` in the current directory (or, when called with no `path`, `do
 Scaffolds a fresh Blazor Web App using the standard template. Fails fast if the target directory exists and isn't empty : use `--attach` instead of overwriting.
 </Step>
 <Step Title="Adds package references">
-Injects `<PackageReference Include="ShellDocs.Components" />` and `<PackageReference Include="ShellDocs.Tokens" />` into the freshly-created `.csproj`. Both pinned to the CLI's shipped version.
+Injects `<PackageReference Include="ShellDocs.Components" />` and `<PackageReference Include="ShellDocs.Tokens" />` into the freshly-created `.csproj`. Both are pinned to the CLI's own version, so the scaffold always matches the tool that made it.
 </Step>
 <Step Title="Adds content copy-to-output">
 Inserts a `<Content Update="content/**/*.md;content/**/meta.json" CopyToOutputDirectory="PreserveNewest" />` group so `dotnet publish` carries the markdown corpus into the publish output.
@@ -99,11 +99,11 @@ A per-project setup guide with copy-paste snippets for the exact `AddShellDocs`,
 ## Options
 
 <TypeTable>
-<TypeRow Name="path" Type="argument" Description="Target directory for the new docs project. Default: `docs/<CwdName>.Docs`. Ignored with `--attach`." />
-<TypeRow Name="--dir" Type="string" Default="cwd" Description="Working directory. With `--attach`, the project directory to augment." />
+<TypeRow Name="path" Type="argument" Description="Target directory for the new docs project. Default: docs/{CwdName}.Docs. Ignored with --attach." />
+<TypeRow Name="--dir" Type="string" Default="cwd" Description="Working directory. With --attach, the project directory to augment." />
 <TypeRow Name="--attach" Type="bool" Default="false" Description="Attach mode : augment an existing Blazor project instead of creating one." />
 <TypeRow Name="--yes" Type="bool" Default="false" Description="Non-interactive : skip the GitHub-repo prompt, take defaults everywhere." />
-<TypeRow Name="--theme" Type="string" Default='"shadcn"' Description="Theme preset : `shadcn`, `fuma`, `nextra`. Currently informational : all presets ship the same token file (see [theming](/docs/theming))." />
+<TypeRow Name="--theme" Type="string" Default="shadcn" Description="Accepted values are shadcn, fuma and nextra. Has no effect in this release: every site gets the same tokens." />
 </TypeTable>
 
 ## Exit codes
@@ -111,7 +111,7 @@ A per-project setup guide with copy-paste snippets for the exact `AddShellDocs`,
 <TypeTable>
 <TypeRow Name="0" Type="ok" Description="Scaffolding completed (create) or attach patches wrote." />
 <TypeRow Name="1" Type="usage" Description="Target directory exists and isn't empty (create), or target is not a Blazor project (attach), or missing/invalid arguments." />
-<TypeRow Name="other" Type="pass-through" Description="`dotnet new blazor` exit code propagated (create mode)." />
+<TypeRow Name="other" Type="pass-through" Description="dotnet new blazor exit code propagated (create mode)." />
 </TypeTable>
 
 ## See also

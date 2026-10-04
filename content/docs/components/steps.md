@@ -13,13 +13,13 @@ order: 5
 ```razor:preview
 <Steps>
 <Step Title="Install the CLI">
-`dotnet tool install -g ShellDocs.CLI --prerelease`
+Run <code>dotnet tool install -g ShellDocs.CLI --prerelease</code>.
 </Step>
 <Step Title="Scaffold">
-`shelldocs init MyDocs` : produces `docs/MyDocs.Docs/` with a working site.
+<code>shelldocs init MyDocs</code> produces <code>docs/MyDocs.Docs/</code> with a working site.
 </Step>
 <Step Title="Run">
-`shelldocs dev` : hot-reload on `.md`, `.razor`, `.cs` edits.
+<code>shelldocs dev</code> hot-reloads on .md, .razor and .cs edits.
 </Step>
 </Steps>
 ```
@@ -38,43 +38,71 @@ order: 5
 
 ## Rich step bodies
 
-`Step` children can contain any markdown : code blocks, callouts, nested components. The rail extends through the full body.
+Written as an inline tag in the page, a `Step` takes a markdown body : fenced code, callouts, nested components. Leave a blank line between the tag and a fence. The rail extends through the full body.
 
-```razor:preview
 <Steps>
 <Step Title="Add the package">
-```
+
+```bash
 dotnet add package ShellDocs.Components --prerelease
 ```
+
 </Step>
 <Step Title="Register the services">
+
 Add a line to `Program.cs`:
 
 ```csharp
 builder.Services.AddShellDocs();
 ```
+
 </Step>
 <Step Title="Verify">
+
 <Callout Variant="tip" Title="Nested primitives work">
 Callouts, cards, code groups : anything you can use in top-level prose also works inside a `Step`.
 </Callout>
+
 </Step>
 </Steps>
-```
+
+The source for that block:
+
+<pre><code class="language-markdown">&lt;Steps&gt;
+&lt;Step Title="Add the package"&gt;
+
+&#96;&#96;&#96;bash
+dotnet add package ShellDocs.Components --prerelease
+&#96;&#96;&#96;
+
+&lt;/Step&gt;
+&lt;Step Title="Register the services"&gt;
+
+Add a line to &#96;Program.cs&#96;:
+
+&#96;&#96;&#96;csharp
+builder.Services.AddShellDocs();
+&#96;&#96;&#96;
+
+&lt;/Step&gt;
+&lt;/Steps&gt;
+</code></pre>
+
+Use the inline form for real walk-throughs. Keep `razor:preview` for showing the component itself : fence bodies are Razor, so markdown inside them renders literally.
 
 ## Props
 
 ### Steps
 
 <TypeTable>
-<TypeRow Name="ChildContent" Type="RenderFragment?" Default="—" Description="The `<Step>` children." />
+<TypeRow Name="ChildContent" Type="RenderFragment?" Default="—" Description="The Step children." />
 </TypeTable>
 
 ### Step
 
 <TypeTable>
 <TypeRow Name="Title" Type="string?" Default="—" Description="Optional title, rendered next to the numbered badge." />
-<TypeRow Name="ChildContent" Type="RenderFragment?" Default="—" Description="Step body. Supports full markdown when authored in a `.md` file." />
+<TypeRow Name="ChildContent" Type="RenderFragment?" Default="—" Description="Step body. Markdown when written as an inline tag, Razor inside a preview fence." />
 </TypeTable>
 
 ## When to use

@@ -17,9 +17,9 @@ shelldocs add <template> <name> [--dir <dir>] [--force]
 ## Templates
 
 <TypeTable>
-<TypeRow Name="component" Type="template" Description="Starter page for a UI primitive. Preloaded with a `razor:preview` fence and a `TypeTable` skeleton. Goes to `content/docs/components/<slug>.md`." />
-<TypeRow Name="guide" Type="template" Description="Starter walk-through. Preloaded with a `Steps` skeleton. Goes to `content/docs/guides/<slug>.md`." />
-<TypeRow Name="page" Type="template" Description="Blank page : just frontmatter and an H1. Goes to `content/docs/<slug>.md`." />
+<TypeRow Name="component" Type="template" Description="Starter page for a UI primitive. Preloaded with a razor:preview fence and a TypeTable skeleton. Goes to content/docs/components/{slug}.md." />
+<TypeRow Name="guide" Type="template" Description="Starter walk-through. Preloaded with a Steps skeleton. Goes to content/docs/guides/{slug}.md." />
+<TypeRow Name="page" Type="template" Description="Blank page : just frontmatter and an H1. Goes to content/docs/{slug}.md." />
 </TypeTable>
 
 ## Examples
@@ -35,10 +35,10 @@ shelldocs add page faq                 # → content/docs/faq.md
 The `<name>` argument is slugified before it becomes a filename : PascalCase gets kebab-cased, spaces and underscores collapse to `-`, non-alphanumerics drop out.
 
 <TypeTable>
-<TypeRow Name="MyBigCard" Type="→" Description="`my-big-card.md`" />
-<TypeRow Name="getting-started" Type="→" Description="`getting-started.md`" />
-<TypeRow Name="Getting Started" Type="→" Description="`getting-started.md`" />
-<TypeRow Name="FAQ_v2" Type="→" Description="`faq-v2.md`" />
+<TypeRow Name="MyBigCard" Type="→" Description="my-big-card.md" />
+<TypeRow Name="getting-started" Type="→" Description="getting-started.md" />
+<TypeRow Name="Getting Started" Type="→" Description="getting-started.md" />
+<TypeRow Name="FAQ_v2" Type="→" Description="faq-v2.md" />
 </TypeTable>
 
 The frontmatter `title` uses a display-friendly variant:
@@ -57,9 +57,9 @@ shelldocs add page faq --force   # replaces content/docs/faq.md
 ## Options
 
 <TypeTable>
-<TypeRow Name="template" Type="argument" Required="true" Description="One of `component`, `guide`, `page`." />
+<TypeRow Name="template" Type="argument" Required="true" Description="One of component, guide, page." />
 <TypeRow Name="name" Type="argument" Required="true" Description="Page name. PascalCase for components, kebab / spaces / snake accepted for guides & pages." />
-<TypeRow Name="--dir" Type="string" Default="cwd" Description="Project directory. `add` looks for `content/` under this path." />
+<TypeRow Name="--dir" Type="string" Default="cwd" Description="Project directory. add looks for content/ under this path." />
 <TypeRow Name="--force" Type="bool" Default="false" Description="Overwrite an existing file with the same slug." />
 </TypeTable>
 
@@ -67,7 +67,7 @@ shelldocs add page faq --force   # replaces content/docs/faq.md
 
 <TypeTable>
 <TypeRow Name="0" Type="ok" Description="Page written." />
-<TypeRow Name="1" Type="usage" Description="Missing arguments, unknown template, no `content/` directory found, or file exists without `--force`." />
+<TypeRow Name="1" Type="usage" Description="Missing arguments, unknown template, no content/ directory found, or file exists without --force." />
 </TypeTable>
 
 ## Skipping the CLI

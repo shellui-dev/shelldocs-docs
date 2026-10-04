@@ -1,6 +1,6 @@
 # shelldocs-docs
 
-Source for [**shelldocs.dev**](https://shelldocs.dev) — the official documentation site for [ShellDocs](https://github.com/shellui-dev/shelldocs), the docs framework for .NET.
+Source for [**shelldocs.shellui.dev**](https://shelldocs.shellui.dev) — the official documentation site for [ShellDocs](https://github.com/shellui-dev/shelldocs), the docs framework for .NET.
 
 This repo IS a ShellDocs site — a Blazor Web App consuming the published `ShellDocs.*` NuGet packages. It's the primary consumer proof of the framework and the reference for what a well-authored ShellDocs site looks like.
 
@@ -56,16 +56,19 @@ content/
       quick-start.md
       project-structure.md
       configuration.md
-    authoring/          (planned)
-    configuration/      (planned)
-    components/         (planned)
-    cli/                (planned)
-    theming.md          (planned)
+    authoring/          frontmatter, code fences, razor:preview, inline tags, navigation
+    components/         one page per content primitive
+    guides/             component libraries, versioning, redirects, deployment
+    cli/                init, add, dev, build
+    theming.md
+    packages/           one overview per NuGet package
+Components/
+  Demos/                demo components shown with <DemoPreview>
 ```
 
 ## Framework version
 
-The site currently references `ShellDocs.* 0.1.1-alpha`. Bump `ShellDocs.Site.csproj` on new alpha / beta releases.
+The site references `ShellDocs.* 0.1.11-alpha`. On a new release, bump the four package versions in `ShellDocs.Site.csproj` and the CLI version pinned in `.github/workflows/deploy-pages.yml` together.
 
 ## License
 

@@ -29,7 +29,7 @@ The canonical use : pair with `CardGrid` for prev/next-style "keep reading" tile
 ```razor:preview
 <CardGrid Columns="2">
 <LinkCard Title="Configuration" Description="Site title, brand logo, sidebar variant, package selector." Href="/docs/getting-started/configuration" />
-<LinkCard Title="Project structure" Description="What `shelldocs init` created, what each folder does." Href="/docs/getting-started/project-structure" />
+<LinkCard Title="Project structure" Description="What shelldocs init created, what each folder does." Href="/docs/getting-started/project-structure" />
 </CardGrid>
 ```
 
@@ -39,16 +39,16 @@ The canonical use : pair with `CardGrid` for prev/next-style "keep reading" tile
 <TypeRow Name="Href" Type="string" Default='"#"' Required="true" Description="Target URL. Required : LinkCard is always a link." />
 <TypeRow Name="Title" Type="string?" Default="—" Description="Title, bold, primary color." />
 <TypeRow Name="Description" Type="string?" Default="—" Description="Short muted description below the title." />
-<TypeRow Name="External" Type="bool" Default="false" Description="When true, adds `target='_blank'` and `rel='noopener'`." />
+<TypeRow Name="External" Type="bool" Default="false" Description="When true, adds target='_blank' and rel='noopener'." />
 </TypeTable>
 
 ## LinkCard vs Card
 
 <TypeTable>
-<TypeRow Name="Always a link" Type="LinkCard" Description="`Href` is required. The trailing arrow signals click affordance visually." />
-<TypeRow Name="Sometimes a link" Type="Card" Description="`Href` is optional : renders as `<a>` when set, `<div>` otherwise. No arrow glyph." />
-<TypeRow Name="Rich body" Type="Card" Description="`Card` accepts ChildContent for lists, code blocks, nested components. `LinkCard` is title + description only." />
-<TypeRow Name="Icon slot" Type="Card" Description="Only `Card` renders an `IconSvg` above the title." />
+<TypeRow Name="Always a link" Type="LinkCard" Description="Href is required. The trailing arrow signals click affordance visually." />
+<TypeRow Name="Sometimes a link" Type="Card" Description="Href is optional : renders as a link when set, a plain block otherwise. No arrow glyph." />
+<TypeRow Name="Rich body" Type="Card" Description="Card accepts ChildContent for lists, code blocks, nested components. LinkCard is title + description only." />
+<TypeRow Name="Icon slot" Type="Card" Description="Only Card renders an IconSvg above the title." />
 </TypeTable>
 
 ## See also

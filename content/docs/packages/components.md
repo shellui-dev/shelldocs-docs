@@ -15,8 +15,20 @@ order: 1
 ## Install
 
 <CodeGroup SyncKey="pkg">
-<CodeTab Label="dotnet CLI">dotnet add package ShellDocs.Components --prerelease</CodeTab>
-<CodeTab Label="PackageReference">&lt;PackageReference Include="ShellDocs.Components" Version="0.1.1-alpha" /&gt;</CodeTab>
+<CodeTab Label="dotnet CLI">
+
+```bash
+dotnet add package ShellDocs.Components --prerelease
+```
+
+</CodeTab>
+<CodeTab Label="PackageReference">
+
+```xml
+<PackageReference Include="ShellDocs.Components" Version="0.1.11-alpha" />
+```
+
+</CodeTab>
 </CodeGroup>
 
 ## What's inside
@@ -31,27 +43,32 @@ Two categories: **chrome** (the layout, header, sidebar, search : the site's ske
 <TypeRow Name="DocsSidebar" Type="component" Description="Sidebar nav tree : auto-populated from the content folder. Collapsible sections, active-path highlighting." />
 <TypeRow Name="DocsSidebarHeader" Type="component" Description="Sidebar top : brand logo + collapse toggle + search field (Sidebar variant only)." />
 <TypeRow Name="DocsFooter" Type="component" Description="Footer band : brand, tagline, socials, columns of links." />
-<TypeRow Name="DocsMobileBar" Type="component" Description="Sticky top bar on mobile : hamburger opens the sidebar drawer." />
+<TypeRow Name="DocsMobileBar" Type="component" Description="Sticky top bar on mobile : hamburger opens the sidebar drawer. Driven by shelldocs.js, so it works on static hosts." />
 <TypeRow Name="DocsBreadcrumb" Type="component" Description="Trail from root → current page, auto-derived from the nav graph." />
 <TypeRow Name="TableOfContents" Type="component" Description="Right-rail on-this-page nav, scroll-spy indicator." />
 <TypeRow Name="PrevNextNav" Type="component" Description="Bottom-of-page prev/next cards, auto-derived from nav adjacency." />
-<TypeRow Name="SearchDialog" Type="component" Description="Cmd+K modal with client-side substring scoring against titles, sections, and body text." />
+<TypeRow Name="SearchDialog" Type="component" Description="Cmd+K modal that searches titles, sections and body text. Needs the running app." />
 <TypeRow Name="PackageSelector" Type="component" Description="Sidebar dropdown for switching between package families." />
-<TypeRow Name="BrandLogo" Type="component" Description="Renders your `LogoSvg` (inline) or `LogoLight`/`LogoDark` (URLs), with a placeholder dot fallback." />
-<TypeRow Name="ThemeToggle" Type="component" Description="Sun/moon theme switch. Persists to localStorage." />
+<TypeRow Name="VersionSelector" Type="component" Description="Dropdown for switching docs version. Shown once two or more versions are registered." />
+<TypeRow Name="BrandLogo" Type="component" Description="Renders your LogoSvg (inline) or LogoLight/LogoDark (URLs), with a placeholder dot fallback." />
+<TypeRow Name="ThemeToggle" Type="component" Description="Sun and moon theme switch. Handled by shelldocs.js, stored in localStorage, follows the dark class on the html element." />
 </TypeTable>
 
 ### Content primitives (author these in `.md`)
 
 <TypeTable>
 <TypeRow Name="Callout" Type="component" Description="Info / warning / danger / tip box with icon, title, body." />
-<TypeRow Name="Card / CardGrid / LinkCard" Type="component" Description="Responsive card family. Cards render as `<a>` when Href is set." />
+<TypeRow Name="Card / CardGrid / LinkCard" Type="component" Description="Responsive card family. Cards render as a link when Href is set." />
 <TypeRow Name="Steps / Step" Type="component" Description="Numbered ordered list with a rail; badges centered on the spine." />
 <TypeRow Name="FileTree / FileTreeItem" Type="component" Description="Recursive project-layout diagram with folder/file glyphs." />
-<TypeRow Name="CodeGroup / CodeTab" Type="component" Description="Tabbed code samples. `SyncKey` groups tabs across the page." />
+<TypeRow Name="Tabs / Tab" Type="component" Description="Tabbed panels for any content, with sync groups." />
+<TypeRow Name="CodeGroup / CodeTab" Type="component" Description="Tabbed code samples. SyncKey groups switch together across pages." />
 <TypeRow Name="TypeTable / TypeRow" Type="component" Description="Props / API reference table with type-code chips and required badge." />
-<TypeRow Name="ComponentPreview" Type="component" Description="Declarative single-component demo with reveal-on-click source view." />
-<TypeRow Name="MarkdownContent" Type="component" Description="The renderer itself. `DocsPage.razor` calls this with the resolved `.md` document." />
+<TypeRow Name="AutoTypeTable" Type="component" Description="Props table generated from a component by reflection and XML doc comments." />
+<TypeRow Name="PreviewFrame" Type="component" Description="The frame around every live example: Preview and Code tabs, copy, actions menu, layouts." />
+<TypeRow Name="DemoPreview" Type="component" Description="Renders a demo component and shows its .razor file as the source." />
+<TypeRow Name="ComponentPreview" Type="component" Description="A live preview written as a tag instead of a fence." />
+<TypeRow Name="MarkdownContent" Type="component" Description="The renderer itself. DocsPage.razor calls this with the resolved .md document." />
 </TypeTable>
 
 ## The layout variant

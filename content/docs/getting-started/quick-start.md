@@ -66,9 +66,9 @@ Creates `content/docs/components/button.md` with frontmatter, a `razor:preview` 
 Other templates:
 
 <TypeTable>
-<TypeRow Name="component &lt;Name&gt;" Type="template" Default="" Description="`content/docs/components/&lt;slug&gt;.md` : razor:preview + Props table + Notes" />
-<TypeRow Name="guide &lt;slug&gt;" Type="template" Default="" Description="`content/docs/guides/&lt;slug&gt;.md` : intro + `<Steps>` skeleton + Next section" />
-<TypeRow Name="page &lt;slug&gt;" Type="template" Default="" Description="`content/docs/&lt;slug&gt;.md` : blank frontmatter + H1" />
+<TypeRow Name="component {Name}" Type="template" Default="" Description="content/docs/components/{slug}.md : razor:preview + Props table + Notes" />
+<TypeRow Name="guide {slug}" Type="template" Default="" Description="content/docs/guides/{slug}.md : intro + Steps skeleton + Next section" />
+<TypeRow Name="page {slug}" Type="template" Default="" Description="content/docs/{slug}.md : blank frontmatter + H1" />
 </TypeTable>
 </Step>
 
@@ -77,7 +77,7 @@ Other templates:
 shelldocs build --output publish
 ```
 
-Emits a static site into `publish/`. Handles base-href rewrite and SPA 404 fallback for pushed-to-Pages deployments. Push the folder to your host of choice.
+Prerenders every page into `publish/` as static files. Upload the folder to any static host. See [Deployment](/docs/guides/deployment) for a GitHub Pages workflow and for what needs a server instead.
 </Step>
 </Steps>
 
@@ -88,12 +88,12 @@ You now have a Blazor Web App with:
 - **File-based routing** : drop a `.md` in `content/docs/`, it becomes a page
 - **Auto sidebar** : the tree structure of `content/docs/` becomes the nav
 - **Live components** : `razor:preview` fences render real Blazor components inline
-- **Search** : `Cmd+K` opens the search dialog with body-text indexing
+- **Search** : `Cmd+K` opens the search dialog (while the app is running; a static export has no search)
 - **Dark mode** : theme toggle in the sidebar footer
 
 ## Next
 
 <CardGrid Columns="2">
-<LinkCard Title="Project structure" Description="Understand what's in the folders `shelldocs init` created." Href="/docs/getting-started/project-structure" />
-<LinkCard Title="Authoring guide" Description="Frontmatter, code fences, razor:preview, inline components." Href="/docs/authoring/markdown" />
+<LinkCard Title="Project structure" Description="Understand what's in the folders shelldocs init created." Href="/docs/getting-started/project-structure" />
+<LinkCard Title="Authoring guide" Description="Frontmatter, code fences, razor:preview, inline components." Href="/docs/authoring" />
 </CardGrid>

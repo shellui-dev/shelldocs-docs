@@ -38,7 +38,7 @@ order: 3
 ```razor:preview
 <CardGrid Columns="2">
 <Card Title="Static tile" Description="No link, no arrow." />
-<LinkCard Title="Linked tile" Description="Arrow on the right, whole card is an `<a>`." Href="/docs/introduction" />
+<LinkCard Title="Linked tile" Description="Arrow on the right, whole card is a link." Href="/docs/introduction" />
 </CardGrid>
 ```
 

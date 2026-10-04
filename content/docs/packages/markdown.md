@@ -15,8 +15,20 @@ It comes in transitively via `ShellDocs.Components`. You reference it explicitly
 ## Install
 
 <CodeGroup SyncKey="pkg">
-<CodeTab Label="dotnet CLI">dotnet add package ShellDocs.Markdown --prerelease</CodeTab>
-<CodeTab Label="PackageReference">&lt;PackageReference Include="ShellDocs.Markdown" Version="0.1.1-alpha" /&gt;</CodeTab>
+<CodeTab Label="dotnet CLI">
+
+```bash
+dotnet add package ShellDocs.Markdown --prerelease
+```
+
+</CodeTab>
+<CodeTab Label="PackageReference">
+
+```xml
+<PackageReference Include="ShellDocs.Markdown" Version="0.1.11-alpha" />
+```
+
+</CodeTab>
 </CodeGroup>
 
 ## What it does
@@ -39,11 +51,11 @@ order: 3
 <Step Title="razor:preview fences">
 A ` ```razor:preview ` fenced code block gets treated as a live component demo. The parser extracts the target component + its attribute values + any child content, then emits a `PreviewSlot` marker.
 
-`PreviewFrame` (the chrome that wraps it) renders BOTH the live component AND a reveal-on-click source view of the raw fenced snippet. Both stay mounted; the source view is CSS-hidden until you click.
+The fence body is parsed as Razor into a small node tree (components, HTML elements, text), so several sibling tags and wrapper elements render exactly as written. `PreviewFrame` wraps the result with **Preview** and **Code** tabs; the Code tab shows the fence body unchanged.
 </Step>
 
 <Step Title="Inline Razor tags">
-Component tags mid-markdown (`<Callout Variant="info">…</Callout>`) become inline `ComponentSlot` markers. Same DynamicComponent rendering; no fenced wrapper, no source view. Use this for chrome-in-prose (callouts, cards, steps) as opposed to live examples.
+Component tags mid-markdown (`<Callout Variant="info">…</Callout>`) become inline `ComponentSlot` markers. Same DynamicComponent rendering; no frame, no Code tab. Their bodies are rendered as markdown. Tags inside code spans and fences are left alone.
 </Step>
 
 <Step Title="Per-property type coercion">
@@ -60,12 +72,12 @@ That `IsFolder="true"` is a real `bool true` by the time `FileTreeItem` receives
 ## Key types
 
 <TypeTable>
-<TypeRow Name="MarkdownRenderer" Type="service" Description="Injected via DI. `Render(string markdown)` and `RenderFile(string path)` return `RenderedDocument`." />
+<TypeRow Name="MarkdownRenderer" Type="service" Description="Injected via DI. Render(string markdown) and RenderFile(string path) return RenderedDocument." />
 <TypeRow Name="RenderedDocument" Type="record" Description="Rendered HTML + slot list + parsed source + extracted headings + frontmatter access." />
-<TypeRow Name="TypeRegistry" Type="service" Description="Maps markdown tag names to Blazor component types. Populated via `ShellDocsOptions.RegisterComponent<T>()` / `RegisterComponentsFromAssembly<T>()`." />
+<TypeRow Name="TypeRegistry" Type="service" Description="Maps markdown tag names to Blazor component types. Populated from the ShellDocsOptions registration calls. Built-ins are also registered under a Docs prefix, and collisions are recorded." />
 <TypeRow Name="SlotExtractor" Type="internal" Description="Walks the parsed markdown, extracts razor:preview and inline-tag slots, replaces them with placeholder markers." />
-<TypeRow Name="FrontmatterParser" Type="static" Description="YAML frontmatter parser via YamlDotNet. Handles the leading `---…---` delimiter." />
-<TypeRow Name="MarkdownPlainText" Type="static" Description="Extracts plain-text prose from markdown (strips frontmatter / fences / HTML / Razor tags / images / links / inline code / emphasis / heading `#`). Used by `SearchIndex` for body-text indexing." />
+<TypeRow Name="FrontmatterParser" Type="static" Description="YAML frontmatter parser via YamlDotNet. Handles the leading ---…--- delimiter." />
+<TypeRow Name="MarkdownPlainText" Type="static" Description="Extracts plain-text prose from markdown (strips frontmatter / fences / HTML / Razor tags / images / links / inline code / emphasis / heading #). Used by SearchIndex for body-text indexing." />
 </TypeTable>
 
 ## Registering your own components for markdown authors
@@ -96,6 +108,6 @@ Components that should NOT be markdown-authorable (internal render machinery, la
 ## Learn more
 
 <CardGrid Columns="2">
-<LinkCard Title="Authoring guide" Description="Frontmatter, code fences, razor:preview, inline components : from an author's perspective." Href="/docs/authoring/markdown" />
+<LinkCard Title="Authoring guide" Description="Frontmatter, code fences, razor:preview, inline components : from an author's perspective." Href="/docs/authoring" />
 <LinkCard Title="Registering components" Description="Assembly-scan, aliases, [ShellDocsIgnore] opt-out." Href="/docs/getting-started/configuration" />
 </CardGrid>

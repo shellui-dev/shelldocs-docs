@@ -12,7 +12,7 @@ order: 1
 
 ```razor:preview
 <Callout Variant="info" Title="Alpha status">
-ShellDocs is at `0.1.1-alpha`. The primitive surface is stable enough to build real docs sites : expect small API polish through the `0.x.y-alpha` window before `1.0`.
+ShellDocs is in alpha. The primitive surface is stable enough to build real docs sites : expect small API polish before 1.0.
 </Callout>
 ```
 
@@ -37,7 +37,7 @@ Five variants, each with its own icon and color:
 ```
 
 ```razor:preview
-<Callout Variant="success" Title="Nice">Green. Same icon family as `tip`. Confirmation, completion.</Callout>
+<Callout Variant="success" Title="Nice">Green. Same icon family as tip. Confirmation, completion.</Callout>
 ```
 
 <Callout Variant="tip" Title="Alias">
@@ -67,11 +67,25 @@ For very short, single-line callouts you can pass the body as a `Text` attribute
 ## Props
 
 <TypeTable>
-<TypeRow Name="Variant" Type="string" Default='"info"' Description="One of `info` | `tip` | `success` | `warning` | `danger` | `error`. Case-insensitive." />
+<TypeRow Name="Variant" Type="string" Default='"info"' Description="One of info | tip | success | warning | danger | error. Case-insensitive." />
 <TypeRow Name="Title" Type="string?" Default="—" Description="Optional bolded title above the body." />
 <TypeRow Name="Text" Type="string?" Default="—" Description="Short body content. Ignored when ChildContent is set." />
-<TypeRow Name="ChildContent" Type="RenderFragment?" Default="—" Description="Body content. Supports full markdown when authored inline in a `.md` file." />
+<TypeRow Name="ChildContent" Type="RenderFragment?" Default="—" Description="Body content. Supports full markdown when authored inline in a .md file." />
 </TypeTable>
+
+## Markdown in the body
+
+A `Callout` written straight into the page (an inline tag) takes a markdown body : inline code, emphasis, links, lists and fenced code all work.
+
+<Callout Variant="info" Title="Inline tag, markdown body">
+Run `shelldocs dev`, then open **/docs/introduction**. See [Inline component tags](/docs/authoring/component-tags).
+</Callout>
+
+Inside a `razor:preview` fence the body is parsed as Razor instead, so the source tab shows exactly what you would write in a `.razor` file. Use HTML there (`<code>`, `<strong>`, `<a>`) : markdown syntax would render literally.
+
+## Name collisions
+
+If your component library registers its own `Callout`, `<Callout>` renders yours. ShellDocs' version stays reachable as `<DocsCallout>`. The same holds for every built-in primitive.
 
 ## When to use
 

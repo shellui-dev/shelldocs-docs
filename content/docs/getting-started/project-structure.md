@@ -50,7 +50,7 @@ After `shelldocs init MyDocs` from a directory called `foo`, you'll get:
 <TypeTable>
 <TypeRow Name="ShellDocs.Components" Type="PackageReference" Description="RCL with all the chrome + primitives." Required="true" />
 <TypeRow Name="ShellDocs.Tokens" Type="PackageReference" Description="CSS variables : palette + spacing scale." Required="true" />
-<TypeRow Name="Content Update" Type="ItemGroup" Default="content/**/*.md;content/**/meta.json" Description="Ensures markdown gets copied on `dotnet publish` : otherwise deployed sites 404 every page." />
+<TypeRow Name="Content Update" Type="ItemGroup" Default="content/**/*.md;content/**/meta.json" Description="Ensures markdown gets copied on dotnet publish : otherwise deployed sites 404 every page." />
 </TypeTable>
 
 ## Content routing
@@ -86,6 +86,6 @@ Files you don't list in `pages` still appear in the sidebar : they get appended 
 ## Next
 
 <CardGrid Columns="2">
-<LinkCard Title="Configuration" Description="The full `ShellDocsOptions` surface : logo, nav, packages, layout variant, registered components." Href="/docs/getting-started/configuration" />
-<LinkCard Title="Authoring guide" Description="Frontmatter, code fences, razor:preview, inline components." Href="/docs/authoring/markdown" />
+<LinkCard Title="Configuration" Description="The full ShellDocsOptions surface : logo, nav, packages, layout variant, registered components." Href="/docs/getting-started/configuration" />
+<LinkCard Title="Authoring guide" Description="Frontmatter, code fences, razor:preview, inline components." Href="/docs/authoring" />
 </CardGrid>
