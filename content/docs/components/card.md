@@ -38,9 +38,11 @@ Pass raw SVG markup as `IconSvg`. It renders inside a `.doc-card-icon` container
 
 Write the SVG with single-quoted attributes so it fits inside the double-quoted `IconSvg` value.
 
-<Callout Variant="warning" Title="Icons belong in a preview fence or a .razor page">
-Raw SVG in an attribute works inside a `razor:preview` fence and in `.razor` files. An inline `Card` tag in page prose can't carry it : the prose tag scanner ends a tag at the first closing angle bracket, and HTML entities are not decoded. For a card grid with icons in prose, build it as a small Razor component and drop that in.
-</Callout>
+The same attribute works on a `Card` written straight into the page:
+
+<Card Title="Composable" IconSvg="<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'><rect x='3' y='3' width='7' height='7' rx='1'/><rect x='14' y='3' width='7' height='7' rx='1'/><rect x='3' y='14' width='7' height='7' rx='1'/><rect x='14' y='14' width='7' height='7' rx='1'/></svg>" Description="An inline card with an icon." />
+
+Write the markup itself, not HTML entities : attribute values are not decoded.
 
 ## With child content
 
@@ -71,7 +73,7 @@ Bring your own component library, register it in one line with <code>RegisterCom
 <TypeRow Name="Title" Type="string?" Default="—" Description="Optional title, rendered as .doc-card-title." />
 <TypeRow Name="Description" Type="string?" Default="—" Description="Optional short description below the title." />
 <TypeRow Name="Href" Type="string?" Default="—" Description="When set, the whole card becomes a link pointing here." />
-<TypeRow Name="IconSvg" Type="string?" Default="—" Description="Raw SVG markup rendered above the title. See the icon section above." />
+<TypeRow Name="IconSvg" Type="string?" Default="—" Description="Raw SVG markup rendered above the title. Use single quotes inside it." />
 <TypeRow Name="External" Type="bool" Default="false" Description="When true (and Href set), adds target='_blank' and rel='noopener'." />
 <TypeRow Name="ChildContent" Type="RenderFragment?" Default="—" Description="Rich body content, rendered below the description." />
 </TypeTable>

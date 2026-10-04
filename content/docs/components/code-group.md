@@ -21,7 +21,7 @@ dotnet add package ShellDocs.Components --prerelease
 <CodeTab Label="PackageReference">
 
 ```xml
-<PackageReference Include="ShellDocs.Components" Version="0.1.11-alpha" />
+<PackageReference Include="ShellDocs.Components" Version="0.1.12-alpha" />
 ```
 
 </CodeTab>
@@ -29,23 +29,24 @@ dotnet add package ShellDocs.Components --prerelease
 
 Write it as an inline tag in the page, with a fenced block in each tab. Leave a blank line between the tags and the fences:
 
-<pre><code class="language-markdown">&lt;CodeGroup&gt;
-&lt;CodeTab Label="dotnet CLI"&gt;
+````markdown
+<CodeGroup>
+<CodeTab Label="dotnet CLI">
 
-&#96;&#96;&#96;bash
+```bash
 dotnet add package ShellDocs.Components --prerelease
-&#96;&#96;&#96;
+```
 
-&lt;/CodeTab&gt;
-&lt;CodeTab Label="PackageReference"&gt;
+</CodeTab>
+<CodeTab Label="PackageReference">
 
-&#96;&#96;&#96;xml
-&lt;PackageReference Include="ShellDocs.Components" Version="0.1.11-alpha" /&gt;
-&#96;&#96;&#96;
+```xml
+<PackageReference Include="ShellDocs.Components" Version="0.1.12-alpha" />
+```
 
-&lt;/CodeTab&gt;
-&lt;/CodeGroup&gt;
-</code></pre>
+</CodeTab>
+</CodeGroup>
+````
 
 ## Syncing tabs
 
@@ -62,7 +63,7 @@ dotnet add package ShellDocs.Core --prerelease
 <CodeTab Label="PackageReference">
 
 ```xml
-<PackageReference Include="ShellDocs.Core" Version="0.1.11-alpha" />
+<PackageReference Include="ShellDocs.Core" Version="0.1.12-alpha" />
 ```
 
 </CodeTab>
@@ -79,7 +80,7 @@ dotnet add package ShellDocs.Markdown --prerelease
 <CodeTab Label="PackageReference">
 
 ```xml
-<PackageReference Include="ShellDocs.Markdown" Version="0.1.11-alpha" />
+<PackageReference Include="ShellDocs.Markdown" Version="0.1.12-alpha" />
 ```
 
 </CodeTab>

@@ -23,8 +23,8 @@ A `razor:preview` fence reads better in the page source and keeps your formattin
 ## Fence or tag
 
 <TypeTable>
-<TypeRow Name="Code tab, fence" Type="fence" Description="Shows the fence body exactly as written, including indentation and comments." />
-<TypeRow Name="Code tab, tag" Type="tag" Description="Rebuilt from the component name, the attributes in alphabetical order, and the body." />
+<TypeRow Name="Code tab" Type="fence" Description="Shows the fence body exactly as written, including indentation and comments." />
+<TypeRow Name="Code tab" Type="tag" Description="Rebuilt from the component name, the attributes in alphabetical order, and the body." />
 <TypeRow Name="Several components" Type="fence" Description="A fence can hold sibling tags and wrapper elements." />
 <TypeRow Name="One component" Type="tag" Description="A tag previews exactly one component." />
 </TypeTable>

@@ -68,25 +68,26 @@ Callouts, cards, code groups : anything you can use in top-level prose also work
 
 The source for that block:
 
-<pre><code class="language-markdown">&lt;Steps&gt;
-&lt;Step Title="Add the package"&gt;
+````markdown
+<Steps>
+<Step Title="Add the package">
 
-&#96;&#96;&#96;bash
+```bash
 dotnet add package ShellDocs.Components --prerelease
-&#96;&#96;&#96;
+```
 
-&lt;/Step&gt;
-&lt;Step Title="Register the services"&gt;
+</Step>
+<Step Title="Register the services">
 
-Add a line to &#96;Program.cs&#96;:
+Add a line to `Program.cs`:
 
-&#96;&#96;&#96;csharp
+```csharp
 builder.Services.AddShellDocs();
-&#96;&#96;&#96;
+```
 
-&lt;/Step&gt;
-&lt;/Steps&gt;
-</code></pre>
+</Step>
+</Steps>
+````
 
 Use the inline form for real walk-throughs. Keep `razor:preview` for showing the component itself : fence bodies are Razor, so markdown inside them renders literally.
 

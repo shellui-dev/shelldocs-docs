@@ -35,10 +35,11 @@ Mark a public component with `[ShellDocsIgnore]` to keep it out of markdown.
 
 Once registered, a component tag works in a `razor:preview` fence. The fence shows the component and its source.
 
-<pre><code class="language-markdown">&#96;&#96;&#96;razor:preview
-&lt;Button Variant="ButtonVariant.Primary"&gt;Save&lt;/Button&gt;
-&#96;&#96;&#96;
-</code></pre>
+````markdown
+```razor:preview
+<Button Variant="ButtonVariant.Primary">Save</Button>
+```
+````
 
 Enum values can be written the way you would in Razor. Event callbacks and `@bind` attributes are kept in the Code tab and skipped at render, so a realistic example does not break the page. The full rules are in [razor:preview](/docs/authoring/razor-preview).
 

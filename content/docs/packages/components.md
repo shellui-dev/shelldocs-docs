@@ -25,7 +25,7 @@ dotnet add package ShellDocs.Components --prerelease
 <CodeTab Label="PackageReference">
 
 ```xml
-<PackageReference Include="ShellDocs.Components" Version="0.1.11-alpha" />
+<PackageReference Include="ShellDocs.Components" Version="0.1.12-alpha" />
 ```
 
 </CodeTab>

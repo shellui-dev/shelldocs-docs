@@ -42,12 +42,13 @@ A frame centres its example by default. Two other layouts cover examples that do
 
 On a fence, add the layout after the language:
 
-<pre><code class="language-markdown">&#96;&#96;&#96;razor:preview stretch
-&lt;TypeTable&gt;
-&lt;TypeRow Name="Title" Type="string?" Description="Optional title." /&gt;
-&lt;/TypeTable&gt;
-&#96;&#96;&#96;
-</code></pre>
+````markdown
+```razor:preview stretch
+<TypeTable>
+<TypeRow Name="Title" Type="string?" Description="Optional title." />
+</TypeTable>
+```
+````
 
 ```razor:preview stretch
 <TypeTable>

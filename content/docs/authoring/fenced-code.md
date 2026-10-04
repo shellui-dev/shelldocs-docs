@@ -12,12 +12,13 @@ Fenced code blocks (` ``` `) are the workhorse of docs authoring. ShellDocs wrap
 
 Standard CommonMark : three backticks, a language name, the code, three backticks.
 
-<pre><code class="language-markdown">&#96;&#96;&#96;csharp
+````markdown
+```csharp
 var pipeline = new MarkdownPipelineBuilder()
     .UsePipeTables()
     .Build();
-&#96;&#96;&#96;
-</code></pre>
+```
+````
 
 Renders as:
 
@@ -41,11 +42,12 @@ Every fence gets a copy button in the top-right. Click copies the raw text : lan
 
 Fences without a language tag still render : just no badge and no highlighting. Useful for shell prompts or ad-hoc text.
 
-<pre><code class="language-markdown">&#96;&#96;&#96;
+````markdown
+```
 $ shelldocs init MyDocs
 ✓ Wrote 12 change(s):
-&#96;&#96;&#96;
-</code></pre>
+```
+````
 
 Renders as:
 
@@ -62,9 +64,31 @@ Four-space-indented code blocks still work (CommonMark supports them) but you lo
 
 Backtick-wrapped inline code (`` `like this` ``) is styled but has no copy button or language handling. Use it for identifiers, short snippets, and API references : `<Callout>`, `AddShellDocs()`, `Program.cs`.
 
-## Interactions with other markdown
+## Longer fences and tildes
 
-Inside a fence, the content is **verbatim** : no markdown parsing, no HTML entity handling. You can put anything inside : Razor tags, JSX, YAML, another fence's opening marker. The parser handles nested backtick counts via CommonMark's rule (outer fence needs one more backtick than any inner sequence).
+A fence is three or more backticks, closed by a run at least as long. Inside it everything is verbatim : no markdown parsing, no component tags, no previews.
+
+To show a fence as an example, as this page does, wrap it in a longer one:
+
+`````markdown
+````markdown
+```csharp
+var x = 1;
+```
+````
+`````
+
+Tilde fences work the same way and save counting backticks:
+
+````markdown
+~~~markdown
+```razor:preview
+<Callout>Shown as source, not rendered.</Callout>
+```
+~~~
+````
+
+A component tag or a `razor:preview` fence inside a longer fence stays literal, and whatever follows the block on the page renders normally.
 
 ## The `razor:preview` fence
 
@@ -85,7 +109,7 @@ dotnet add package ShellDocs.Components --prerelease
 <CodeTab Label="PackageReference">
 
 ```xml
-<PackageReference Include="ShellDocs.Components" Version="0.1.11-alpha" />
+<PackageReference Include="ShellDocs.Components" Version="0.1.12-alpha" />
 ```
 
 </CodeTab>
@@ -94,21 +118,6 @@ dotnet add package ShellDocs.Components --prerelease
 For panels that are not code, use [Tabs](/docs/components/tabs).
 
 Full docs: [CodeGroup](/docs/components/code-group).
-
-## Showing a fence as an example
-
-To show the markdown for a fence, as this page does, don't nest it in a longer fence. ShellDocs scans for three-backtick fences before markdown is parsed, and a four-backtick block that contains one puts the scanner out of step: the next `razor:preview` on the page renders as plain code.
-
-Write the example as an HTML code block instead, with the backticks and angle brackets as entities:
-
-```html
-<pre><code class="language-markdown">&#96;&#96;&#96;csharp
-var x = 1;
-&#96;&#96;&#96;
-</code></pre>
-```
-
-It gets the same frame, language badge and copy button as a fenced block.
 
 ## What ShellDocs doesn't do
 

@@ -43,6 +43,19 @@ The columns are labeled Prop / Type / Default / Description but nothing forces "
 </TypeTable>
 ```
 
+## Rows with the same name
+
+Rows are independent, so two can share a `Name` : overloads of a method, or one option described for two cases.
+
+```razor:preview stretch
+<TypeTable>
+<TypeRow Name="SetLogo(url)" Type="method" Description="One image for both themes." />
+<TypeRow Name="SetLogo(light, dark)" Type="method" Description="An image per theme." />
+<TypeRow Name="Layout" Type="fence" Description="Set in the fence info string." />
+<TypeRow Name="Layout" Type="tag" Description="Set with the Layout attribute." />
+</TypeTable>
+```
+
 ## Empty state
 
 If you render a `TypeTable` with no rows, it emits a single "No props documented." row rather than an empty grid : keeps the layout stable.

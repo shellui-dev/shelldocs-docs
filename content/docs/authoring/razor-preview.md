@@ -10,12 +10,13 @@ A `razor:preview` fence renders its contents as live components and shows the sa
 
 ## Basic use
 
-<pre><code class="language-markdown">&#96;&#96;&#96;razor:preview
-&lt;Callout Variant="tip" Title="Live example"&gt;
+````markdown
+```razor:preview
+<Callout Variant="tip" Title="Live example">
 This renders as a real Callout component.
-&lt;/Callout&gt;
-&#96;&#96;&#96;
-</code></pre>
+</Callout>
+```
+````
 
 ```razor:preview
 <Callout Variant="tip" Title="Live example">
@@ -106,10 +107,11 @@ Type arguments use C# spellings: `int?`, `List<string>`, or a simple or full typ
 
 Add `stretch` or `scroll` after the language to change how the example sits in the frame.
 
-<pre><code class="language-markdown">&#96;&#96;&#96;razor:preview stretch
-&lt;TypeTable&gt;…&lt;/TypeTable&gt;
-&#96;&#96;&#96;
-</code></pre>
+````markdown
+```razor:preview stretch
+<TypeTable>…</TypeTable>
+```
+````
 
 <TypeTable>
 <TypeRow Name="razor:preview" Type="center" Description="Centred, sized to its content. The default." />

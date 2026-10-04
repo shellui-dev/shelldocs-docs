@@ -25,7 +25,7 @@ dotnet add package ShellDocs.Markdown --prerelease
 <CodeTab Label="PackageReference">
 
 ```xml
-<PackageReference Include="ShellDocs.Markdown" Version="0.1.11-alpha" />
+<PackageReference Include="ShellDocs.Markdown" Version="0.1.12-alpha" />
 ```
 
 </CodeTab>

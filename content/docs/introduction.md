@@ -9,7 +9,7 @@ order: 1
 **ShellDocs is the docs framework for .NET.** Beautiful, animated, `Cmd+K`-searchable documentation sites, powered by Blazor and Tailwind. Compose with ShellUI (or any Blazor component library) : like fumadocs composes with shadcn/ui in the React world.
 
 <Callout Variant="info" Title="Alpha status">
-ShellDocs is in alpha; these docs cover `0.1.11-alpha`. The primitive surface is stable enough to build real docs sites : this site is built with ShellDocs itself. Expect small API changes before `1.0`.
+ShellDocs is in alpha; these docs cover `0.1.12-alpha`. The primitive surface is stable enough to build real docs sites : this site is built with ShellDocs itself. Expect small API changes before `1.0`.
 </Callout>
 
 ## Why ShellDocs exists
@@ -34,28 +34,30 @@ ShellDocs is the "just use this" answer. Point it at a folder of markdown, get a
 
 Author a page as plain markdown with frontmatter:
 
-<pre><code class="language-markdown">---
+````markdown
+---
 title: Button
 description: A pressable UI element.
 ---
 
 # Button
 
-The &#96;&lt;Button&gt;&#96; component ships in three variants.
+The `<Button>` component ships in three variants.
 
 ## Live example
 
-&#96;&#96;&#96;razor:preview
-&lt;Button Variant="primary"&gt;Click me&lt;/Button&gt;
-&#96;&#96;&#96;
-</code></pre>
+```razor:preview
+<Button Variant="primary">Click me</Button>
+```
+````
 
 Drop inline components anywhere in prose:
 
-<pre><code class="language-markdown">&lt;Callout Variant="warning" Title="Heads up"&gt;
-This behavior changed in &#96;0.2.0&#96;. Older versions used &#96;OnClick&#96; instead of &#96;Pressed&#96;.
-&lt;/Callout&gt;
-</code></pre>
+````markdown
+<Callout Variant="warning" Title="Heads up">
+This behavior changed in `0.2.0`. Older versions used `OnClick` instead of `Pressed`.
+</Callout>
+````
 
 The whole thing renders : Callout with icon and variant styling, live Button component, syntax-highlighted code samples, working TOC : with zero JavaScript beyond what Blazor and Shiki need.
 

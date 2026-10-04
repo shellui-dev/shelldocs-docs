@@ -77,7 +77,7 @@ jobs:
       - uses: actions/setup-dotnet@v4
         with:
           global-json-file: global.json
-      - run: dotnet tool install -g ShellDocs.CLI --version 0.1.11-alpha
+      - run: dotnet tool install -g ShellDocs.CLI --version 0.1.12-alpha
       - run: shelldocs build --spa-fallback --site-url https://docs.example.com
       - run: echo "docs.example.com" > publish/CNAME
       - run: touch publish/.nojekyll

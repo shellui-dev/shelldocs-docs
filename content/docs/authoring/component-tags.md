@@ -32,19 +32,20 @@ More prose.
 
 An inline tag's body goes through the markdown pipeline: inline code, emphasis, links, lists, fenced code and further component tags all work. Leave a blank line between a tag and a fenced block.
 
-<pre><code class="language-markdown">&lt;Steps&gt;
-&lt;Step Title="Install"&gt;
+````markdown
+<Steps>
+<Step Title="Install">
 
-&#96;&#96;&#96;bash
+```bash
 dotnet tool install -g ShellDocs.CLI --prerelease
-&#96;&#96;&#96;
+```
 
-&lt;/Step&gt;
-&lt;Step Title="Scaffold"&gt;
-&#96;shelldocs init MyDocs&#96; creates a working site.
-&lt;/Step&gt;
-&lt;/Steps&gt;
-</code></pre>
+</Step>
+<Step Title="Scaffold">
+`shelldocs init MyDocs` creates a working site.
+</Step>
+</Steps>
+````
 
 This is the opposite of a [`razor:preview`](/docs/authoring/razor-preview) fence, whose body is Razor. The rule of thumb: a tag in the page is content, a fence is an example of code.
 
@@ -68,16 +69,21 @@ A tag with no body closes itself with `/>`.
 
 Values are converted to each parameter's type, the same way a fence converts them: `Columns="3"` becomes an `int`, `External="true"` a `bool`, `Variant="warning"` an enum member.
 
-Keep inline attribute values to plain text:
+A quoted value can hold anything except its own quote character. Angle brackets, another tag, and text that looks like an attribute all stay inside the value:
+
+```markdown
+<Callout Title="a -> b" Text='rewrites href="/" on every page' />
+```
+
+Three things to know:
 
 <TypeTable>
-<TypeRow Name="Angle brackets" Type="avoid" Description="The tag ends at the first closing angle bracket, so a value containing one cuts the tag short and the component is dropped." />
-<TypeRow Name="HTML entities" Type="avoid" Description="Entities are not decoded. They show up as typed." />
-<TypeRow Name="Backticks" Type="avoid" Description="Attribute text is not markdown. Backticks show up as typed." />
-<TypeRow Name="Escaped quotes" Type="avoid" Description="There is no escape for a double quote inside a value. Rephrase, or use single quotes in the text." />
+<TypeRow Name="Quotes" Type="choose" Description="There is no escape for a quote inside a value. Wrap the value in single quotes when it contains double quotes, and the other way round." />
+<TypeRow Name="Markdown" Type="literal" Description="Attribute text is not markdown. Backticks and asterisks show up as typed. Put formatted text in the tag body." />
+<TypeRow Name="HTML entities" Type="literal" Description="Entities are not decoded. Write the character itself." />
 </TypeTable>
 
-When a value needs any of those, move the content into the tag body, or write the example as a `razor:preview` fence, where raw markup in attributes is fine.
+A tag whose quote is never closed, or that runs across a blank line, is treated as plain text rather than a component.
 
 ## Code spans stay code
 
