@@ -68,7 +68,7 @@ Components/
 
 ## Framework version
 
-The site references `ShellDocs.* 0.1.11-alpha`. On a new release, bump the four package versions in `ShellDocs.Site.csproj` and the CLI version pinned in `.github/workflows/deploy-pages.yml` together.
+The site references `ShellDocs.* 0.1.12-alpha`. On a new release, bump the four package versions in `ShellDocs.Site.csproj` and the CLI version pinned in `.github/workflows/deploy-pages.yml` together.
 
 ## License
 
