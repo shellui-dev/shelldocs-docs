@@ -14,7 +14,12 @@ builder.Services.AddShellDocs(o =>
     o.SiteName = "ShellDocs";
     o.SiteTagline = "The docs framework for .NET.";
     o.GitHubRepo = "shellui-dev/shelldocs";
+    o.SiteUrl = "https://shelldocs.shellui.dev";
     o.LayoutVariant = DocsLayoutVariant.Sidebar;
+
+    // Demos shown with <DemoPreview>; their .razor source is read from DemoSourceRoot.
+    o.RegisterComponentsFromAssembly<App>("ShellDocs.Site.Components.Demos");
+    o.DemoSourceRoot = Path.Combine(builder.Environment.ContentRootPath, "Components", "Demos");
 
     // Top nav: three tabs. Package-specific navigation lives entirely in the
     // sidebar's package selector, not up here.

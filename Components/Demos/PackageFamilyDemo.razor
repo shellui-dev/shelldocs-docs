@@ -1,0 +1,25 @@
+<CardGrid Columns="@Columns">
+    @foreach (var package in Packages.Take(Count))
+    {
+        <Card Title="@package.Name" Description="@package.Summary" />
+    }
+</CardGrid>
+
+@code {
+    /// <summary>Number of grid columns on desktop.</summary>
+    [Parameter] public int Columns { get; set; } = 2;
+
+    /// <summary>How many packages to list, in dependency order.</summary>
+    [Parameter] public int Count { get; set; } = 4;
+
+    private record Package(string Name, string Summary);
+
+    private static readonly Package[] Packages =
+    [
+        new("ShellDocs.Components", "Layouts, chrome and the content primitives."),
+        new("ShellDocs.Markdown", "The Markdig pipeline and component slots."),
+        new("ShellDocs.Core", "Navigation graph and search index."),
+        new("ShellDocs.Tokens", "Design tokens as CSS variables."),
+        new("ShellDocs.CLI", "init, add, dev and build."),
+    ];
+}
