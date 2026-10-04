@@ -10,22 +10,19 @@
     <AssemblyName>ShellDocs.Site</AssemblyName>
 
     <!--
-      AutoTypeTable (added in ShellDocs 0.1.6-alpha) reads XML doc <summary>
-      comments off registered components' [Parameter] props to fill the
-      description column. Turning generation on ships a sidecar .xml next to
-      the .dll so the reflection lookup at render time finds descriptions
-      instead of em-dashes. CS1591 is "missing XML comment" — noisy while
-      backfilling docs, keep it suppressed until every prop has one.
+      AutoTypeTable reads XML doc summaries from the .xml file next to the
+      .dll to fill its description column. CS1591 (missing XML comment) is
+      suppressed because only demo components carry doc comments.
     -->
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <NoWarn>$(NoWarn);CS1591</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="ShellDocs.Components" Version="0.1.6-alpha" />
-    <PackageReference Include="ShellDocs.Core"       Version="0.1.6-alpha" />
-    <PackageReference Include="ShellDocs.Markdown"   Version="0.1.6-alpha" />
-    <PackageReference Include="ShellDocs.Tokens"     Version="0.1.6-alpha" />
+    <PackageReference Include="ShellDocs.Components" Version="0.1.11-alpha" />
+    <PackageReference Include="ShellDocs.Core"       Version="0.1.11-alpha" />
+    <PackageReference Include="ShellDocs.Markdown"   Version="0.1.11-alpha" />
+    <PackageReference Include="ShellDocs.Tokens"     Version="0.1.11-alpha" />
   </ItemGroup>
 
   <ItemGroup>
@@ -33,6 +30,8 @@
     <Content Include="content/**/*.md" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
     <!-- .json IS auto-included by the Web SDK — Update just adds the copy metadata. -->
     <Content Update="content/**/meta.json" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <!-- DemoPreview reads these at runtime; the Razor SDK drops .razor files from publish otherwise. -->
+    <None Include="Components/Demos/**/*.razor" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
   </ItemGroup>
 
 </Project>
