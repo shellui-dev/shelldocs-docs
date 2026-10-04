@@ -6,10 +6,13 @@
     "card-grid",
     "link-card",
     "steps",
+    "tabs",
+    "code-group",
     "file-tree",
     "type-table",
-    "code-group",
+    "auto-type-table",
     "preview-frame",
+    "demo-preview",
     "component-preview"
   ]
 }
