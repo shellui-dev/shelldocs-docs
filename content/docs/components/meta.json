@@ -13,6 +13,8 @@
     "auto-type-table",
     "preview-frame",
     "demo-preview",
-    "component-preview"
+    "component-preview",
+    "code-tabs",
+    "iframe-preview"
   ]
 }

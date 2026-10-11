@@ -143,6 +143,20 @@ A component of yours with the same name as a built-in wins the tag; the built-in
 <TypeRow Name="DemoSourceRoot" Type="string?" Default="—" Description="Folder searched for the .razor file that DemoPreview shows as source." />
 </TypeTable>
 
+## Previews
+
+<TypeTable>
+<TypeRow Name="PreviewCaption" Type="string?" Default="—" Description="A note shown in the toolbar of every preview. A preview's own Caption replaces it." />
+<TypeRow Name="AddSyncSwitch(syncKey, options)" Type="method" Description="Adds a row of tabs to every page whose blocks use that SyncKey. Needs at least two options; the first is the default." />
+</TypeTable>
+
+```csharp
+o.PreviewCaption = "Rendered with Blazor";
+o.AddSyncSwitch("platform", "MAUI", "Avalonia");
+```
+
+Both are covered in [Code tabs on previews](/docs/components/code-tabs).
+
 ## Options that do nothing yet
 
 `Theme` and the `--theme` flag of `shelldocs init` are accepted but have no effect in this release. Every site uses the same tokens; restyle through [Theming](/docs/theming).

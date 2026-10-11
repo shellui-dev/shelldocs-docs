@@ -66,6 +66,10 @@ The Razor SDK leaves `.razor` files out of publish output. Copy them with a `Non
 
 A demo with `@onclick` handlers needs a running Blazor app. On a static export the demo renders in its initial state and doesn't respond. Demos that only compute what to render, like the one above, work everywhere. See [Deployment](/docs/guides/deployment).
 
+## Code for something other than the demo
+
+By default the Code tab shows the demo's `.razor` file. Put `<CodeTab>` children inside the tag and it shows those instead, one tab each : the same example in another syntax, or for another platform. `SyncKey` switches them together across the site and `Caption` adds a note to the toolbar. See [Code tabs on previews](/docs/components/code-tabs).
+
 ## The same demo twice
 
 The frame's anchor is `demo-{component}`. When a page shows one demo more than once, give each its own `Id`:
@@ -85,6 +89,9 @@ A red panel replaces the example when the component isn't registered, when `Demo
 <TypeRow Name="Title" Type="string?" Default="—" Description="Title in the frame header." />
 <TypeRow Name="Layout" Type="string?" Default="center" Description="center, stretch or scroll." />
 <TypeRow Name="Id" Type="string?" Default="demo-{component}" Description="Anchor id for the frame." />
+<TypeRow Name="SyncKey" Type="string?" Default="—" Description="Sync key for its code tabs." />
+<TypeRow Name="Caption" Type="string?" Default="PreviewCaption" Description="Muted note in the toolbar." />
+<TypeRow Name="CodeTabs" Type="IReadOnlyList<PreviewCodeTab>?" Default="—" Description="Code tabs, when the preview is written in a .razor file. In markdown, use CodeTab children." />
 </TypeTable>
 
 ## See also
@@ -92,4 +99,6 @@ A red panel replaces the example when the component isn't registered, when `Demo
 <CardGrid Columns="2">
 <LinkCard Title="razor:preview" Description="For examples that are plain markup." Href="/docs/authoring/razor-preview" />
 <LinkCard Title="AutoTypeTable" Description="Generate the props table for the same component." Href="/docs/components/auto-type-table" />
+<LinkCard Title="Code tabs on previews" Description="Show code for several targets in the Code panel." Href="/docs/components/code-tabs" />
+<LinkCard Title="IframePreview" Description="A live example that is another page, not a Blazor component." Href="/docs/components/iframe-preview" />
 </CardGrid>

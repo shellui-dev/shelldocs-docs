@@ -25,7 +25,7 @@ dotnet add package ShellDocs.Core --prerelease
 <CodeTab Label="PackageReference">
 
 ```xml
-<PackageReference Include="ShellDocs.Core" Version="0.1.12-alpha" />
+<PackageReference Include="ShellDocs.Core" Version="0.1.15-alpha" />
 ```
 
 </CodeTab>
@@ -61,7 +61,9 @@ Files you don't list in a folder's `meta.json` `pages` array still appear in the
 
 ## Search index
 
-Built once at startup from `NavigationGraph`. Every page becomes one `SearchEntry` (title + description + section + body); every `h2`/`h3` becomes an anchored `SearchEntry` (title + section, no body). `SearchDialog` scores against all four fields with weighted substring matching + per-token AND.
+Built once at startup from `NavigationGraph`. Every page becomes one `SearchEntry` (title + description + section + body); every `h2`/`h3` becomes an anchored `SearchEntry` (title + section, no body).
+
+The app serves the index as JSON at `/_shelldocs/search.json`, with no change to `Program.cs`, and `shelldocs build` copies that file into a static export. Searching itself happens in the browser: `shelldocs.js` fetches the file the first time search opens and scores every entry against all four fields, with weighted substring matching and per-token AND, keeping to the docs version the reader is on. Nothing is asked of the server, so search is the same on a .NET host and on a static host. See [Search](/docs/guides/search).
 
 Body entries carry up to 8KB of extracted plain text : enough for meaningful body-hit surfacing without bloating the in-memory index for typical docs sites (~100 pages).
 

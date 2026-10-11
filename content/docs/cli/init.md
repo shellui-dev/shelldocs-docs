@@ -38,7 +38,7 @@ Inserts a `<Content Update="content/**/*.md;content/**/meta.json" CopyToOutputDi
 Creates `content/docs/introduction.md` and `content/docs/meta.json` : the minimum a ShellDocs site needs to render.
 </Step>
 <Step Title="Writes `Components/Pages/DocsPage.razor`">
-The single-page router that serves every `/docs/**` URL from the `.md` files under `content/`. You don't edit this : it's just a `<DocsLayout>` around a `<MarkdownContent>`.
+The single-page router that serves every `/docs/**` URL from the `.md` files under `content/`. You don't edit this : it's just a `<DocsLayout>` around a `<MarkdownContent>`, with `<DocsNotFound />` for a URL that has no page.
 </Step>
 <Step Title="Strips the fresh-template chrome">
 Deletes `Counter.razor`, `Weather.razor`, `NavMenu.razor`, `MainLayout.razor.css`, `Home.razor.css`. Rewrites `MainLayout.razor` as a bare pass-through and replaces `Home.razor` with the ShellDocs welcome page.

@@ -85,11 +85,11 @@ shelldocs build --site-url https://docs.example.com        # sitemap, robots, so
 shelldocs build --output publish --base-href "/my-repo/"   # for GH Pages subpath
 ```
 
-Publishes the project, starts it locally, saves every page as static HTML, writes redirect pages, and copies the assets. `--site-url` adds a sitemap, a robots file and social meta tags; `--base-href` handles subpath hosting; `--spa-fallback` writes `404.html`. See [shelldocs build](/docs/cli/build).
+Publishes the project, starts it locally, saves every page as static HTML, writes redirect pages, a `404.html` and the search index, and copies the assets. `--site-url` adds a sitemap, a robots file and social meta tags; `--base-href` handles subpath hosting; `--spa-fallback` replaces `404.html` with the home page. See [shelldocs build](/docs/cli/build).
 
 ## Version discipline
 
-`shelldocs init` scaffolds package references at the CLI's own version, read from its assembly. A project scaffolded with CLI `0.1.12-alpha` references the `0.1.12-alpha` packages. In CI, pin the tool to the same version your project references.
+`shelldocs init` scaffolds package references at the CLI's own version, read from its assembly. A project scaffolded with CLI `0.1.15-alpha` references the `0.1.15-alpha` packages. In CI, pin the tool to the same version your project references.
 
 ## Learn more
 

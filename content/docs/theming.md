@@ -170,6 +170,18 @@ Every component ships with a scoped `.razor.css` : Blazor CSS isolation guarante
 
 Prefer token overrides where possible : they cascade universally and keep future ShellDocs updates from clobbering your look.
 
+### The collapsed sidebar
+
+In the Sidebar layout the collapse button sets `data-sidebar-collapsed` on the page shell, and the choice is kept in `localStorage`. `shelldocs.js` does this, so it works on a static export, and the saved state is restored as soon as the script runs. Style the collapsed state through the attribute:
+
+```css
+.docs-shell[data-sidebar-collapsed="true"] .my-wide-banner {
+    max-width: none;
+}
+```
+
+The `docs-sidebar-collapsed` class that older versions put on the shell was removed in `0.1.14-alpha`. To add a collapse button of your own, give a button inside the docs layout a `data-sidebar-collapse-toggle` attribute.
+
 ## Interoperating with ShellUI (or any Tailwind-shaped design system)
 
 The whole point of splitting `ShellDocs.Tokens` out of `ShellDocs.Components` : third-party design systems can adopt the same token surface. If you're layering ShellUI on top, its components read the same `--primary`, `--background`, `--muted` variables. One `brand.css` retunes both frameworks in lockstep.

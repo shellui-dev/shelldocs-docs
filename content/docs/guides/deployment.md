@@ -1,7 +1,7 @@
 ---
 title: Deployment
 description: Publish as a static site or run on a .NET host. What works where, and a GitHub Pages workflow you can copy.
-order: 4
+order: 6
 ---
 
 # Deployment
@@ -11,8 +11,8 @@ A ShellDocs site is a Blazor Web App. You can run it on a .NET host, or export i
 ## Choosing
 
 <TypeTable>
-<TypeRow Name="Static export" Type="shelldocs build" Description="Plain HTML, CSS and JS. Free or cheap hosting, nothing to keep running. Search and interactive demos are not available." />
-<TypeRow Name="A .NET host" Type="dotnet publish" Description="Everything works, including search and demos with event handlers. Needs a server or container that runs ASP.NET Core." />
+<TypeRow Name="Static export" Type="shelldocs build" Description="Plain HTML, CSS and JS. Free or cheap hosting, nothing to keep running. Search works. Demos with event handlers render but do not respond." />
+<TypeRow Name="A .NET host" Type="dotnet publish" Description="Everything works, including demos with event handlers. Needs a server or container that runs ASP.NET Core." />
 </TypeTable>
 
 ## What works on a static export
@@ -29,12 +29,21 @@ A ShellDocs site is a Blazor Web App. You can run it on a .NET host, or export i
 <TypeRow Name="Preview frames" Type="works" Description="Preview and Code tabs, copy, the actions menu." />
 <TypeRow Name="Mobile navigation" Type="works" Description="The drawer opens, closes on a link, the backdrop or Escape." />
 <TypeRow Name="Redirects" Type="works" Description="Written as redirect pages." />
-<TypeRow Name="Search" Type="needs a server" Description="The search dialog queries the running app, so a static export has no search." />
-<TypeRow Name="Collapsing the whole sidebar" Type="needs a server" Description="The desktop collapse button in the Sidebar layout uses Blazor state." />
+<TypeRow Name="Search" Type="works" Description="The index is a file in the export and is ranked in the browser. See below." />
+<TypeRow Name="Collapsing the whole sidebar" Type="works" Description="The desktop collapse button. The choice is remembered across pages." />
+<TypeRow Name="Not-found page" Type="works" Description="Written as 404.html, which most static hosts serve for unknown URLs." />
 <TypeRow Name="Demos with event handlers" Type="needs a server" Description="A demo that reacts to clicks renders in its initial state and does not respond." />
 </TypeTable>
 
-If search matters to your readers, run the site on a .NET host.
+### Search
+
+The app serves its search index at `/_shelldocs/search.json`, and `shelldocs build` copies that file into the export. `shelldocs.js` fetches it the first time a reader opens search and ranks it in the browser, with the same scoring on a static host as on a .NET host. Nothing is sent to a server, and there is no external service to set up. More in [Search](/docs/guides/search).
+
+The site and the CLI both need to be on `0.1.15-alpha` or later. `shelldocs build` warns when the site's `ShellDocs.Components` is too old to serve an index.
+
+### What still needs a server
+
+A demo with `@onclick` handlers, or any other Blazor event handler, needs a running app. On a static export it renders in its initial state and does not respond. If your docs depend on live demos like that, run the site on a .NET host.
 
 ## Building the static site
 
@@ -77,8 +86,8 @@ jobs:
       - uses: actions/setup-dotnet@v4
         with:
           global-json-file: global.json
-      - run: dotnet tool install -g ShellDocs.CLI --version 0.1.12-alpha
-      - run: shelldocs build --spa-fallback --site-url https://docs.example.com
+      - run: dotnet tool install -g ShellDocs.CLI --version 0.1.15-alpha
+      - run: shelldocs build --site-url https://docs.example.com
       - run: echo "docs.example.com" > publish/CNAME
       - run: touch publish/.nojekyll
       - uses: actions/upload-pages-artifact@v3
@@ -128,7 +137,7 @@ GitHub Pages certificates come from Let's Encrypt. A `CAA` record on the parent 
 For a site served at `https://your-org.github.io/my-repo/`, drop the `CNAME` step and pass the subpath:
 
 ```bash
-shelldocs build --spa-fallback --base-href /my-repo/
+shelldocs build --base-href /my-repo/
 ```
 
 ## Other static hosts
@@ -160,4 +169,6 @@ Any platform that runs ASP.NET Core works: a container, a virtual machine, or a 
 <CardGrid Columns="2">
 <LinkCard Title="shelldocs build" Description="Every flag and what the build does." Href="/docs/cli/build" />
 <LinkCard Title="Redirects" Description="How redirects are written into a static export." Href="/docs/guides/redirects" />
+<LinkCard Title="Search" Description="How search works without a server." Href="/docs/guides/search" />
+<LinkCard Title="Not-found page" Description="DocsNotFound and the 404.html the build writes." Href="/docs/guides/not-found" />
 </CardGrid>

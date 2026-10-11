@@ -58,10 +58,12 @@ content/
       configuration.md
     authoring/          frontmatter, code fences, razor:preview, inline tags, navigation
     components/         one page per content primitive
-    guides/             component libraries, versioning, redirects, deployment
+    guides/             component libraries, versioning, redirects, search, not-found, deployment
     cli/                init, add, dev, build
     theming.md
     packages/           one overview per NuGet package
+wwwroot/
+  demos/                static pages shown with <IframePreview>
 Components/
   Demos/                demo components shown with <DemoPreview>
 ```

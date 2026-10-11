@@ -64,11 +64,17 @@ builder.Services.AddShellDocs(o =>
 });
 ```
 
+## Code tabs
+
+`<CodeTab>` children replace the generated tag in the Code panel. They are taken out of the body first, so the target component never receives them as child content. `SyncKey` and `Caption` work as on `DemoPreview`. See [Code tabs on previews](/docs/components/code-tabs).
+
 ## Props
 
 <TypeTable>
 <TypeRow Name="Component" Type="string" Default="—" Required="true" Description="Tag name of the component to preview." />
 <TypeRow Name="Layout" Type="string?" Default="center" Description="center, stretch or scroll." />
+<TypeRow Name="SyncKey" Type="string?" Default="—" Description="Sync key for its code tabs." />
+<TypeRow Name="Caption" Type="string?" Default="PreviewCaption" Description="Muted note in the toolbar." />
 <TypeRow Name="ChildContent" Type="RenderFragment?" Default="—" Description="Passed to the target as its child content." />
 <TypeRow Name="other attributes" Type="any" Default="—" Description="Forwarded to the target component." />
 </TypeTable>

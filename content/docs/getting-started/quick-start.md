@@ -88,7 +88,7 @@ You now have a Blazor Web App with:
 - **File-based routing** : drop a `.md` in `content/docs/`, it becomes a page
 - **Auto sidebar** : the tree structure of `content/docs/` becomes the nav
 - **Live components** : `razor:preview` fences render real Blazor components inline
-- **Search** : `Cmd+K` opens the search dialog (while the app is running; a static export has no search)
+- **Search** : `Cmd+K` opens the search dialog, on a .NET host and on a static export alike
 - **Dark mode** : theme toggle in the sidebar footer
 
 ## Next

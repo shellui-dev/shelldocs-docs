@@ -1,4 +1,4 @@
 {
   "title": "Guides",
-  "pages": ["component-libraries", "versioning", "redirects", "deployment"]
+  "pages": ["component-libraries", "versioning", "redirects", "search", "not-found", "deployment"]
 }
