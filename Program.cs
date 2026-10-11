@@ -16,6 +16,8 @@ builder.Services.AddShellDocs(o =>
     o.GitHubRepo = "shellui-dev/shelldocs";
     o.SiteUrl = "https://shelldocs.shellui.dev";
     o.LayoutVariant = DocsLayoutVariant.Sidebar;
+    // The ShellDocs mark: bare dots in currentColor, so one file serves both themes.
+    o.LogoSvg = File.ReadAllText(Path.Combine(builder.Environment.WebRootPath, "brand", "mark.svg"));
 
     // Demos shown with <DemoPreview>; their .razor source is read from DemoSourceRoot.
     o.RegisterComponentsFromAssembly<App>("ShellDocs.Site.Components.Demos");

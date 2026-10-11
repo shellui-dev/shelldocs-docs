@@ -172,6 +172,7 @@ builder.Services.AddShellDocs(o =>
     o.GitHubRepo = "shellui-dev/shelldocs";
     o.SiteUrl = "https://shelldocs.shellui.dev";
     o.LayoutVariant = DocsLayoutVariant.Sidebar;
+    o.LogoSvg = File.ReadAllText(Path.Combine(builder.Environment.WebRootPath, "brand", "mark.svg"));
 
     o.RegisterComponentsFromAssembly<App>("ShellDocs.Site.Components.Demos");
     o.DemoSourceRoot = Path.Combine(builder.Environment.ContentRootPath, "Components", "Demos");

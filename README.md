@@ -63,6 +63,8 @@ content/
     theming.md
     packages/           one overview per NuGet package
 wwwroot/
+  favicon.svg, favicon.png, apple-touch-icon.png
+  brand/mark.svg        the logo, read into LogoSvg in Program.cs
   demos/                static pages shown with <IframePreview>
 Components/
   Demos/                demo components shown with <DemoPreview>
