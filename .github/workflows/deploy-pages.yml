@@ -68,9 +68,10 @@ jobs:
 
       # `shelldocs build` produces the full static site into `./publish/`
       # by default: prerendered HTML for every route + merged framework
-      # assets. --spa-fallback copies index.html to 404.html so GH Pages
-      # serves the app shell for any URL a bot / typo hits that doesn't
-      # correspond to a prerendered route. --site-url (added in 0.1.6-alpha)
+      # assets, plus 404.html (the site's not-found page, which GH Pages
+      # serves for any URL with no file) and _shelldocs/search.json (the
+      # search index the browser ranks). No --spa-fallback: it would replace
+      # 404.html with the home page. --site-url (added in 0.1.6-alpha)
       # emits a sitemap.xml + robots.txt at the site root and injects
       # og:title / og:description / og:url / og:type into every rendered
       # page's <head> so link previews on social / chat look right. No
@@ -78,7 +79,7 @@ jobs:
       # (shelldocs.shellui.dev), so `<base href="/">` from the source is
       # already correct.
       - name: Build static site
-        run: shelldocs build --spa-fallback --site-url https://shelldocs.shellui.dev
+        run: shelldocs build --site-url https://shelldocs.shellui.dev
 
       # Custom domain: GH Pages reads a `CNAME` file at the site root and
       # keeps the domain wired across deploys. Written here (not committed

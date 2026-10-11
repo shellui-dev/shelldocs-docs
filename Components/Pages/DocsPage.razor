@@ -11,25 +11,9 @@
 }
 else
 {
-    <div class="doc-not-found">
-        <h1>Page not found</h1>
-        <p>The page <code>@Path</code> doesn't exist yet.</p>
-        <p><a href="/docs/introduction">Back to introduction</a></p>
-    </div>
+    @* Answers HTTP 404, so `shelldocs build` reports a page that fails to resolve. *@
+    <DocsNotFound />
 }
-
-<style>
-    .doc-not-found { padding: 3rem 0; }
-    .doc-not-found h1 { font-size: 1.5rem; font-weight: 600; }
-    .doc-not-found code {
-        background: var(--muted);
-        padding: 0.125rem 0.375rem;
-        border-radius: 4px;
-        font-family: var(--font-mono);
-        font-size: 0.875em;
-        border: 1px solid var(--border);
-    }
-</style>
 
 @code {
     [Parameter] public string? Path { get; set; }
