@@ -1,0 +1,34 @@
+@using System.Reflection
+
+@* The site footer: this site's own links, and the rest of the Shell family. *@
+<DocsFooter Version="@FrameworkVersion">
+    <Columns>
+        <div class="docs-footer-col">
+            <h3>Resources</h3>
+            <ul>
+                <li><a href="/docs/introduction">Documentation</a></li>
+                <li><a href="/docs/components/callout">Components</a></li>
+                <li><a href="/docs/guides/deployment">Deployment</a></li>
+                <li><a href="https://github.com/shellui-dev/shelldocs/releases" target="_blank" rel="noopener">Releases</a></li>
+                <li><a href="https://github.com/shellui-dev/shelldocs/issues" target="_blank" rel="noopener">Report an issue</a></li>
+            </ul>
+        </div>
+        <div class="docs-footer-col">
+            <h3>Shell family</h3>
+            <ul>
+                <li><a href="https://shellui.dev" target="_blank" rel="noopener">ShellUI</a></li>
+                <li><a href="https://github.com/shellui-dev/shellui-native" target="_blank" rel="noopener">ShellUI Native</a></li>
+                <li><a href="https://github.com/shellui-dev/shell-icons" target="_blank" rel="noopener">ShellIcons</a></li>
+                <li><a href="https://github.com/shellui-dev/shelldocs" target="_blank" rel="noopener">ShellDocs on GitHub</a></li>
+            </ul>
+        </div>
+    </Columns>
+</DocsFooter>
+
+@code {
+    // The version of the ShellDocs packages the site is built with, so the label never needs a manual bump.
+    private static readonly string? FrameworkVersion =
+        typeof(ShellDocsOptions).Assembly
+            .GetCustomAttribute<AssemblyInformationalVersionAttribute>()?
+            .InformationalVersion.Split('+')[0];
+}

@@ -66,8 +66,12 @@ wwwroot/
   favicon.svg, favicon.png, apple-touch-icon.png
   brand/mark.svg        the logo, read into LogoSvg in Program.cs
   demos/                static pages shown with <IframePreview>
+  cli-replay.js         the terminal replay on the home page
+  copy-button.js        copy buttons marked with data-copy
 Components/
   Demos/                demo components shown with <DemoPreview>
+  Home/                 the animated feature bento on the home page
+  Layout/               the site footer
 ```
 
 ## Framework version

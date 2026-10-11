@@ -20,38 +20,17 @@
                 Browse components
             </a>
         </div>
+        <div class="hero-install">
+            <span>$</span>
+            <code>dotnet tool install -g ShellDocs.CLI <span class="flag">--prerelease</span></code>
+            <button type="button" class="hero-copy" data-copy="dotnet tool install -g ShellDocs.CLI --prerelease" aria-label="Copy the install command">
+                <svg class="icon-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                <svg class="icon-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </button>
+        </div>
     </section>
 
-    <section class="features">
-        <div class="feature">
-            <div class="feature-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16v16H4z"/><path d="M4 9h16M9 4v16"/></svg>
-            </div>
-            <h3>Markdown-first</h3>
-            <p>YAML frontmatter, fenced code blocks, live-rendered <code>razor:preview</code> examples, inline Blazor components mid-prose.</p>
-        </div>
-        <div class="feature">
-            <div class="feature-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-            </div>
-            <h3>One-command scaffold</h3>
-            <p><code>shelldocs init</code> creates a Blazor Web App wired end-to-end. <code>shelldocs add</code> scaffolds new pages. <code>shelldocs dev</code> hot-reloads.</p>
-        </div>
-        <div class="feature">
-            <div class="feature-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg>
-            </div>
-            <h3>Search built in</h3>
-            <p>Cmd+K search across titles, headings and body text, with snippets. Built into the app, with no external service to configure.</p>
-        </div>
-        <div class="feature">
-            <div class="feature-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
-            </div>
-            <h3>Composable</h3>
-            <p>Bring your own component library : ShellUI, MudBlazor, Radzen, hand-rolled. Register in one line, reference in markdown.</p>
-        </div>
-    </section>
+    <FeatureBento />
 
     <section class="cta-strip">
         <div>
@@ -65,14 +44,26 @@
     </section>
 </div>
 
+<SiteFooter />
+
+@* HomeLayout has no search dialog of its own; this one makes Ctrl+K and the bento's search panel work here. *@
+<SearchDialog />
+
 <style>
     .site-home {
-        max-width: 60rem;
+        max-width: 68rem;
         margin: 0 auto;
-        padding: 4rem 1.5rem 6rem;
+        padding: 4rem 1.5rem 5rem;
     }
 
-    .hero { text-align: center; margin-bottom: 5rem; }
+    .hero { text-align: center; }
+    /* The hero settles in on load, one line after the other. */
+    .hero > * { animation: hero-in 600ms cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+    .hero > :nth-child(2) { animation-delay: 80ms; }
+    .hero > :nth-child(3) { animation-delay: 160ms; }
+    .hero > :nth-child(4) { animation-delay: 240ms; }
+    @@keyframes hero-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+    @@media (prefers-reduced-motion: reduce) { .hero > * { animation: none; } }
 
     .hero h1 {
         font-size: clamp(2.5rem, 5vw, 3.75rem);
@@ -93,6 +84,30 @@
         margin: 0 auto 2rem;
     }
     .hero-ctas { display: inline-flex; gap: 0.65rem; }
+    .hero-install {
+        display: flex; width: fit-content; max-width: 100%; margin: 1.5rem auto 0;
+        align-items: center; gap: 0.6rem; padding: 0.3rem 0.35rem 0.3rem 1rem;
+        border: 1px solid var(--border); border-radius: 9999px; background: var(--card);
+        font-family: var(--font-mono); font-size: 0.82rem;
+    }
+    .hero-install > span { color: var(--muted-foreground); }
+    .hero-install .flag { white-space: nowrap; }
+    .hero-copy {
+        display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0;
+        width: 1.9rem; height: 1.9rem; border: 0; border-radius: 9999px;
+        background: transparent; color: var(--muted-foreground); cursor: pointer;
+        transition: background 150ms, color 150ms;
+    }
+    .hero-copy:hover { background: var(--muted); color: var(--foreground); }
+    .hero-copy svg { width: 0.9rem; height: 0.9rem; }
+    .hero-copy .icon-check { display: none; color: var(--success, oklch(0.72 0.17 150)); }
+    .hero-copy.copied .icon-copy { display: none; }
+    .hero-copy.copied .icon-check { display: block; }
+    .hero-install code { min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    @@media (max-width: 480px) {
+        .hero-install { border-radius: calc(var(--radius) + 2px); text-align: left; }
+        .hero-install code { white-space: normal; }
+    }
 
     .btn {
         display: inline-flex;
@@ -111,44 +126,8 @@
     .btn.secondary:hover { background: var(--muted); border-color: color-mix(in oklch, var(--border) 60%, var(--foreground)); }
     .btn svg { width: 0.85rem; height: 0.85rem; }
 
-    .features {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 1rem;
-        margin-bottom: 5rem;
-    }
-    @@media (min-width: 640px) { .features { grid-template-columns: repeat(2, 1fr); } }
-
-    .feature {
-        padding: 1.35rem 1.5rem;
-        border: 1px solid var(--border);
-        border-radius: calc(var(--radius) + 4px);
-        background: var(--card);
-    }
-    .feature-icon {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 2rem;
-        height: 2rem;
-        border-radius: calc(var(--radius));
-        background: var(--muted);
-        color: var(--foreground);
-        margin-bottom: 0.85rem;
-    }
-    .feature-icon svg { width: 1rem; height: 1rem; }
-    .feature h3 { margin: 0 0 0.4rem; font-size: 0.95rem; font-weight: 600; letter-spacing: -0.01em; }
-    .feature p { margin: 0; color: var(--muted-foreground); font-size: 0.85rem; line-height: 1.55; }
-    .feature code {
-        background: color-mix(in oklch, var(--card) 55%, var(--background));
-        border: 1px solid var(--border);
-        padding: 0.05rem 0.35rem;
-        border-radius: 4px;
-        font-family: var(--font-mono);
-        font-size: 0.85em;
-    }
-
     .cta-strip {
+        margin-top: 4.5rem;
         display: flex;
         flex-direction: column;
         gap: 1.25rem;

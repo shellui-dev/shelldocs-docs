@@ -32,6 +32,8 @@
 <body>
     <Routes @rendermode="RenderMode.InteractiveServer" />
     <script src="_content/ShellDocs.Components/shelldocs.js"></script>
+    <script src="cli-replay.js"></script>
+    <script src="copy-button.js"></script>
     <script type="module">
         import { createHighlighter } from 'https://esm.sh/shiki@1.24.0';
         window.__shiki = await createHighlighter({

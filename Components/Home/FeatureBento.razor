@@ -1,0 +1,117 @@
+@* "What's in ShellDocs?": a bento of small animated scenes, one per feature. Everything is CSS
+   and wwwroot/cli-replay.js, with no Blazor event handlers, so it runs on the static export too.
+   Motion stops under prefers-reduced-motion. *@
+
+<section class="bento-section" aria-labelledby="bento-title">
+    <header class="bento-head">
+        <h2 id="bento-title">What's in ShellDocs?</h2>
+        <p>A docs site from a folder of markdown, on any host.</p>
+    </header>
+
+    <div class="bento">
+        @* CLI: the terminal replays init and build *@
+        <div class="cell span-2">
+            <div class="visual visual-cli">
+                <div class="terminal" data-cli-replay role="img" aria-label="Replay of shelldocs init and shelldocs build in a terminal">
+                    <div class="terminal-bar"><span></span><span></span><span></span><em>MyDocs : shelldocs</em></div>
+                    <div class="term-body"></div>
+                </div>
+            </div>
+            <div class="text">
+                <h3>One command to scaffold, one to publish</h3>
+                <p><code>shelldocs init</code> creates a Blazor Web App wired end to end. <code>shelldocs build</code> prerenders every page into a folder any static host can serve.</p>
+                <a href="/docs/getting-started/quick-start">Quick start →</a>
+            </div>
+        </div>
+
+        @* Search: the keys tap, the highlight walks the results. Clicking opens the real dialog. *@
+        <div class="cell">
+            <button type="button" class="visual visual-search" data-search-open aria-label="Open search">
+                <span class="search-panel" aria-hidden="true">
+                    <span class="search-field">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7" /><path d="M21 21l-4.35-4.35" /></svg>
+                        <span class="search-query">code tabs</span>
+                        <span class="keys"><kbd>Ctrl</kbd><kbd>K</kbd></span>
+                    </span>
+                    <span class="search-rows">
+                        <span class="search-hl"></span>
+                        <span class="search-row"><b>Code tabs on previews</b><i>Components</i></span>
+                        <span class="search-row"><b>With code tabs</b><i>IframePreview</i></span>
+                        <span class="search-row"><b>Switching together</b><i>Code tabs on previews</i></span>
+                    </span>
+                </span>
+            </button>
+            <div class="text">
+                <h3>Search with no server</h3>
+                <p>Titles, headings and body text, ranked in the browser. It works the same on a static export. Click the panel to try it.</p>
+                <a href="/docs/guides/search">How search works →</a>
+            </div>
+        </div>
+
+        @* Markdown: source lines on the left become a page on the right *@
+        <div class="cell">
+            <div class="visual visual-md" aria-hidden="true">
+                <div class="md-source">
+                    <span class="md-line l1"><i>#</i> Getting started</span>
+                    <span class="md-line l2">Install the tool.</span>
+                    <span class="md-line l3"><i>&lt;Callout&gt;</i></span>
+                    <span class="md-line l4">Needs .NET 10.</span>
+                    <span class="md-line l5"><i>&lt;/Callout&gt;</i></span>
+                </div>
+                <svg class="md-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+                <div class="md-page">
+                    <span class="md-h">Getting started</span>
+                    <span class="md-p"></span>
+                    <span class="md-callout"><span class="md-callout-dot"></span><span class="md-callout-bar"></span></span>
+                </div>
+            </div>
+            <div class="text">
+                <h3>Markdown first</h3>
+                <p>Frontmatter, fenced code, and Blazor components written as tags in the middle of your prose.</p>
+                <a href="/docs/authoring">Authoring →</a>
+            </div>
+        </div>
+
+        @* Live previews: the frame flips between Preview and Code *@
+        <div class="cell">
+            <div class="visual visual-preview" aria-hidden="true">
+                <div class="frame">
+                    <div class="frame-bar">
+                        <span class="frame-tab tab-preview">Preview</span>
+                        <span class="frame-tab tab-code">Code</span>
+                    </div>
+                    <div class="frame-body">
+                        <div class="frame-panel panel-preview"><span class="demo-button">Save changes</span></div>
+                        <div class="frame-panel panel-code">
+                            <span><i>&lt;Button</i> Variant=<b>"primary"</b><i>&gt;</i></span>
+                            <span>&nbsp;&nbsp;Save changes</span>
+                            <span><i>&lt;/Button&gt;</i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text">
+                <h3>Live component previews</h3>
+                <p>A <code>razor:preview</code> fence renders your real components next to their source, from any library you register.</p>
+                <a href="/docs/authoring/razor-preview">razor:preview →</a>
+            </div>
+        </div>
+
+        @* Static export: the files of a build tick off one by one *@
+        <div class="cell">
+            <div class="visual visual-export" aria-hidden="true">
+                <ul class="files">
+                    <li class="f1"><span class="tick"></span>docs/introduction/index.html</li>
+                    <li class="f2"><span class="tick"></span>404.html</li>
+                    <li class="f3"><span class="tick"></span>_shelldocs/search.json</li>
+                    <li class="f4"><span class="tick"></span>sitemap.xml</li>
+                </ul>
+            </div>
+            <div class="text">
+                <h3>Any static host</h3>
+                <p>GitHub Pages, Cloudflare Pages, Netlify, or a .NET host when you need live demos. This site is a static export.</p>
+                <a href="/docs/guides/deployment">Deployment →</a>
+            </div>
+        </div>
+    </div>
+</section>
