@@ -78,7 +78,16 @@ Components/
 
 ## Framework version
 
-The site references `ShellDocs.* 0.1.17-alpha`. On a new release, bump the four package versions in `ShellDocs.Site.csproj` and the CLI version pinned in `.github/workflows/deploy-pages.yml` together.
+The site references `ShellDocs.* 0.1.17-alpha`. On a new release, bump the four package versions in `ShellDocs.Site.csproj` together.
+
+## Deploying
+
+The site runs as a Docker image (`Dockerfile`). `.github/workflows/docker.yml` builds it on every pull request, and on every push to `main` pushes it to `docker.zuluville.com/shelldocs-docs` as `:latest` and `:<short commit>`. Registry login uses the repository secrets `REGISTRY_USERNAME` and `REGISTRY_PASSWORD`.
+
+```bash
+docker build -t docker.zuluville.com/shelldocs-docs .
+docker run --rm -p 8080:8080 docker.zuluville.com/shelldocs-docs
+```
 
 ## License
 

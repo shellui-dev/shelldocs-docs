@@ -6,7 +6,7 @@ order: 7
 
 # Deployment
 
-A ShellDocs site is a Blazor Web App. You can run it on a .NET host, or export it to static files with `shelldocs build` and serve those from any static host. This site is a static export on GitHub Pages.
+A ShellDocs site is a Blazor Web App. You can run it on a .NET host, or export it to static files with `shelldocs build` and serve those from any static host. This site runs on a .NET host, as a Docker image.
 
 ## Choosing
 
@@ -60,7 +60,7 @@ The output goes to `./publish`. Every flag is covered in [shelldocs build](/docs
 
 ## GitHub Pages
 
-This is the workflow this site deploys with. It builds on every push to `main` and can be run by hand.
+This workflow builds on every push to `main` and can be run by hand.
 
 ```yaml
 name: Deploy to GitHub Pages
