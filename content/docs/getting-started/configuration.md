@@ -27,7 +27,7 @@ That is a working site. The built-in content primitives are registered for you.
 <TypeRow Name="SiteName" Type="string" Default="empty" Required="true" Description="Brand name shown in the header and sidebar." />
 <TypeRow Name="SiteTagline" Type="string?" Default="—" Description="One-line description shown in the footer." />
 <TypeRow Name="GitHubRepo" Type="string?" Default="—" Description="Owner and repository, for example my-org/my-docs. Used for the GitHub link and as the default issue tracker." />
-<TypeRow Name="SiteUrl" Type="string?" Default="—" Description="Absolute address of the deployed site. Used in the links the preview menu builds." />
+<TypeRow Name="SiteUrl" Type="string?" Default="—" Description="Absolute address of the deployed site. Used in the links the preview menu builds and in the llms.txt files." />
 <TypeRow Name="IssueTrackerUrl" Type="string?" Default="GitHubRepo issues" Description="Where the preview menu's Report a bug and Suggest something open a new issue. With neither this nor GitHubRepo set, those items are hidden." />
 <TypeRow Name="ContentRoot" Type="string" Default="content" Description="Path to the content folder." />
 </TypeTable>
@@ -157,6 +157,23 @@ o.AddSyncSwitch("platform", "MAUI", "Avalonia");
 
 Both are covered in [Code tabs on previews](/docs/components/code-tabs).
 
+## AI agents
+
+<TypeTable>
+<TypeRow Name="EnableLlmsTxt(configure)" Type="method" Description="Serves /llms.txt, /llms-full.txt, every page as Markdown and agent instruction files, and adds the page actions menu by the title." />
+<TypeRow Name="LlmsTxt" Type="LlmsTxtOptions?" Default="null" Description="The options EnableLlmsTxt set. Null while it is off." />
+</TypeTable>
+
+```csharp
+o.EnableLlmsTxt(l =>
+{
+    l.RulesFile = "Llms/agent-rules.md";
+    l.InstallCommandPattern = @"dotnet add package MyLib\.\w+";
+});
+```
+
+The options and the files are covered in [AI agents (llms.txt)](/docs/guides/llms-txt).
+
 ## Options that do nothing yet
 
 `Theme` and the `--theme` flag of `shelldocs init` are accepted but have no effect in this release. Every site uses the same tokens; restyle through [Theming](/docs/theming).
@@ -177,6 +194,13 @@ builder.Services.AddShellDocs(o =>
     o.RegisterComponentsFromAssembly<App>("ShellDocs.Site.Components.Demos");
     o.DemoSourceRoot = Path.Combine(builder.Environment.ContentRootPath, "Components", "Demos");
 
+    o.EnableLlmsTxt(l =>
+    {
+        l.Summary = "ShellDocs is a docs framework for .NET: Markdown pages, live Blazor component previews, search and a static export, in a Blazor Web App.";
+        l.RulesFile = "Llms/agent-rules.md";
+        l.InstallCommandPattern = @"(?m)(?<=^[ \t]*)dotnet (?:tool install -g ShellDocs\.CLI|add package ShellDocs\.\w+)[^\r\n]*";
+    });
+
     o.AddNavLink("Documentation", "/docs/introduction");
     o.AddNavLink("Releases", "https://github.com/shellui-dev/shelldocs/releases");
 
@@ -194,4 +218,5 @@ builder.Services.AddShellDocs(o =>
 <LinkCard Title="Component reference" Description="Every shipped primitive." Href="/docs/components/callout" />
 <LinkCard Title="Documenting a component library" Description="Register and preview your own components." Href="/docs/guides/component-libraries" />
 <LinkCard Title="Deployment" Description="Static export or a .NET host." Href="/docs/guides/deployment" />
+<LinkCard Title="AI agents (llms.txt)" Description="Docs that coding agents can read." Href="/docs/guides/llms-txt" />
 </CardGrid>

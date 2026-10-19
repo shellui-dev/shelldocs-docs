@@ -32,6 +32,8 @@
     <Content Update="content/**/meta.json" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
     <!-- DemoPreview reads these at runtime; the Razor SDK drops .razor files from publish otherwise. -->
     <None Include="Components/Demos/**/*.razor" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <!-- EnableLlmsTxt reads the rules file at runtime, from the output folder and from the export's publish. -->
+    <None Update="Llms/agent-rules.md" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
   </ItemGroup>
 
 </Project>

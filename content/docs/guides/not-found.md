@@ -1,7 +1,7 @@
 ---
 title: Not-found page
 description: DocsNotFound answers HTTP 404 for a URL with no page, and shelldocs build turns it into 404.html.
-order: 5
+order: 6
 ---
 
 # Not-found page

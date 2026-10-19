@@ -48,6 +48,7 @@ Two categories: **chrome** (the layout, header, sidebar, search : the site's ske
 <TypeRow Name="TableOfContents" Type="component" Description="Right-rail on-this-page nav, scroll-spy indicator." />
 <TypeRow Name="PrevNextNav" Type="component" Description="Bottom-of-page prev/next cards, auto-derived from nav adjacency." />
 <TypeRow Name="SearchDialog" Type="component" Description="Cmd+K modal that searches titles, sections and body text. Ranked in the browser by shelldocs.js, so it works on static hosts. Part of DocsLayout and HomeLayout." />
+<TypeRow Name="DocsPageActions" Type="component" Description="The menu by the page title: Copy page, View as Markdown, Open in Claude, Open in ChatGPT. Shown when EnableLlmsTxt is on." />
 <TypeRow Name="PackageSelector" Type="component" Description="Sidebar dropdown for switching between package families." />
 <TypeRow Name="VersionSelector" Type="component" Description="Dropdown for switching docs version. Shown once two or more versions are registered." />
 <TypeRow Name="BrandLogo" Type="component" Description="Renders your LogoSvg (inline) or LogoLight/LogoDark (URLs), with a placeholder dot fallback." />

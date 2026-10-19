@@ -1,7 +1,7 @@
 ---
 title: Deployment
 description: Publish as a static site or run on a .NET host. What works where, and a GitHub Pages workflow you can copy.
-order: 6
+order: 7
 ---
 
 # Deployment
@@ -32,6 +32,7 @@ A ShellDocs site is a Blazor Web App. You can run it on a .NET host, or export i
 <TypeRow Name="Search" Type="works" Description="The index is a file in the export and is ranked in the browser. See below." />
 <TypeRow Name="Collapsing the whole sidebar" Type="works" Description="The desktop collapse button. The choice is remembered across pages." />
 <TypeRow Name="Not-found page" Type="works" Description="Written as 404.html, which most static hosts serve for unknown URLs. It names the address the reader asked for." />
+<TypeRow Name="llms.txt and agent files" Type="works" Description="Written into the export as files, with the page actions menu working. See AI agents (llms.txt)." />
 <TypeRow Name="Demos with event handlers" Type="needs a server" Description="A demo that reacts to clicks renders in its initial state and does not respond." />
 </TypeTable>
 
@@ -171,4 +172,5 @@ Any platform that runs ASP.NET Core works: a container, a virtual machine, or a 
 <LinkCard Title="Redirects" Description="How redirects are written into a static export." Href="/docs/guides/redirects" />
 <LinkCard Title="Search" Description="How search works without a server." Href="/docs/guides/search" />
 <LinkCard Title="Not-found page" Description="DocsNotFound and the 404.html the build writes." Href="/docs/guides/not-found" />
+<LinkCard Title="AI agents (llms.txt)" Description="The llms.txt files the build writes." Href="/docs/guides/llms-txt" />
 </CardGrid>
