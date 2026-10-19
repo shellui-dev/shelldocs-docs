@@ -1,6 +1,6 @@
 ---
 title: Fenced code
-description: Regular code fences : language detection, copy button, Shiki syntax highlighting.
+description: "Regular code fences: language detection, copy button, Shiki syntax highlighting."
 order: 2
 ---
 
