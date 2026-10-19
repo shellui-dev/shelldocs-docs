@@ -1,0 +1,63 @@
+# Builds the site as a Docker image on every pull request, to check the
+# Dockerfile still works. On a push to main (a merged PR) it also pushes
+# the image to docker.zuluville.com as :latest and :<short commit>.
+#
+# Registry login uses the repository secrets REGISTRY_USERNAME and
+# REGISTRY_PASSWORD; without them the push is tried without logging in.
+
+name: Docker image
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: docker-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+env:
+  IMAGE: docker.zuluville.com/shelldocs-docs
+
+jobs:
+  image:
+    name: Build and push
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      REGISTRY_USERNAME: ${{ secrets.REGISTRY_USERNAME }}
+      REGISTRY_PASSWORD: ${{ secrets.REGISTRY_PASSWORD }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build the image
+        run: docker build -t "$IMAGE:latest" -t "$IMAGE:${GITHUB_SHA::7}" .
+
+      - name: Start it
+        run: docker run -d --name site -p 8080:8080 "$IMAGE:latest"
+
+      # The container must serve pages, search and llms.txt before it is pushed.
+      - name: The site answers
+        run: |
+          curl --fail --silent --show-error --output /dev/null --retry 12 --retry-delay 5 --retry-all-errors http://127.0.0.1:8080/docs/introduction
+          for path in / /_shelldocs/search.json /llms.txt /docs/introduction.md; do
+            curl --fail --silent --show-error --output /dev/null "http://127.0.0.1:8080$path"
+          done
+
+      - name: Container log
+        if: always()
+        run: docker logs site 2>&1 | tail -n 60
+
+      - name: Log in to the registry
+        if: github.event_name != 'pull_request' && env.REGISTRY_USERNAME != ''
+        run: echo "$REGISTRY_PASSWORD" | docker login docker.zuluville.com --username "$REGISTRY_USERNAME" --password-stdin
+
+      - name: Push the image
+        if: github.event_name != 'pull_request'
+        run: |
+          docker push "$IMAGE:${GITHUB_SHA::7}"
+          docker push "$IMAGE:latest"

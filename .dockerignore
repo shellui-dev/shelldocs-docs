@@ -1,0 +1,20 @@
+# Host bin/obj must stay out: their restore files hold Windows paths and break the Linux build.
+**/bin
+**/obj
+**/.vs
+**/.vscode
+**/.claude
+**/*.*proj.user
+**/.dockerignore
+**/Dockerfile*
+**/docker-compose*
+**/node_modules
+.github
+publish
+out
+
+**/.git
+!.git/HEAD
+!.git/config
+!.git/packed-refs
+!.git/refs/heads/**
