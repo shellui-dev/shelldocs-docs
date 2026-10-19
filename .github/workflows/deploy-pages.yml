@@ -58,7 +58,7 @@ jobs:
       # use. Prevents a floating latest-prerelease install from silently
       # shifting the prerender behaviour under our feet mid-release-cycle.
       - name: Install shelldocs CLI
-        run: dotnet tool install -g ShellDocs.CLI --version 0.1.15-alpha
+        run: dotnet tool install -g ShellDocs.CLI --version 0.1.17-alpha
 
       # Restore explicitly so the `shelldocs build`'s embedded `dotnet
       # publish` doesn't spend the first run downloading every package

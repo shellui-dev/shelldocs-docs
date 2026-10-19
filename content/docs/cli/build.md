@@ -48,6 +48,9 @@ Requests a URL that doesn't exist and saves the site's not-found view as `404.ht
 <Step Title="Copies the search index">
 Saves the app's search index as `_shelldocs/search.json`, which is what makes search work without a server.
 </Step>
+<Step Title="Writes the llms.txt files">
+On a site that calls `EnableLlmsTxt`, writes `llms.txt`, `llms-full.txt`, every page's `.md` and the agent files. Their links use `--site-url`, then `SiteUrl`. See [AI agents (llms.txt)](/docs/guides/llms-txt).
+</Step>
 <Step Title="Copies the assets">
 Merges the published `wwwroot` into the output: framework scripts, `shelldocs.js`, stylesheets, your own static files. Prerendered pages are never overwritten.
 </Step>

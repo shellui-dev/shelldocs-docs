@@ -1,7 +1,7 @@
 ---
 title: Not-found page
 description: DocsNotFound answers HTTP 404 for a URL with no page, and shelldocs build turns it into 404.html.
-order: 5
+order: 6
 ---
 
 # Not-found page
@@ -37,7 +37,7 @@ A site created before `0.1.14-alpha` has a hand-written block in that branch. Re
 
 `shelldocs build` uses the same view in two ways.
 
-**It writes `404.html`.** The build requests a URL that doesn't exist and saves the response as `404.html` at the root of the export. GitHub Pages, Cloudflare Pages, Netlify and most other static hosts serve that file, with a 404 status, for any URL that has no file.
+**It writes `404.html`.** The build requests a URL that doesn't exist and saves the response as `404.html` at the root of the export. GitHub Pages, Cloudflare Pages, Netlify and most other static hosts serve that file, with a 404 status, for any URL that has no file. One file serves every unknown URL, so the build leaves the address out of it and `shelldocs.js` fills in the path the reader asked for, relative to the site's base. Before `0.1.17-alpha` every unknown URL showed the build's own probe address.
 
 **It fails on a broken page.** If a page from the navigation graph answers 404 or renders `DocsNotFound`, the build stops with an error instead of publishing a not-found page under a real URL. The usual cause is content that didn't reach the publish output.
 

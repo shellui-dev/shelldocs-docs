@@ -1,5 +1,5 @@
 // Replays `shelldocs init` and `shelldocs build` in elements marked [data-cli-replay].
-// The lines are the CLI's real output for a new site (ShellDocs.CLI 0.1.15-alpha), shortened.
+// The lines are the CLI's real output for a new site (ShellDocs.CLI 0.1.17-alpha), shortened.
 (function () {
     'use strict';
 
@@ -44,6 +44,7 @@
         { line: `${dim('redirects:')} wrote ${c('1')} redirect page(s)`, wait: 160 },
         { line: `${dim('not found:')} wrote ${c('404.html')}`, wait: 160 },
         { line: `${dim('search:')} wrote ${c('_shelldocs/search.json')} (1 KB)`, wait: 160 },
+        { line: `${dim('llms.txt:')} wrote ${c('7')} file(s)`, wait: 160 },
         { line: `${dim('seo:')} sitemap.xml + robots.txt + og meta on ${c('1')} page(s)`, wait: 160 },
         { line: '', wait: 0 },
         { line: `${g('✓')} built to ${c('publish')}` },

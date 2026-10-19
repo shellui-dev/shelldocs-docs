@@ -59,6 +59,8 @@ Try it:
 
 The built-in search buttons are wired the same way, so a custom header or home page needs no Blazor code for it.
 
+The dialog itself is part of `DocsLayout` and `HomeLayout`, so `Cmd+K` and `data-search-open` work on the home page too. Before `0.1.17-alpha`, `HomeLayout` had no dialog and a site had to add `<SearchDialog />` to its home page; remove that tag when you upgrade, or the page has two.
+
 ## From script
 
 ```js

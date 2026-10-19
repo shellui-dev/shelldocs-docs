@@ -58,7 +58,7 @@ content/
       configuration.md
     authoring/          frontmatter, code fences, razor:preview, inline tags, navigation
     components/         one page per content primitive
-    guides/             component libraries, versioning, redirects, search, not-found, deployment
+    guides/             component libraries, versioning, redirects, search, llms.txt, not-found, deployment
     cli/                init, add, dev, build
     theming.md
     packages/           one overview per NuGet package
@@ -68,6 +68,8 @@ wwwroot/
   demos/                static pages shown with <IframePreview>
   cli-replay.js         the terminal replay on the home page
   copy-button.js        copy buttons marked with data-copy
+Llms/
+  agent-rules.md        rules for AI agents, shown in /llms.txt and the agent files
 Components/
   Demos/                demo components shown with <DemoPreview>
   Home/                 the animated feature bento on the home page
@@ -76,7 +78,7 @@ Components/
 
 ## Framework version
 
-The site references `ShellDocs.* 0.1.15-alpha`. On a new release, bump the four package versions in `ShellDocs.Site.csproj` and the CLI version pinned in `.github/workflows/deploy-pages.yml` together.
+The site references `ShellDocs.* 0.1.17-alpha`. On a new release, bump the four package versions in `ShellDocs.Site.csproj` and the CLI version pinned in `.github/workflows/deploy-pages.yml` together.
 
 ## License
 

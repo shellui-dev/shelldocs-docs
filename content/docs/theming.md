@@ -93,7 +93,7 @@ To only override dark values, scope your rules:
 
 ## Brand logo
 
-Set via `ShellDocsOptions.LogoSvg` (inline SVG, uses `currentColor` : recolors with the theme) or `LogoLight` / `LogoDark` (URL pair for pre-rasterized bitmaps or full-color SVGs).
+Set via `ShellDocsOptions.LogoSvg` (inline SVG, uses `currentColor` : recolors with the theme) or `LogoLight` / `LogoDark` (URL pair for pre-rasterized bitmaps or full-color SVGs). An inline SVG is sized to `LogoHeight` with its width following its `viewBox`, so the file needs no `width` or `height` of its own.
 
 ```csharp
 // Inline SVG that recolors with theme
@@ -106,6 +106,8 @@ o.SetLogo("/img/logo-light.svg", "/img/logo-dark.svg", alt: "MyBrand");
 <Callout Variant="tip" Title="Prefer inline SVG">
 An inline `LogoSvg` with `stroke="currentColor"` swaps between light and dark for free : one file, both themes. Reach for `SetLogo` only when your brand needs specific hex colors that shouldn't shift.
 </Callout>
+
+Before `0.1.17-alpha` the rule that sizes an inline logo never matched, and an SVG without a size of its own could render 0px wide. A site that added its own `.brand-logo-svg > svg` rule for that can remove it.
 
 ## Layout variant
 

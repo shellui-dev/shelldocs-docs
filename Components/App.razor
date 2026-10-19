@@ -12,11 +12,6 @@
     <link rel="stylesheet" href="_content/ShellDocs.Tokens/tokens.css" />
     <link rel="stylesheet" href="_content/ShellDocs.Components/shelldocs-theme.css" />
     <link rel="stylesheet" href="ShellDocs.Site.styles.css" />
-    @* ShellDocs 0.1.15 scopes this rule so it never matches, and an inline LogoSvg
-       with no width of its own renders 0px wide. Remove once that is fixed upstream. *@
-    <style>
-        .brand-logo-svg > svg { height: 100%; width: auto; display: block; }
-    </style>
     <script>
         (function () {
             var saved = null;

@@ -1,6 +1,6 @@
 ---
 title: Card
-description: A titled, described tile : linkable, groupable, iconable. The building block behind CardGrid.
+description: "A titled, described tile: linkable, groupable, iconable. The building block behind CardGrid."
 order: 2
 ---
 

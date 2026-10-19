@@ -23,6 +23,15 @@ builder.Services.AddShellDocs(o =>
     o.RegisterComponentsFromAssembly<App>("ShellDocs.Site.Components.Demos");
     o.DemoSourceRoot = Path.Combine(builder.Environment.ContentRootPath, "Components", "Demos");
 
+    // /llms.txt, every page as Markdown at its URL + ".md", agent instruction
+    // files and the page actions menu by the title.
+    o.EnableLlmsTxt(l =>
+    {
+        l.Summary = "ShellDocs is a docs framework for .NET: Markdown pages, live Blazor component previews, search and a static export, in a Blazor Web App.";
+        l.RulesFile = "Llms/agent-rules.md";
+        l.InstallCommandPattern = @"(?m)(?<=^[ \t]*)dotnet (?:tool install -g ShellDocs\.CLI|add package ShellDocs\.\w+)[^\r\n]*";
+    });
+
     // Top nav: three tabs. Package-specific navigation lives entirely in the
     // sidebar's package selector, not up here.
     o.AddNavLink("Documentation", "/docs/introduction");

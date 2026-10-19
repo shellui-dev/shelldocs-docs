@@ -24,7 +24,13 @@ This renders as a real Callout component.
 </Callout>
 ```
 
-The tags must be components registered with ShellDocs : the built-in primitives, or [your own](/docs/guides/component-libraries).
+The tags can be components registered with ShellDocs : the built-in primitives, or [your own](/docs/guides/component-libraries). A fence of plain HTML renders live too:
+
+```razor:preview
+<p style="margin:0">A fence with <strong>only HTML</strong> and no component.</p>
+```
+
+A fence with no tags at all stays a code block, and a warning is logged. Before `0.1.17-alpha` an HTML-only fence also rendered as a code block.
 
 ## The body is Razor, not markdown
 

@@ -1,6 +1,6 @@
 ---
 title: Fenced code
-description: Regular code fences : language detection, copy button, Shiki syntax highlighting.
+description: "Regular code fences: language detection, copy button, Shiki syntax highlighting."
 order: 2
 ---
 
@@ -109,7 +109,7 @@ dotnet add package ShellDocs.Components --prerelease
 <CodeTab Label="PackageReference">
 
 ```xml
-<PackageReference Include="ShellDocs.Components" Version="0.1.15-alpha" />
+<PackageReference Include="ShellDocs.Components" Version="0.1.17-alpha" />
 ```
 
 </CodeTab>
