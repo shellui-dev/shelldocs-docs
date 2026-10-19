@@ -31,7 +31,7 @@ A ShellDocs site is a Blazor Web App. You can run it on a .NET host, or export i
 <TypeRow Name="Redirects" Type="works" Description="Written as redirect pages." />
 <TypeRow Name="Search" Type="works" Description="The index is a file in the export and is ranked in the browser. See below." />
 <TypeRow Name="Collapsing the whole sidebar" Type="works" Description="The desktop collapse button. The choice is remembered across pages." />
-<TypeRow Name="Not-found page" Type="works" Description="Written as 404.html, which most static hosts serve for unknown URLs." />
+<TypeRow Name="Not-found page" Type="works" Description="Written as 404.html, which most static hosts serve for unknown URLs. It names the address the reader asked for." />
 <TypeRow Name="Demos with event handlers" Type="needs a server" Description="A demo that reacts to clicks renders in its initial state and does not respond." />
 </TypeTable>
 
