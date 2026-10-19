@@ -89,7 +89,7 @@ Publishes the project, starts it locally, saves every page as static HTML, write
 
 ## Version discipline
 
-`shelldocs init` scaffolds package references at the CLI's own version, read from its assembly. A project scaffolded with CLI `0.1.15-alpha` references the `0.1.15-alpha` packages. In CI, pin the tool to the same version your project references.
+`shelldocs init` scaffolds package references at the CLI's own version, read from its assembly. A project scaffolded with CLI `0.1.17-alpha` references the `0.1.17-alpha` packages. In CI, pin the tool to the same version your project references.
 
 ## Learn more
 
