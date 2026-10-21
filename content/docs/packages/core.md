@@ -25,7 +25,7 @@ dotnet add package ShellDocs.Core --prerelease
 <CodeTab Label="PackageReference">
 
 ```xml
-<PackageReference Include="ShellDocs.Core" Version="0.1.17-alpha" />
+<PackageReference Include="ShellDocs.Core" Version="0.1.18-alpha" />
 ```
 
 </CodeTab>

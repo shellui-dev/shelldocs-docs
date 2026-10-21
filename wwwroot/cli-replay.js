@@ -1,5 +1,5 @@
 // Replays `shelldocs init` and `shelldocs build` in elements marked [data-cli-replay].
-// The lines are the CLI's real output for a new site (ShellDocs.CLI 0.1.17-alpha), shortened.
+// The lines are the CLI's real output for a new site (ShellDocs.CLI 0.1.18-alpha), shortened.
 (function () {
     'use strict';
 
@@ -20,7 +20,7 @@
         { header: 'the docs framework for .NET' },
         { line: `${dim('Mode')}       create`, wait: 80 },
         { line: `${dim('Site name')}  MyDocs`, wait: 80 },
-        { line: `${dim('Theme')}      shadcn`, wait: 80 },
+        { line: `${dim('Theme')}      graphite`, wait: 80 },
         { line: '', wait: 0 },
         { line: `${dim('$')} ${c('dotnet new blazor -o MyDocs')}` },
         { spin: 'Creating the Blazor Web App...', ms: 1400 },
