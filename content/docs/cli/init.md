@@ -44,7 +44,7 @@ The single-page router that serves every `/docs/**` URL from the `.md` files und
 Deletes `Counter.razor`, `Weather.razor`, `NavMenu.razor`, `MainLayout.razor.css`, `Home.razor.css`. Rewrites `MainLayout.razor` as a bare pass-through and replaces `Home.razor` with the ShellDocs welcome page.
 </Step>
 <Step Title="Patches `Program.cs`">
-Adds `using ShellDocs.Components;`, `builder.WebHost.UseStaticWebAssets();`, and `builder.Services.AddShellDocs(...)` : anchoring on the exact template shape produced by `dotnet new blazor`. The `AddShellDocs` call turns on [llms.txt for AI agents](/docs/guides/llms-txt) with `o.EnableLlmsTxt(...)`, its options commented out.
+Adds `using ShellDocs.Components;`, `builder.WebHost.UseStaticWebAssets();`, and `builder.Services.AddShellDocs(...)` : anchoring on the exact template shape produced by `dotnet new blazor`. The `AddShellDocs` call turns on [llms.txt for AI agents](/docs/guides/llms-txt) with `o.EnableLlmsTxt(...)`, its options commented out, and sets the [colour preset](/docs/theming#colour-presets) from `--theme`.
 </Step>
 <Step Title="Patches `Components/App.razor`">
 Adds the `_content/ShellDocs.Tokens/tokens.css` and component CSS links, the theme-bootstrap script, and `shelldocs.js` + Shiki loader. Also switches `<Routes />` to `<Routes @rendermode="InteractiveServer" />` so interactive components (theme toggle, search, tabs) come alive.
@@ -103,7 +103,7 @@ A per-project setup guide with copy-paste snippets for the exact `AddShellDocs`,
 <TypeRow Name="--dir" Type="string" Default="cwd" Description="Working directory. With --attach, the project directory to augment." />
 <TypeRow Name="--attach" Type="bool" Default="false" Description="Attach mode : augment an existing Blazor project instead of creating one." />
 <TypeRow Name="--yes" Type="bool" Default="false" Description="Non-interactive : skip the GitHub-repo prompt, take defaults everywhere." />
-<TypeRow Name="--theme" Type="string" Default="shadcn" Description="Accepted values are shadcn, fuma and nextra. Has no effect in this release: every site gets the same tokens." />
+<TypeRow Name="--theme" Type="string" Default="graphite" Description="Colour preset: graphite, harbor, lagoon, forest, savanna, ember or jacaranda. Writes o.Theme = ShellDocsTheme.{Preset} into Program.cs; graphite, the default, leaves it as a commented-out example. See Theming." />
 </TypeTable>
 
 ## Exit codes

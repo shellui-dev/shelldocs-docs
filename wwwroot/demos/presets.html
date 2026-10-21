@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Colour presets</title>
+    <!-- Shown by an <IframePreview> on the theming page. A preset recolours the whole
+         document (:root:has([data-shelldocs-theme])), so it gets a page of its own.
+         ?theme= and { type: "shelldocs-theme" } messages set light or dark;
+         ?preset= picks the first preset. -->
+    <link rel="stylesheet" href="../_content/ShellDocs.Tokens/tokens.css" />
+    <style>
+        html, body { margin: 0; }
+        body { background: var(--background); color: var(--foreground); font: 14px/1.5 var(--font-sans); padding: 1rem; box-sizing: border-box; }
+        .chips { display: flex; flex-wrap: wrap; gap: 0.375rem; margin-bottom: 1rem; }
+        .chips button { padding: 0.25rem 0.75rem; border: 1px solid var(--border); border-radius: 999px; background: var(--background); color: var(--muted-foreground); font: inherit; font-size: 13px; cursor: pointer; }
+        .chips button[aria-pressed="true"] { border-color: var(--primary); background: var(--primary); color: var(--primary-foreground); }
+        .chips button:focus-visible, .mock input:focus-visible, .mock button:focus-visible { outline: 2px solid var(--ring); outline-offset: 2px; }
+        .mock { display: grid; grid-template-columns: 10rem 1fr; border: 1px solid var(--border); border-radius: calc(var(--radius) + 2px); overflow: hidden; }
+        .mock aside { display: grid; align-content: start; gap: 0.125rem; padding: 0.75rem; border-right: 1px solid var(--border); background: var(--muted); }
+        .mock aside .label { font-size: 12px; font-weight: 600; color: var(--muted-foreground); padding: 0 0.5rem 0.25rem; }
+        .mock aside a { padding: 0.25rem 0.5rem; border-left: 2px solid transparent; border-radius: calc(var(--radius) - 2px); color: var(--muted-foreground); text-decoration: none; }
+        .mock aside a.active { border-left-color: var(--primary); background: var(--accent); color: var(--accent-foreground); font-weight: 500; }
+        .mock main { display: grid; gap: 0.75rem; padding: 1rem 1.25rem; align-content: start; }
+        .mock h3 { margin: 0; font-size: 1.05rem; }
+        .mock p { margin: 0; color: var(--muted-foreground); }
+        .mock p a { color: var(--foreground); text-decoration: underline; text-decoration-color: var(--primary); text-underline-offset: 3px; }
+        .mock .row { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; }
+        .mock .row button { padding: 0.4rem 0.9rem; border-radius: var(--radius); font: inherit; font-weight: 500; cursor: pointer; }
+        .mock .primary { border: 0; background: var(--primary); color: var(--primary-foreground); }
+        .mock .secondary { border: 1px solid var(--border); background: var(--secondary); color: var(--secondary-foreground); }
+        .mock input { padding: 0.4rem 0.6rem; border: 1px solid var(--border); border-radius: var(--radius); background: var(--background); color: var(--foreground); font: inherit; min-width: 9rem; }
+        .mock .card { padding: 0.6rem 0.8rem; border: 1px solid var(--border); border-radius: var(--radius); background: var(--card); color: var(--card-foreground); }
+        .mock code { padding: 0.1rem 0.3rem; border-radius: 4px; background: var(--muted); font: 12px var(--font-mono); }
+        @media (max-width: 30rem) { .mock { grid-template-columns: 1fr; } .mock aside { border-right: 0; border-bottom: 1px solid var(--border); } }
+    </style>
+</head>
+<body>
+    <div class="chips" role="group" aria-label="Colour preset"></div>
+    <div class="mock">
+        <aside>
+            <span class="label">Guides</span>
+            <a href="#" class="active">Theming</a>
+            <a href="#">Search</a>
+            <a href="#">Deployment</a>
+        </aside>
+        <main>
+            <h3>The <span id="name">Graphite</span> preset</h3>
+            <p>Muted text, borders and backgrounds take the preset's hue. Links like <a href="#">this one</a> and the active sidebar item use its colour.</p>
+            <div class="row">
+                <button type="button" class="primary">Primary</button>
+                <button type="button" class="secondary">Secondary</button>
+                <input type="text" placeholder="Focus me" aria-label="Example field" />
+            </div>
+            <div class="card">A card: <code>o.Theme = ShellDocsTheme.<span id="value">Graphite</span>;</code></div>
+        </main>
+    </div>
+    <script>
+        (function () {
+            var presets = ['Graphite', 'Harbor', 'Lagoon', 'Forest', 'Savanna', 'Ember', 'Jacaranda'];
+            var params = new URLSearchParams(location.search);
+            var chips = document.querySelector('.chips');
+
+            function applyTheme(theme) {
+                document.documentElement.classList.toggle('dark', theme === 'dark');
+            }
+            function applyPreset(name) {
+                // Graphite is the default palette, which the layouts mark with no attribute.
+                if (name === 'Graphite') document.body.removeAttribute('data-shelldocs-theme');
+                else document.body.setAttribute('data-shelldocs-theme', name.toLowerCase());
+                document.getElementById('name').textContent = name;
+                document.getElementById('value').textContent = name;
+                chips.querySelectorAll('button').forEach(function (b) {
+                    b.setAttribute('aria-pressed', String(b.textContent === name));
+                });
+            }
+
+            presets.forEach(function (name) {
+                var b = document.createElement('button');
+                b.type = 'button';
+                b.textContent = name;
+                b.addEventListener('click', function () { applyPreset(name); });
+                chips.appendChild(b);
+            });
+
+            var first = presets.filter(function (p) { return p.toLowerCase() === (params.get('preset') || '').toLowerCase(); })[0];
+            applyTheme(params.get('theme') === 'dark' ? 'dark' : 'light');
+            applyPreset(first || 'Harbor');
+            window.addEventListener('message', function (e) {
+                if (e.data && e.data.type === 'shelldocs-theme') applyTheme(e.data.theme);
+            });
+        })();
+    </script>
+</body>
+</html>

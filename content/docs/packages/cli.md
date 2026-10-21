@@ -40,6 +40,7 @@ Two modes. **Create** (default) scaffolds a fresh Blazor Web App under `docs/<Na
 ```bash
 shelldocs init MyDocs             # create docs/MyDocs.Docs/
 shelldocs init MyDocs --yes       # non-interactive, no prompts
+shelldocs init MyDocs --theme harbor   # with a colour preset
 ```
 
 **Attach** mode (`--attach`) augments an *existing* Blazor project in place. Never touches your `Program.cs` : instead emits `SHELLDOCS_SETUP.md` with copy-paste snippets so you can wire it into your custom middleware / auth / etc. yourself.

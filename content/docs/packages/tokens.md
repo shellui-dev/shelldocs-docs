@@ -60,6 +60,10 @@ Two `:root` blocks : one for light mode, one for `:root.dark`. All the essential
 <TypeRow Name="--font-mono" Type="stack" Description="Monospace stack for code + inline code." />
 </TypeTable>
 
+## Colour presets
+
+`tokens.css` also holds six tinted palettes next to the default (Graphite): Harbor, Lagoon, Forest, Savanna, Ember and Jacaranda, each with light and dark values. A ShellDocs site picks one with `o.Theme`; using the package on its own, put `data-shelldocs-theme="harbor"` on any element of the page. See [Theming](/docs/theming#colour-presets).
+
 ## Overriding tokens
 
 Tokens are CSS custom properties : override anywhere with normal CSS specificity.
