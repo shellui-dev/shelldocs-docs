@@ -78,10 +78,16 @@ A quoted value can hold anything except its own quote character. Angle brackets,
 Three things to know:
 
 <TypeTable>
-<TypeRow Name="Quotes" Type="choose" Description="There is no escape for a quote inside a value. Wrap the value in single quotes when it contains double quotes, and the other way round." />
+<TypeRow Name="Quotes" Type="choose" Description="Wrap the value in single quotes when it contains double quotes, and the other way round. Or write the quote as an entity." />
 <TypeRow Name="Markdown" Type="literal" Description="Attribute text is not markdown. Backticks and asterisks show up as typed. Put formatted text in the tag body." />
-<TypeRow Name="HTML entities" Type="literal" Description="Entities are not decoded. Write the character itself." />
+<TypeRow Name="HTML entities" Type="decoded" Description="Entities are decoded, as Razor does. Before 0.1.18-alpha they showed literally." />
 </TypeTable>
+
+```markdown
+<Callout Title="Tom &amp; Jerry say &quot;hi&quot;" />
+```
+
+The title reads: Tom & Jerry say "hi". Entities inside a code span in the value, `@` expressions and directive attributes such as `@onclick` stay as written.
 
 A tag whose quote is never closed, or that runs across a blank line, is treated as plain text rather than a component.
 

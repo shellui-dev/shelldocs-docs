@@ -71,7 +71,7 @@ shelldocsSearch.close();
 ## Upgrading from before 0.1.15
 
 <Callout Variant="warning" Title="Two things changed">
-`shelldocsSearch.init` is gone. If your own script called it, remove the call: search sets itself up. The `SearchState` service is still registered so existing code compiles, but nothing reads it any more. Open search with `data-search-open` or `shelldocsSearch.open()` instead.
+`shelldocsSearch.init` is gone. If your own script called it, remove the call: search sets itself up. Open search with `data-search-open` or `shelldocsSearch.open()`. The `SearchState` service stayed registered until `0.1.17-alpha` so old code compiled, but nothing read it; `0.1.18-alpha` removed it, with `SidebarCollapseState` and `MobileNavState`. Code that injects one needs its own copy.
 </Callout>
 
 For search to work in a static export, both the packages the site references and the `ShellDocs.CLI` that builds it must be `0.1.15-alpha` or later. `shelldocs build` prints a warning when the site doesn't serve an index.
