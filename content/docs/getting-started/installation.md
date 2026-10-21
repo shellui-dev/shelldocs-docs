@@ -71,7 +71,7 @@ dotnet add package ShellDocs.Tokens --prerelease
 ## The package family
 
 <TypeTable>
-<TypeRow Name="ShellDocs.CLI" Type="global tool" Description="shelldocs init, add, dev, build. Installed once, works from any directory." />
+<TypeRow Name="ShellDocs.CLI" Type="global tool" Description="shelldocs init, add, dev, build, preview. Installed once, works from any directory." />
 <TypeRow Name="ShellDocs.Components" Type="RCL" Description="The chrome (layout, sidebar, search, header) and content primitives (Callout, Card, Steps, CodeGroup, TypeTable, more)." />
 <TypeRow Name="ShellDocs.Tokens" Type="RCL" Description="Shared CSS variables. shadcn-compatible names for interop with ShellUI and other design systems." />
 <TypeRow Name="ShellDocs.Core" Type="library (transitive)" Description="Navigation graph, search index, markdown plain-text extraction." />

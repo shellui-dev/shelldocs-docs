@@ -58,6 +58,12 @@ The output goes to `./publish`. Every flag is covered in [shelldocs build](/docs
 - `--site-url` adds `sitemap.xml`, `robots.txt` and social-preview meta tags.
 - `--base-href` is needed only when the site is served from a subpath, such as a GitHub project page at `/my-repo/`.
 
+Before uploading, check the export with [`shelldocs preview`](/docs/cli/preview). It serves `publish` at `http://localhost:5050` the way a static host does, including `404.html` for unknown URLs and the subpath of a `--base-href` build.
+
+```bash
+shelldocs preview
+```
+
 ## GitHub Pages
 
 This workflow builds on every push to `main` and can be run by hand.
@@ -141,6 +147,8 @@ For a site served at `https://your-org.github.io/my-repo/`, drop the `CNAME` ste
 shelldocs build --base-href /my-repo/
 ```
 
+The build puts `/my-repo/` in front of every root-relative link, and `shelldocs preview` serves the export at `http://localhost:5050/my-repo/` to check it.
+
 ## Other static hosts
 
 Any host that serves a folder works: point it at `publish`. Many hosts' own build environments don't include the .NET SDK, so the dependable setup is to run `shelldocs build` in CI and upload the output, as the workflow above does.
@@ -169,6 +177,7 @@ Any platform that runs ASP.NET Core works: a container, a virtual machine, or a 
 
 <CardGrid Columns="2">
 <LinkCard Title="shelldocs build" Description="Every flag and what the build does." Href="/docs/cli/build" />
+<LinkCard Title="shelldocs preview" Description="Check the export locally before deploying." Href="/docs/cli/preview" />
 <LinkCard Title="Redirects" Description="How redirects are written into a static export." Href="/docs/guides/redirects" />
 <LinkCard Title="Search" Description="How search works without a server." Href="/docs/guides/search" />
 <LinkCard Title="Not-found page" Description="DocsNotFound and the 404.html the build writes." Href="/docs/guides/not-found" />

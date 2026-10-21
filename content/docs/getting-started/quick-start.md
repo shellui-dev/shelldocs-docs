@@ -77,7 +77,7 @@ Other templates:
 shelldocs build --output publish
 ```
 
-Prerenders every page into `publish/` as static files. Upload the folder to any static host. See [Deployment](/docs/guides/deployment) for a GitHub Pages workflow and for what needs a server instead.
+Prerenders every page into `publish/` as static files. Check them with `shelldocs preview`, which serves the folder at `http://localhost:5050` the way a static host would, then upload the folder to any static host. See [Deployment](/docs/guides/deployment) for a GitHub Pages workflow and for what needs a server instead.
 </Step>
 </Steps>
 

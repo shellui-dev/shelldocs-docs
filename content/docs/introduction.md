@@ -64,7 +64,7 @@ The whole thing renders : Callout with icon and variant styling, live Button com
 ## The three packages you'll touch most
 
 <TypeTable>
-<TypeRow Name="ShellDocs.CLI" Type="global tool" Description="shelldocs init, add, dev, build. Installed once, works from any directory." />
+<TypeRow Name="ShellDocs.CLI" Type="global tool" Description="shelldocs init, add, dev, build, preview. Installed once, works from any directory." />
 <TypeRow Name="ShellDocs.Components" Type="Razor Class Library" Description="The chrome (layout, sidebar, search, header) and content primitives (Callout, Card, Steps, CodeGroup, TypeTable, more)." />
 <TypeRow Name="ShellDocs.Tokens" Type="Razor Class Library" Description="Shared CSS variables : palette + spacing scale. shadcn-compatible names for interop with ShellUI and other design systems." />
 </TypeTable>

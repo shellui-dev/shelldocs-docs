@@ -59,13 +59,13 @@ content/
     authoring/          frontmatter, code fences, razor:preview, inline tags, navigation
     components/         one page per content primitive
     guides/             component libraries, versioning, redirects, search, llms.txt, not-found, deployment
-    cli/                init, add, dev, build
+    cli/                init, add, dev, build, preview
     theming.md
     packages/           one overview per NuGet package
 wwwroot/
   favicon.svg, favicon.png, apple-touch-icon.png
   brand/mark.svg        the logo, read into LogoSvg in Program.cs
-  demos/                static pages shown with <IframePreview>
+  demos/                static pages shown with <IframePreview> (theme frame, colour presets)
   cli-replay.js         the terminal replay on the home page
   copy-button.js        copy buttons marked with data-copy
 Llms/
