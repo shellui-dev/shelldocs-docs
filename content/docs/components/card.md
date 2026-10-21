@@ -42,8 +42,6 @@ The same attribute works on a `Card` written straight into the page:
 
 <Card Title="Composable" IconSvg="<svg viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'><rect x='3' y='3' width='7' height='7' rx='1'/><rect x='14' y='3' width='7' height='7' rx='1'/><rect x='3' y='14' width='7' height='7' rx='1'/><rect x='14' y='14' width='7' height='7' rx='1'/></svg>" Description="An inline card with an icon." />
 
-Write the markup itself, not HTML entities : attribute values are not decoded.
-
 ## With child content
 
 Use `ChildContent` for anything richer than a description : lists, a code block, another primitive.

@@ -9,7 +9,7 @@ order: 1
 **ShellDocs is the docs framework for .NET.** Beautiful, animated, `Cmd+K`-searchable documentation sites, powered by Blazor and Tailwind. Compose with ShellUI (or any Blazor component library) : like fumadocs composes with shadcn/ui in the React world.
 
 <Callout Variant="info" Title="Alpha status">
-ShellDocs is in alpha; these docs cover `0.1.17-alpha`. The primitive surface is stable enough to build real docs sites : this site is built with ShellDocs itself. Expect small API changes before `1.0`.
+ShellDocs is in alpha; these docs cover `0.1.18-alpha`. The primitive surface is stable enough to build real docs sites : this site is built with ShellDocs itself. Expect small API changes before `1.0`.
 </Callout>
 
 ## Why ShellDocs exists
@@ -64,7 +64,7 @@ The whole thing renders : Callout with icon and variant styling, live Button com
 ## The three packages you'll touch most
 
 <TypeTable>
-<TypeRow Name="ShellDocs.CLI" Type="global tool" Description="shelldocs init, add, dev, build. Installed once, works from any directory." />
+<TypeRow Name="ShellDocs.CLI" Type="global tool" Description="shelldocs init, add, dev, build, preview. Installed once, works from any directory." />
 <TypeRow Name="ShellDocs.Components" Type="Razor Class Library" Description="The chrome (layout, sidebar, search, header) and content primitives (Callout, Card, Steps, CodeGroup, TypeTable, more)." />
 <TypeRow Name="ShellDocs.Tokens" Type="Razor Class Library" Description="Shared CSS variables : palette + spacing scale. shadcn-compatible names for interop with ShellUI and other design systems." />
 </TypeTable>

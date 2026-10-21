@@ -1,6 +1,6 @@
 ---
 title: ShellDocs.CLI
-description: The command-line tool. shelldocs init, add, dev, build. The daily-driver surface for scaffolding, authoring, and shipping.
+description: The command-line tool. shelldocs init, add, dev, build, preview. The daily-driver surface for scaffolding, authoring, and shipping.
 order: 3
 ---
 
@@ -24,13 +24,14 @@ The `--prerelease` flag is required while ShellDocs is on `0.x.y-alpha` versions
 dotnet tool update -g ShellDocs.CLI --prerelease
 ```
 
-## The four commands
+## The five commands
 
 <TypeTable>
 <TypeRow Name="init" Type="command" Description="Scaffold a fresh ShellDocs site OR augment an existing Blazor project. Two modes: create (default) and attach (--attach)." />
 <TypeRow Name="add" Type="command" Description="Scaffold a starter .md page from a template (component / guide / page) into content/." />
 <TypeRow Name="dev" Type="command" Description="Start the dev server with hot-reload on .md / .razor / .cs changes." />
 <TypeRow Name="build" Type="command" Description="Export a static site: prerenders every page, writes redirects, optional sitemap and social meta tags." />
+<TypeRow Name="preview" Type="command" Description="Serve the exported site locally the way a static host would, to check it before deploying." />
 </TypeTable>
 
 ## `shelldocs init`
@@ -40,6 +41,7 @@ Two modes. **Create** (default) scaffolds a fresh Blazor Web App under `docs/<Na
 ```bash
 shelldocs init MyDocs             # create docs/MyDocs.Docs/
 shelldocs init MyDocs --yes       # non-interactive, no prompts
+shelldocs init MyDocs --theme harbor   # with a colour preset
 ```
 
 **Attach** mode (`--attach`) augments an *existing* Blazor project in place. Never touches your `Program.cs` : instead emits `SHELLDOCS_SETUP.md` with copy-paste snippets so you can wire it into your custom middleware / auth / etc. yourself.
@@ -87,9 +89,17 @@ shelldocs build --output publish --base-href "/my-repo/"   # for GH Pages subpat
 
 Publishes the project, starts it locally, saves every page as static HTML, writes redirect pages, a `404.html`, the search index and the [llms.txt files](/docs/guides/llms-txt), and copies the assets. `--site-url` adds a sitemap, a robots file and social meta tags; `--base-href` handles subpath hosting; `--spa-fallback` replaces `404.html` with the home page. See [shelldocs build](/docs/cli/build).
 
+## `shelldocs preview`
+
+```bash
+shelldocs preview                 # serve ./publish at http://localhost:5050
+```
+
+Serves the export the way a static host does: folders serve their `index.html`, unknown URLs get `404.html`, and a site built with `--base-href` is served under that path. See [shelldocs preview](/docs/cli/preview).
+
 ## Version discipline
 
-`shelldocs init` scaffolds package references at the CLI's own version, read from its assembly. A project scaffolded with CLI `0.1.17-alpha` references the `0.1.17-alpha` packages. In CI, pin the tool to the same version your project references.
+`shelldocs init` scaffolds package references at the CLI's own version, read from its assembly. A project scaffolded with CLI `0.1.18-alpha` references the `0.1.18-alpha` packages. In CI, pin the tool to the same version your project references.
 
 ## Learn more
 

@@ -1,16 +1,58 @@
 ---
 title: Theming
-description: Override tokens, ship a brand logo, swap the layout variant, register a custom stylesheet. How to make a ShellDocs site look like yours.
+description: Pick a colour preset, override tokens, ship a brand logo, swap the layout variant, register a custom stylesheet. How to make a ShellDocs site look like yours.
 order: 6
 ---
 
 # Theming
 
-ShellDocs is designed to be re-skinnable via CSS variables : the shipped `tokens.css` sets every color, radius, spacing, and font stack, and the entire chrome cascades from there. Override the tokens, and every primitive follows.
+ShellDocs is designed to be re-skinnable via CSS variables : the shipped `tokens.css` sets every color, radius, spacing, and font stack, and the entire chrome cascades from there. Override the tokens, and every primitive follows. For a tinted palette without writing any CSS, pick a colour preset.
+
+## Colour presets
+
+```csharp
+builder.Services.AddShellDocs(o =>
+{
+    o.Theme = ShellDocsTheme.Harbor;
+});
+```
+
+| Preset | Colour |
+|---|---|
+| `Graphite` | Neutral greys. The default, and what this site uses. |
+| `Harbor` | Blue |
+| `Lagoon` | Teal |
+| `Forest` | Green |
+| `Savanna` | Amber on sand |
+| `Ember` | Red-orange |
+| `Jacaranda` | Purple |
+
+Pick one below to see it. Switch the site between light and dark and the example follows.
+
+<IframePreview Src="/demos/presets.html" Height="380" Title="Colour presets" Caption="tokens.css" />
+
+A preset tints the backgrounds, borders and muted text with its hue, and uses its colour for the active sidebar item, focus rings, link underlines, the primary button and other accents. Each one has a light and a dark palette, and every text colour keeps a contrast of at least 4.5:1. The callout colours (`--info`, `--warning`, `--error`, `--success`) stay the same in every preset.
+
+`shelldocs init --theme harbor` writes the `o.Theme` line for a new site. Without `--theme` the site gets Graphite, with the line as a commented-out example.
+
+### How a preset is applied
+
+The presets are CSS in `tokens.css`, one light and one dark block each, keyed on a `data-shelldocs-theme` attribute:
+
+```css
+:root:has(:where([data-shelldocs-theme="harbor"])) { --primary: oklch(0.520 0.170 255); /* … */ }
+:root.dark:has(:where([data-shelldocs-theme="harbor"])) { /* … */ }
+```
+
+`o.Theme` makes `DocsLayout` and `HomeLayout` render that attribute, so a preset works on a static export too. The `:where()` keeps the rules as specific as plain `:root` and `:root.dark`, so [your own token overrides](#overriding-tokens) in a later stylesheet still win: pick the preset closest to your brand and override the few tokens that differ. A page that uses `ShellDocs.Tokens` without the layouts can put the attribute on any element.
+
+<Callout Variant="info" Title="Shadcn, Fuma and Nextra">
+Before `0.1.18-alpha`, `ShellDocsTheme` had the values `Shadcn`, `Fuma` and `Nextra`, and none of them changed anything. They are now obsolete aliases of `Graphite`: code that sets one still compiles, with a warning, and gets the default palette. `shelldocs init --theme` takes the preset names.
+</Callout>
 
 ## The token file
 
-`ShellDocs.Tokens` ships one CSS file : `_content/ShellDocs.Tokens/tokens.css`. It declares two `:root` blocks : the light-mode defaults and the `:root.dark` overrides that kick in when the theme toggle is set to dark.
+`ShellDocs.Tokens` ships one CSS file : `_content/ShellDocs.Tokens/tokens.css`. It declares two `:root` blocks : the light-mode defaults (Graphite) and the `:root.dark` overrides that kick in when the theme toggle is set to dark. After them come the [colour presets](#colour-presets).
 
 <Callout Variant="info" Title="Where the tokens come from">
 Each variable value is set via `hsl(...)` or `oklch(...)` for perceptual uniformity. The shadcn-compatible naming (`--background`, `--foreground`, `--primary`, `--muted`, …) means any component library that speaks the same vocabulary drops in without extra mapping.
@@ -142,10 +184,6 @@ Both layouts share the same token surface : switching is a one-line change.
 ```
 
 Every ShellDocs primitive picks it up automatically : no per-component override needed.
-
-## The `--theme` flag
-
-`shelldocs init --theme` and `ShellDocsOptions.Theme` accept `shadcn`, `fuma` and `nextra`, but have no effect in this release. Every site starts from the same `tokens.css`. Restyle with token overrides.
 
 ## Keeping page typography out
 

@@ -59,7 +59,7 @@ Rewrites the base href, replaces `404.html` with the home page, and adds the sit
 </Step>
 </Steps>
 
-The project stays a normal Blazor Web App. Nothing about it changes for the export.
+The project stays a normal Blazor Web App. Nothing about it changes for the export. To check the result before deploying, run [`shelldocs preview`](/docs/cli/preview).
 
 ## Custom pages
 
@@ -83,11 +83,13 @@ Without the flag none of these are written, so a local build never produces a si
 
 ### `--base-href`
 
-For a site served from a subpath. Rewrites the `base` tag in every HTML file so assets resolve under the subpath. Include the leading and trailing slash.
+For a site served from a subpath. Rewrites the `base` tag in every HTML file so assets resolve under the subpath, and puts the subpath in front of every root-relative `href`, `src` and `data-src`, so links in the sidebar, header, breadcrumb, page content and prev/next stay inside the site. Include the leading and trailing slash.
 
 ```bash
 shelldocs build --base-href /my-repo/
 ```
+
+Before `0.1.18-alpha` only the `base` tag changed, and root-relative links such as `/docs/introduction` led out of the subpath. [`shelldocs preview`](/docs/cli/preview) serves the export under the subpath, to check it.
 
 ### `--spa-fallback`
 
@@ -125,5 +127,6 @@ Search, the sidebar, tabs and the rest of the chrome work in the export: `shelld
 
 <CardGrid Columns="2">
 <LinkCard Title="Deployment" Description="GitHub Pages workflow, custom domains, and .NET hosting." Href="/docs/guides/deployment" />
+<LinkCard Title="shelldocs preview" Description="Serve the export locally, as a static host would." Href="/docs/cli/preview" />
 <LinkCard Title="shelldocs dev" Description="Iterate locally before you publish." Href="/docs/cli/dev" />
 </CardGrid>

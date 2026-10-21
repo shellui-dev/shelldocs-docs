@@ -1,6 +1,6 @@
 ---
 title: Configuration
-description: Every option on ShellDocsOptions. Site details, layout, navigation, packages, versions, redirects, branding and component registration.
+description: Every option on ShellDocsOptions. Site details, layout, navigation, packages, versions, redirects, branding, colour preset and component registration.
 order: 4
 ---
 
@@ -174,9 +174,17 @@ o.EnableLlmsTxt(l =>
 
 The options and the files are covered in [AI agents (llms.txt)](/docs/guides/llms-txt).
 
-## Options that do nothing yet
+## Colour preset
 
-`Theme` and the `--theme` flag of `shelldocs init` are accepted but have no effect in this release. Every site uses the same tokens; restyle through [Theming](/docs/theming).
+<TypeTable>
+<TypeRow Name="Theme" Type="ShellDocsTheme" Default="Graphite" Description="The palette: Graphite (neutral), Harbor, Lagoon, Forest, Savanna, Ember or Jacaranda. Covers light and dark mode; your own token overrides still win." />
+</TypeTable>
+
+```csharp
+o.Theme = ShellDocsTheme.Harbor;
+```
+
+Every preset, and how it combines with your own CSS, is in [Theming](/docs/theming#colour-presets). `Shadcn`, `Fuma` and `Nextra` are obsolete names for `Graphite`.
 
 ## This site's configuration
 
