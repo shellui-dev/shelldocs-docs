@@ -25,7 +25,7 @@ dotnet add package ShellDocs.Tokens --prerelease
 <CodeTab Label="PackageReference">
 
 ```xml
-<PackageReference Include="ShellDocs.Tokens" Version="0.1.18-alpha" />
+<PackageReference Include="ShellDocs.Tokens" Version="0.1.19-alpha" />
 ```
 
 </CodeTab>

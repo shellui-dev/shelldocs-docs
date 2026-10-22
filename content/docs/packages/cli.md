@@ -99,7 +99,7 @@ Serves the export the way a static host does: folders serve their `index.html`, 
 
 ## Version discipline
 
-`shelldocs init` scaffolds package references at the CLI's own version, read from its assembly. A project scaffolded with CLI `0.1.18-alpha` references the `0.1.18-alpha` packages. In CI, pin the tool to the same version your project references.
+`shelldocs init` scaffolds package references at the CLI's own version, read from its assembly. A project scaffolded with CLI `0.1.19-alpha` references the `0.1.19-alpha` packages. In CI, pin the tool to the same version your project references.
 
 ## Learn more
 

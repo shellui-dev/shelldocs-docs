@@ -78,7 +78,7 @@ Components/
 
 ## Framework version
 
-The site references `ShellDocs.* 0.1.18-alpha`. On a new release, bump the four package versions in `ShellDocs.Site.csproj` together.
+The site references `ShellDocs.* 0.1.19-alpha`. On a new release, bump the four package versions in `ShellDocs.Site.csproj` together.
 
 ## Deploying
 

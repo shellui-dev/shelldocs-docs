@@ -9,7 +9,7 @@ order: 1
 **ShellDocs is the docs framework for .NET.** Beautiful, animated, `Cmd+K`-searchable documentation sites, powered by Blazor and Tailwind. Compose with ShellUI (or any Blazor component library) : like fumadocs composes with shadcn/ui in the React world.
 
 <Callout Variant="info" Title="Alpha status">
-ShellDocs is in alpha; these docs cover `0.1.18-alpha`. The primitive surface is stable enough to build real docs sites : this site is built with ShellDocs itself. Expect small API changes before `1.0`.
+ShellDocs is in alpha; these docs cover `0.1.19-alpha`. The primitive surface is stable enough to build real docs sites : this site is built with ShellDocs itself. Expect small API changes before `1.0`.
 </Callout>
 
 ## Why ShellDocs exists
